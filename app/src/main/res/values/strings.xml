@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SagarOnlineYash</string>
+    <string name="nav_home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="search">Search</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_about">About Us</string>
+    <string name="nav_terms">Terms and Conditions</string>
+    <string name="nav_contact">Contact US</string>
+    <string name="nav_share">Share App</string>
+    <string name="nav_logout">Logout</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+</resources>
