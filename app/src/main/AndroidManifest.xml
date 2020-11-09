@@ -11,19 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SagarOnlineYash"
         tools:replace="android:theme">
-        <activity android:name=".Activity.NewAddressActivity"></activity>
-        <activity android:name=".Activity.TermsActivity" />
-        <activity android:name=".Activity.AboutUsActivity" />
-        <activity android:name=".Activity.ContactUsActivity" />
-        <activity android:name=".Activity.SampleActivity" />
-        <activity android:name=".Activity.RegisterDetailsActivity" />
-        <activity android:name=".Activity.OtpVerificationActivity" />
-        <activity android:name=".Activity.RegisterActivity" />
-        <activity android:name=".Activity.LoginActivity" />
-        <activity
-            android:name=".Activity.MainActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="SagarOnline"
+        <activity android:name=".Activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.AboutUsActivity" />
+        <activity android:name=".Activity.SampleActivity" />
+        <activity android:name=".Activity.RegisterDetailsActivity" />
+        <activity android:name=".Activity.OtpVerificationActivity" />
+        <activity android:name=".Activity.RegisterActivity" />
+        <activity android:name=".Activity.NewAddressActivity" />
+        <activity
+            android:name=".Activity.MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="SagarOnline"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
