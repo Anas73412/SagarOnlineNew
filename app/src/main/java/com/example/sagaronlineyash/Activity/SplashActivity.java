@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.sagaronlineyash.Fragments.MyOrderFragment;
 import com.example.sagaronlineyash.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i =new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(i);
+               //startActivity(i);
                 finish();
             }
         },2500);
