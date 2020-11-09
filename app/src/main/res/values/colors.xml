@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="card_color">#FC1D53</color>
     <color name="colorPrimaryDark">#222831</color>
-
+    <color name="grey">#FFFFFF</color>
     <color name="colorPrimary">#2d4059</color>
     <color name="colorAccent">#ff5722</color>
 </resources>
