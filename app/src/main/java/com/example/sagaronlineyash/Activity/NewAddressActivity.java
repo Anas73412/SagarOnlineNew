@@ -45,7 +45,7 @@ public class NewAddressActivity extends AppCompatActivity {
     String user_id;
     String name;
     String titles;
-    //   String type;
+    String type;
     String mobile;
     String address;
     String socity1;
@@ -171,8 +171,6 @@ public class NewAddressActivity extends AppCompatActivity {
             errorText.setTextColor(Color.RED);//just to highlight that this is an error
             errorText.setText("Please Choose Pincode");
         }
-
-
 
     }
 
