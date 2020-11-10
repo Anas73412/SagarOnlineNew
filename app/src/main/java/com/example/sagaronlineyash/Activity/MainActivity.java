@@ -6,13 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
-import android.app.Fragment;
+//import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.sagaronlineyash.Fragments.ContactUsFragment;
 import com.example.sagaronlineyash.Fragments.HomeFragment;
+import com.example.sagaronlineyash.Fragments.MyOrderFragment;
+import com.example.sagaronlineyash.Fragments.NewAddressFragment;
 import com.example.sagaronlineyash.Fragments.ShopFragment;
+import com.example.sagaronlineyash.Fragments.TermsFragment;
 import com.example.sagaronlineyash.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,7 +39,7 @@ public class MainActivity extends AppCompatActivity{
         navigationView = findViewById(R.id.nav_view);
         if (savedInstanceState==null)
         {
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -41,18 +47,32 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId()){
                     case R.id.nav_shop_now:
                         fragment = new ShopFragment();
+                         break;
+
                     case R.id.nav_aboutus:
-                        fragment = new ShopFragment();
+
+                        Intent in= new Intent(MainActivity.this,AboutUsActivity.class);
+                        startActivity(in);
+                           break;
                     case R.id.nav_policy:
-                        fragment = new ShopFragment();
+                        fragment = new TermsFragment();
+                           break;
+
                     case R.id.nav_contactus:
-                        fragment = new ShopFragment();
+                        fragment = new ContactUsFragment();
+                           break;
+
                     case R.id.nav_share:
-                        fragment = new ShopFragment();
+                        Intent inte= new Intent(MainActivity.this,NewAddressActivity.class);
+                        startActivity(inte);
+                        break;
+
                     case R.id.nav_logout:
                         fragment = new ShopFragment();
+                        break;
+
                 }
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 return true;

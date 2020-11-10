@@ -1,9 +1,10 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.FragmentManager;
+//import android.app.FragmentManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,7 +53,7 @@ import java.util.Map;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends android.app.Fragment {
+public class HomeFragment extends Fragment {
 
     Module module;
     CarouselView carouselView;
@@ -157,7 +158,7 @@ public class HomeFragment extends android.app.Fragment {
                                     public void onClick(int position) {
                                         Bundle args = new Bundle();
                                         String sub_cat = listarray.get(position).get("sub_cat");
-                                        android.app.Fragment fm = null;
+                                        androidx.fragment.app.Fragment fm = null;
                                         args.putString("cat_id", sub_cat);
                                         args.putString("title",name.get("slider_title"));
                                         session_management.setCategoryId(sub_cat);
@@ -170,7 +171,7 @@ public class HomeFragment extends android.app.Fragment {
                                             fm = new ProductFragment();
                                         }
                                         fm.setArguments(args);
-                                        FragmentManager fragmentManager = getFragmentManager();
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                         fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                                 .addToBackStack(null).commit();
                                     }
