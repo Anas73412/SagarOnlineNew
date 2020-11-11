@@ -12,9 +12,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.sagaronlineyash.Fragments.ContactUsFragment;
 import com.android.volley.NetworkError;
 import com.example.sagaronlineyash.Fragments.HomeFragment;
+import com.example.sagaronlineyash.Fragments.MyOrderFragment;
+import com.example.sagaronlineyash.Fragments.NewAddressFragment;
 import com.example.sagaronlineyash.Fragments.ShopFragment;
+import com.example.sagaronlineyash.Fragments.TermsFragment;
 import com.example.sagaronlineyash.R;
 import com.example.sagaronlineyash.Utils.ConnectivityReceiver;
 import com.google.android.material.navigation.NavigationView;
@@ -44,16 +48,30 @@ public class MainActivity extends AppCompatActivity implements com.example.sagar
                 switch (item.getItemId()){
                     case R.id.nav_shop_now:
                         fragment = new ShopFragment();
+                         break;
+
                     case R.id.nav_aboutus:
-                        fragment = new ShopFragment();
+
+                        Intent in= new Intent(MainActivity.this,AboutUsActivity.class);
+                        startActivity(in);
+                           break;
                     case R.id.nav_policy:
-                        fragment = new ShopFragment();
+                        fragment = new TermsFragment();
+                           break;
+
                     case R.id.nav_contactus:
-                        fragment = new ShopFragment();
+                        fragment = new ContactUsFragment();
+                           break;
+
                     case R.id.nav_share:
-                        fragment = new ShopFragment();
+                        Intent inte= new Intent(MainActivity.this,NewAddressActivity.class);
+                        startActivity(inte);
+                        break;
+
                     case R.id.nav_logout:
                         fragment = new ShopFragment();
+                        break;
+
                 }
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
                 if (drawer.isDrawerOpen(GravityCompat.START))

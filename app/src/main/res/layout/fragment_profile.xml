@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".Fragments.ProfileFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/aileron_regular"
+                    android:text="Profile"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:cardCornerRadius="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/colorPrimary"
+                        android:padding="@dimen/space_10">
+
+                        <EditText
+                            android:id="@+id/name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_marginBottom="@dimen/space_10"
+                            android:fontFamily="@font/aileron_regular"
+                            android:background="@drawable/inactive"
+                            android:drawableLeft="@drawable/ic_baseline_account_box_24"
+                            android:drawablePadding="5dp"
+                            android:textSize="14sp"
+                            android:hint="Enter Name"
+                            android:padding="@dimen/space_10"
+                            android:text=""
+                            android:textColor="@color/colorPrimary" />
+
+                        <EditText
+                            android:id="@+id/number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_marginBottom="@dimen/space_10"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/aileron_regular"
+                            android:background="@drawable/inactive"
+                            android:drawableLeft="@drawable/ic_baseline_phone_android_24"
+                            android:drawablePadding="5dp"
+                            android:enabled="false"
+                            android:hint="Name"
+                            android:inputType="number"
+                            android:padding="@dimen/space_10"
+                            android:text="9927933812"
+                            android:textColor="@color/colorPrimary" />
+
+                        <EditText
+                            android:id="@+id/email_update"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_marginBottom="@dimen/space_10"
+                            android:background="@drawable/inactive"
+                            android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
+                            android:drawablePadding="5dp"
+                            android:hint="Enter Email Id"
+                            android:fontFamily="@font/aileron_regular"
+                            android:padding="@dimen/space_10"
+                            android:textSize="14sp"
+                            android:text=""
+                            android:textColor="@color/colorPrimary" />
+
+                        <EditText
+                            android:id="@+id/date_of_birth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:background="@drawable/inactive"
+                            android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/aileron_regular"
+                            android:textSize="14sp"
+                            android:hint="Date of Birth (MM/DD/YY)"
+                            android:padding="@dimen/space_10"
+                            android:textColor="@color/colorPrimary" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/update"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/bg_rounded_button"
+                    app:backgroundTint="@color/card_color"
+                    android:fontFamily="@font/aileron_regular"
+                    android:padding="1dp"
+                    android:text="UPDATE"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
