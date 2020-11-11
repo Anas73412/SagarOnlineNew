@@ -63,6 +63,7 @@
             android:text="Best Products"
             android:fontFamily="@font/bold"
             android:textSize="@dimen/space_14"
+            android:layout_margin="@dimen/space_10"
             android:textColor="@android:color/darker_gray"
             android:textStyle="bold" />
 

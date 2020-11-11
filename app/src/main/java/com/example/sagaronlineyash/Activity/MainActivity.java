@@ -8,15 +8,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.android.volley.NetworkError;
 import com.example.sagaronlineyash.Fragments.HomeFragment;
 import com.example.sagaronlineyash.Fragments.ShopFragment;
 import com.example.sagaronlineyash.R;
+import com.example.sagaronlineyash.Utils.ConnectivityReceiver;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements com.example.sagaronlineyash.Activity.ConnectivityReceiver {
 
     Toolbar toolbar;
     int padding = 0;
@@ -77,4 +80,29 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showSnack(isConnected);
+    }
+
+
+    /**
+     * Callback will be triggered when there is change in
+     * network connection
+     */
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnack(isConnected);
+    }
+
+    private void showSnack(boolean isConnected) {
+        String message;
+        int color;
+
+        if (!isConnected) {
+            Intent intent = new Intent(MainActivity.this, NetworkError.class);
+            startActivity(intent);
+        }
+    }
 }

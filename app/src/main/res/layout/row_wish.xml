@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/space_10"
+    app:cardElevation="100dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/icon"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/space_20"
+                android:id="@+id/img_product"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/space_5"
+            android:layout_marginLeft="@dimen/space_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="KIWI Fruit"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/space_18"
+                android:id="@+id/name_product"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rs175/12"
+                android:layout_marginTop="@dimen/space_5"
+                android:textSize="@dimen/space_16"
+                android:textStyle="bold"
+                android:fontFamily="@font/bold"
+                android:id="@+id/rate_product"/>
+
+            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                android:id="@+id/product_qty"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                app:textSize="7dp"
+                app:initialNumber="0"
+                android:layout_marginTop="40dp"
+                app:finalNumber="10"
+                android:layout_centerHorizontal="true"
+                app:backGroundColor="@color/colorAccent"
+                app:backgroundDrawable="@drawable/bg_rounded_button"
+                app:textColor="@color/white"
+                />
+
+            <Button
+                android:fontFamily="@font/bold"
+                android:id="@+id/btn_add"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:background="@drawable/bg_rounded_button"
+                android:text="Add"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs. 175"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/space_20"
+                android:layout_centerInParent="true"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/wish_after"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/space_5"/>
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

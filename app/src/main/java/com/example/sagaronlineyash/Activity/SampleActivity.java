@@ -11,6 +11,6 @@ public class SampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.row_product);
+        setContentView(R.layout.row_wish);
     }
 }
