@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="@dimen/space_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/space_10"
+    app:cardElevation="100dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/icon"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/space_20"
+            android:id="@+id/img_product"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/rel_wishlist"
+            android:layout_toRightOf="@+id/img_product"
+            android:padding="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_20"
+            android:layout_marginLeft="@dimen/space_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="KIWI Fruit"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/space_18"
+                android:id="@+id/name_product"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rs175/12"
+                android:layout_marginTop="@dimen/space_5"
+                android:textSize="@dimen/space_16"
+                android:textStyle="bold"
+                android:fontFamily="@font/bold"
+                android:id="@+id/rate_product"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_product"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/space_20">
+            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                android:id="@+id/product_qty"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                app:textSize="7dp"
+                app:initialNumber="0"
+                android:visibility="gone"
+                android:layout_marginTop="40dp"
+                app:finalNumber="10"
+                android:layout_centerHorizontal="true"
+                app:backGroundColor="@color/colorAccent"
+                app:backgroundDrawable="@drawable/bg_rounded_button"
+                app:textColor="@color/white"
+                />
+
+            <Button
+                android:fontFamily="@font/bold"
+                android:id="@+id/btn_add"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:background="@drawable/bg_rounded_button"
+                android:text="Add"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs. 175"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/space_10"
+                android:textStyle="bold"
+                android:id="@+id/product_total"
+                android:textColor="@color/black"
+                android:fontFamily="@font/bold"
+                android:textSize="@dimen/space_20"
+                android:layout_centerInParent="true"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/wish_after"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/wish_after"
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/space_5"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/wish_after"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/out_stock"
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/space_5"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

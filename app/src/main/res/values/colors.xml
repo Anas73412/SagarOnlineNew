@@ -12,4 +12,9 @@
     <color name="grey">#D8D0D0</color>
     <color name="colorPrimary">#2d4059</color>
     <color name="colorAccent">#ff5722</color>
+    <color name="color_3">#ff0023</color>
+    <color name="orange">#ffbb00</color>
+    <color name="yelow">#ffee05</color>
+    <color name="all">#f2f3f4</color>
+    <color name="tot">#2E7731</color>
 </resources>
