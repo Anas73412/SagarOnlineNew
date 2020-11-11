@@ -158,11 +158,11 @@ public class NewAddressActivity<Private> extends AppCompatActivity {
             public void onClick(View v) {
 
 
-               // titles = title.getText().toString();
-               // name=et_receiver_name.getText().toString();
-                //mobile=et_receiver_mobile.getText().toString();
+              //  titles = title.getText().toString();
+                name=et_receiver_name.getText().toString();
+                mobile=et_receiver_mobile.getText().toString();
 //                pincodes=pincode.getSelectedItem().toString();
-               // address=et_house_no.getText().toString();
+                address=et_house_no.getText().toString();
                 checkDataEntered();
 
                 addnewaddress(titles,name,mobile,pincodes,address,types);
@@ -245,12 +245,12 @@ public class NewAddressActivity<Private> extends AppCompatActivity {
             et_house_no.setError("Enter valid address!");
         }
 
-        if(pincodes.equalsIgnoreCase("Choose Pincode")){
+       /** if(pincodes.equalsIgnoreCase("Choose Pincode")){
             TextView errorText = (TextView)pincode.getSelectedView();
             errorText.setError("");
             errorText.setTextColor(Color.RED);//just to highlight that this is an error
             errorText.setText("Please Choose Pincode");
-        }
+        }*/
 
     }
 
