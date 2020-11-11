@@ -161,7 +161,7 @@ public class NewAddressActivity<Private> extends AppCompatActivity {
               //  titles = title.getText().toString();
                 name=et_receiver_name.getText().toString();
                 mobile=et_receiver_mobile.getText().toString();
-//                pincodes=pincode.getSelectedItem().toString();
+                pincodes=pincode.getSelectedItem().toString();
                 address=et_house_no.getText().toString();
                 checkDataEntered();
 

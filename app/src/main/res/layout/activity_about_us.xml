@@ -27,12 +27,12 @@
 
                     <TextView
                         android:id="@+id/TV_AboutUs"
+                        android:layout_marginRight="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:fontFamily="@font/bold"
-                        android:gravity="center"
                         android:textColor="#000000"
                         android:textStyle="italic" />
 

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <androidx.cardview.widget.CardView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/address_item"
+        android:padding="@dimen/space_10"
+        app:cardElevation="100dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_10"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/ll_touch"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_addname"
+                    android:fontFamily="@font/aileron_regular"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="Name: anil"/>
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/aileron_regular"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="Mobile No: 7864789089"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Address: hjgbbhjbuh"
+                        android:fontFamily="@font/aileron_regular"
+                        android:layout_alignParentLeft="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <RadioButton
+                        android:id="@+id/rb_add_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:shadowColor="@color/black"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:id="@+id/edit"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/aileron_regular"
+                    android:textStyle="bold"
+                    android:text="Edit"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    android:id="@+id/delete"
+                    android:fontFamily="@font/aileron_regular"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <View
+                android:layout_marginTop="5dp"
+                android:background="@color/grey"
+                style="@style/Divider.Horizontal" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>

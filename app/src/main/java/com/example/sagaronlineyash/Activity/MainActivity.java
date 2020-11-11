@@ -13,10 +13,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.sagaronlineyash.Fragments.AddressFragment;
 import com.example.sagaronlineyash.Fragments.ContactUsFragment;
 import com.example.sagaronlineyash.Fragments.HomeFragment;
 import com.example.sagaronlineyash.Fragments.MyOrderFragment;
-import com.example.sagaronlineyash.Fragments.NewAddressFragment;
 import com.example.sagaronlineyash.Fragments.ShopFragment;
 import com.example.sagaronlineyash.Fragments.TermsFragment;
 import com.example.sagaronlineyash.R;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity{
                         break;
 
                     case R.id.nav_logout:
-                        fragment = new ShopFragment();
+                        fragment = new AddressFragment();
                         break;
 
                 }
