@@ -21,20 +21,22 @@ import com.example.sagaronlineyash.Fragments.ShopFragment;
 import com.example.sagaronlineyash.Fragments.TermsFragment;
 import com.example.sagaronlineyash.R;
 import com.example.sagaronlineyash.Utils.ConnectivityReceiver;
+import com.example.sagaronlineyash.Utils.Session_management;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements com.example.sagaronlineyash.Activity.ConnectivityReceiver {
+public class MainActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
     Toolbar toolbar;
     int padding = 0;
     Fragment fragment = null;
     DrawerLayout drawer;
     NavigationView navigationView;
+    Session_management session_management;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        session_management = new Session_management(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setPadding(padding, toolbar.getPaddingTop(), padding, toolbar.getPaddingBottom());
         navigationView = findViewById(R.id.nav_view);
@@ -69,7 +71,9 @@ public class MainActivity extends AppCompatActivity implements com.example.sagar
                         break;
 
                     case R.id.nav_logout:
-                        fragment = new ShopFragment();
+                        session_management.logoutSession();
+                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                        finishAffinity();
                         break;
 
                 }

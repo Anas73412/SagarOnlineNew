@@ -17,12 +17,12 @@
     <string name="currency" translatable="false">\u20B9</string>
 
     <string-array name="pincode">
-    <item>Choose Pincode</item>
-    <item>240062</item>
-    <item>240051</item>
-    <item>240063</item>
-    <item>240064</item>
-    <item>240065</item>
-</string-array>
+        <item>Choose Pincode</item>
+        <item>240062</item>
+        <item>240051</item>
+        <item>240063</item>
+        <item>240064</item>
+        <item>240065</item>
+    </string-array>
 
 </resources>

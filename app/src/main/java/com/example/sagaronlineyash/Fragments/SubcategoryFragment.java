@@ -15,7 +15,7 @@ import com.example.sagaronlineyash.R;
  * Use the {@link SubcategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SubcategoryFragment extends Fragment {
+public class SubcategoryFragment extends android.app.Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

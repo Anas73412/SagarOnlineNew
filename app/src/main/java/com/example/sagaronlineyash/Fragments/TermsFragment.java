@@ -15,7 +15,7 @@ import com.example.sagaronlineyash.R;
  * Use the {@link TermsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TermsFragment extends Fragment {
+public class TermsFragment extends android.app.Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
