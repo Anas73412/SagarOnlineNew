@@ -74,29 +74,29 @@ public class SmsVerificationActivity extends AppCompatActivity implements View.O
         Otp=getIntent().getStringExtra("otp");
         msg_status=getIntent().getStringExtra("msg_status");
 
-         name=getIntent().getStringExtra("name");
+        name=getIntent().getStringExtra("name");
 
-            if(msg_status.equals("0"))
-            {
-                countDownTimer=new CountDownTimer(5000,1000) {
-                    @Override
-                    public void onTick(long l) {
+        if(msg_status.equals("0"))
+        {
+            countDownTimer=new CountDownTimer(5000,1000) {
+                @Override
+                public void onTick(long l) {
 
-                    }
+                }
 
-                    @Override
-                    public void onFinish() {
-                     et_otp.setText(Otp);
-                    }
-                };
-                countDownTimer.start();
+                @Override
+                public void onFinish() {
+                    et_otp.setText(Otp);
+                }
+            };
+            countDownTimer.start();
 
 //            module.showToast("Your One Time Password is : "+Otp);
-            }
-            else
-            {
-                startSmsUserConsent();
-            }
+        }
+        else
+        {
+            startSmsUserConsent();
+        }
 
 
         session_management=new Session_management(SmsVerificationActivity.this);
