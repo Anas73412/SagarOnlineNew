@@ -53,7 +53,7 @@
                 android:drawableLeft="@drawable/name"
                 android:ems="10"
                 android:hint="Enter Name"
-                android:inputType="textPassword" />
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -130,7 +130,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/login"
+            android:id="@+id/Register"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"

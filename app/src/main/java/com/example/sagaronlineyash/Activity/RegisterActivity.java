@@ -38,7 +38,6 @@ import static com.example.sagaronlineyash.Config.BaseURL.URL_REGISTER_OTP;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    CardView submit;
     EditText et_reg_number;
     CardView btn_verify_number;
     LoadingBar loadingBar ;
@@ -53,14 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register);
-
-        submit = findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),OtpVerificationActivity.class));
-            }
-        });
         module=new Module(RegisterActivity.this);
         Intent intent = getIntent();
         type=intent.getStringExtra("type");
