@@ -8,9 +8,10 @@
     android:elevation="@dimen/space_4"
     android:layout_marginLeft="@dimen/space_5"
     android:background="@color/white"
+    android:id="@+id/card_view_top"
     card_view:cardUseCompatPadding="true"
     android:layout_marginBottom="@dimen/space_5">
-    <androidx.cardview.widget.CardView
+  <!--  <androidx.cardview.widget.CardView
         android:id="@+id/card_view_top"
         android:layout_width="match_parent"
         android:layout_height="330dp"
@@ -20,7 +21,7 @@
         android:layout_margin="@dimen/space_4"
         android:background="@color/white"
         card_view:cardUseCompatPadding="true"
-        >
+        >  -->
         <RelativeLayout
             android:id="@+id/relative_top"
             android:layout_width="match_parent"
@@ -89,6 +90,7 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="gravity"
                         android:text="Product Name"
+                        android:fontFamily="@font/aileron_regular"
                         android:layout_marginLeft="6dp"
                         android:maxLines="2"
                         android:ellipsize="end"
@@ -107,6 +109,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/aileron_regular"
                             android:layout_marginTop="2dp"
                             android:text="Price :"
                             android:textSize="14sp" />
@@ -116,6 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_3"
+                            android:fontFamily="@font/aileron_regular"
                             android:layout_toRightOf="@id/product_prize"
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/space_2"
@@ -134,6 +138,7 @@
                             android:id="@+id/txtId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/aileron_regular"
                             android:layout_marginTop="@dimen/space_10"
                             android:textSize="10dp"
                             android:text="Weight :"
@@ -142,7 +147,7 @@
 
                         <TextView
                             android:id="@+id/txtVar"
-
+                            android:fontFamily="@font/aileron_regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
@@ -158,6 +163,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_10"
                             android:text="1kg"
+                            android:fontFamily="@font/aileron_regular"
                             android:textAlignment="gravity"
                             android:padding="@dimen/space_2"
                             android:layout_marginTop="@dimen/space_5"
@@ -183,6 +189,7 @@
                                 android:layout_marginLeft="@dimen/space_5"
                                 android:layout_marginRight="35dp"
                                 android:text=""
+                                android:fontFamily="@font/aileron_regular"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="15sp" />
                             <ImageView
@@ -226,6 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ribbinlayout"
+                    android:id="@+id/product_discount_img"
                     android:rotation="180"/>
                 <TextView
                     android:id="@+id/product_discount"
@@ -233,7 +241,7 @@
                     android:layout_width="wrap_content"
                     android:text=" discount"
                     android:layout_centerVertical="true"
-
+                    android:fontFamily="@font/aileron_regular"
                     android:padding="2dp"
                     android:textColor="@android:color/white"/>
             </RelativeLayout>
@@ -277,7 +285,7 @@
 
 
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+  <!--  </androidx.cardview.widget.CardView>  -->
 </RelativeLayout>
 
 

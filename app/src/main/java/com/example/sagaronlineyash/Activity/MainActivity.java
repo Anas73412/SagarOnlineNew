@@ -6,24 +6,42 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 //import androidx.fragment.app.Fragment;
 
 import android.app.Fragment;
+//import android.content.DialogInterface;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+//import android.widget.TextView;
 
 import com.example.sagaronlineyash.Fragments.AddressFragment;
+import com.example.sagaronlineyash.Fragments.CartFragment;
 import com.example.sagaronlineyash.Fragments.ContactUsFragment;
 import com.android.volley.NetworkError;
 import com.example.sagaronlineyash.Fragments.HomeFragment;
 import com.example.sagaronlineyash.Fragments.MyOrderFragment;
+import com.example.sagaronlineyash.Fragments.ProfileFragment;
 import com.example.sagaronlineyash.Fragments.ShopFragment;
 import com.example.sagaronlineyash.Fragments.TermsFragment;
 import com.example.sagaronlineyash.R;
 import com.example.sagaronlineyash.Utils.ConnectivityReceiver;
 import com.example.sagaronlineyash.Utils.Session_management;
 import com.google.android.material.navigation.NavigationView;
+
+import binplus.SagarOnline.Fragment.WishlistFragment;
+
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_ID;
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_MOBILE;
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_NAME;
 
 public class MainActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
@@ -33,14 +51,49 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     DrawerLayout drawer;
     NavigationView navigationView;
     Session_management session_management;
+    TextView view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         session_management = new Session_management(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        ImageView edit = (ImageView) findViewById(R.id.editProfile);
+        view = (TextView) findViewById(R.id.viewProfile);
+    //    updatename();
         toolbar.setPadding(padding, toolbar.getPaddingTop(), padding, toolbar.getPaddingBottom());
         navigationView = findViewById(R.id.nav_view);
+
+/**
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFragment profileFragment = new ProfileFragment();
+                Bundle bun = new Bundle();
+                bun.putString("type","edit");
+                bun.putString("id",session_management.getUserDetails().get(KEY_ID));
+                bun.putString("name",session_management.getUserDetails().get(KEY_NAME));
+                bun.putString("number",session_management.getUserDetails().get(KEY_MOBILE));
+                loadFragment(profileFragment,bun);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFragment profileFragment = new ProfileFragment();
+                Bundle bun = new Bundle();
+                bun.putString("type","view");
+                //bun.putString("id",session_management.getUserDetails().get(KEY_ID));
+                bun.putString("name",session_management.getUserDetails().get(KEY_NAME));
+              //  bun.putString("number",session_management.getUserDetails().get(KEY_MOBILE));
+                loadFragment(profileFragment,bun);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+*/
         if (savedInstanceState==null)
         {
             getFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
@@ -53,9 +106,21 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         fragment = new ShopFragment();
                          break;
 
+                    case R.id.nav_wishlist:
+                        fragment = new WishlistFragment();
+                        break;
+
+                    case R.id.nav_cart:
+                        fragment = new CartFragment();
+                        break;
+
+                    case R.id.nav_address:
+                        fragment = new AddressFragment();
+                        break;
+
                     case R.id.nav_aboutus:
 
-                        Intent in= new Intent(MainActivity.this,AboutUsActivity.class);
+                        Intent in = new Intent(MainActivity.this,AboutUsActivity.class);
                         startActivity(in);
                            break;
                     case R.id.nav_policy:
@@ -67,8 +132,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                            break;
 
                     case R.id.nav_share:
-                        Intent inte= new Intent(MainActivity.this,NewAddressActivity.class);
-                        startActivity(inte);
+                        fragment = new ShopFragment();
                         break;
 
                     case R.id.nav_logout:
@@ -92,6 +156,41 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         toggle.syncState();
     }
 
+    /**  private BroadcastReceiver nameRec=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String type=intent.getStringExtra("type");
+            if(type.equalsIgnoreCase("name")){
+                updatename();
+            }
+        }
+    };
+
+  private void updatename() {
+        view.setText(session_management.getUserDetails().get(KEY_NAME).toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(nameRec,new IntentFilter("namechanged"));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(nameRec);
+    }
+
+    public void loadFragment(Fragment fm, Bundle args) {
+
+        fm.setArguments(args);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, fm)
+                .addToBackStack(null).commit();
+        HomeFragment home = new HomeFragment();
+        Log.e("frag_pos", String.valueOf(getFragmentManager().getBackStackEntryCount()));
+    }
+*/
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){

@@ -7,6 +7,15 @@
     android:background="@drawable/gradient"
     tools:context=".Activity.LoginActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
     <ImageView
         android:id="@+id/imgicon"
         android:layout_width="150dp"
@@ -21,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="SagarOnline"
         android:id="@+id/txtName"
-        android:fontFamily="@font/bold"
+        android:fontFamily="@font/aileron_regular"
         android:textColor="@color/white"
         android:layout_below="@+id/imgicon"
         android:textSize="20dp"
@@ -33,7 +42,7 @@
         android:layout_height="wrap_content"
         android:text="OTP Verification"
         android:id="@+id/txtOTP"
-        android:fontFamily="@font/bold"
+        android:fontFamily="@font/aileron_regular"
         android:textColor="@color/white"
         android:layout_below="@+id/txtName"
         android:textSize="16dp"
@@ -41,8 +50,10 @@
         android:layout_centerHorizontal="true"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:orientation="vertical"
         android:layout_below="@+id/txtOTP"
         android:layout_marginTop="80dp"
@@ -52,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:fontFamily="@font/bold"
+            android:fontFamily="@font/aileron_regular"
             android:text="Enter a valid Mobile number to recieve OTP"
             android:textColor="@color/white"
             android:layout_marginBottom="10dp"/>
@@ -68,12 +79,13 @@
             android:layout_marginBottom="35dp">
             <EditText
                 android:id="@+id/etMobile"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#11000000"
-                android:fontFamily="@font/bold"
+                android:fontFamily="@font/aileron_regular"
                 android:textColorHint="@color/white"
                 android:drawablePadding="5dp"
+                android:textColor="@color/white"
                 android:drawableLeft="@drawable/mobile"
                 android:ems="10"
                 android:hint="Mobile Number"
@@ -84,11 +96,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/submit"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             app:cardBackgroundColor="@color/card_color"
-            app:cardCornerRadius="25dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp">
 
             <RelativeLayout
@@ -109,5 +121,7 @@
 
     </LinearLayout>
 
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

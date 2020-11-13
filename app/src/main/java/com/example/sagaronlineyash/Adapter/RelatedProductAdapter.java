@@ -178,11 +178,15 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                 if(atr_dis<=0)
                 {
                     holder.product_discount.setVisibility(View.GONE);
+                    holder.product_discount_img.setVisibility(View.GONE);
+
+
                 }
                 else
                 {
                     holder.product_discount.setVisibility(View.VISIBLE);
                     holder.product_discount.setText( "" + atr_dis + "% OFF" );
+                    holder.product_discount_img.setVisibility(View.VISIBLE);
 
                 }
                 holder.product_mrp.setText(context.getResources().getString( R.string.currency)+mList.getMrp());
@@ -191,6 +195,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
             {
                 holder.product_mrp.setVisibility( View.GONE );
                 holder.product_discount.setVisibility( View.GONE );
+                holder.product_discount_img.setVisibility(View.GONE);
             }
 
             holder.txtrate.setVisibility( View.VISIBLE);
@@ -233,11 +238,13 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                     if(atr_dis<=0)
                     {
                         holder.product_discount.setVisibility(View.GONE);
+                        holder.product_discount_img.setVisibility(View.GONE);
                     }
                     else
                     {
                         holder.product_discount.setVisibility(View.VISIBLE);
                         holder.product_discount.setText( "" + atr_dis + "% OFF" );
+                        holder.product_discount_img.setVisibility(View.VISIBLE);
 
                     }
 
@@ -247,6 +254,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                 {
                     holder.product_mrp.setVisibility( View.GONE );
                     holder.product_discount.setVisibility( View.GONE );
+                    holder.product_discount_img.setVisibility(View.GONE);
                 }
 
 
@@ -385,9 +393,11 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                                 int atr_dis = getDiscount(pr, mr);
                                 holder.product_discount.setText("" + atr_dis + "% OFF");
                                 holder.product_mrp.setText("\u20B9" + attribute_mrp.toString());
+                                holder.product_discount_img.setVisibility(View.VISIBLE);
                             } else {
                                 holder.product_discount.setVisibility(View.GONE);
                                 holder.product_mrp.setVisibility(View.GONE);
+                                holder.product_discount_img.setVisibility(View.GONE);
                             }
                             String atr = String.valueOf(modelList.get(position).getProduct_attribute());
                             if (atr.equals("[]")) {
@@ -768,12 +778,13 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView product_nmae, product_mrp ,product_discount , product_prize;
-        public ImageView image , wish_before ,wish_after;
+        public ImageView image , wish_before ,wish_after,product_discount_img;
         ElegantNumberButton elegantNumberButton ;
         Button add_Button;
         public RelativeLayout rel_variant;
         private TextView dialog_unit_type,dialog_txtId,txtrate,dialog_txtVar;
-        CardView card_view_top ;
+    //    CardView card_view_top ;
+        RelativeLayout card_view_top;
         RelativeLayout relativeLayout ,rel_add ,rel_out ;
 
         public MyViewHolder(View view) {
@@ -781,6 +792,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
             product_nmae = (TextView) view.findViewById( R.id.product_name);
             product_mrp = (TextView) view.findViewById( R.id.product_mrp);
             product_discount=(TextView)view.findViewById( R.id.product_discount);
+            product_discount_img=(ImageView)view.findViewById(R.id.product_discount_img);
             product_prize=(TextView)view.findViewById( R.id.product_price );
             image = (ImageView) view.findViewById( R.id.product_img);
             wish_after=(ImageView)view.findViewById( R.id.wish_after );
@@ -789,7 +801,10 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
             elegantNumberButton=(ElegantNumberButton) view.findViewById( R.id.elegantButton );
             db_cart=new DatabaseCartHandler(context);
             db_wish= new WishlistHandler( context );
-            card_view_top = (CardView)view.findViewById( R.id.card_view_top );
+
+            //card_view_top = (CardView)view.findViewById( R.id.card_view_top );
+            card_view_top = (RelativeLayout)view.findViewById(R.id.card_view_top);
+
             relativeLayout= view.findViewById( R.id.relative_layout );
             variantList=new ArrayList<>();
             rel_variant=(RelativeLayout)view.findViewById( R.id.rel_variant);

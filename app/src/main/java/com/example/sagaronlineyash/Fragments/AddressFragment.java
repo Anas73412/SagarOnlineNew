@@ -1,10 +1,11 @@
 package com.example.sagaronlineyash.Fragments;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
+//import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -102,7 +103,7 @@ public class AddressFragment extends Fragment {
 
         rec_add_Address = v.findViewById(R.id.recycler_address);
         rec_add_Address.setHasFixedSize(true);
-        rec_add_Address.setLayoutManager(new LinearLayoutManager(getContext()));
+        rec_add_Address.setLayoutManager(new LinearLayoutManager(getActivity()));
 //--------------------------------------------------------------------
         itemList=new ArrayList<>();
         user_name = v.findViewById(R.id.tv_addname);
