@@ -211,13 +211,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onStart() {
-        if (sessionManagement.isLoggedIn())
-        {
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
-        }
-        else
-            super.onStart();
+        super.onStart();
+
+
 
     }
 }

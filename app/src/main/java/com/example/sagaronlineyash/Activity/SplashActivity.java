@@ -10,9 +10,11 @@ import android.view.WindowManager;
 
 import com.example.sagaronlineyash.Fragments.MyOrderFragment;
 import com.example.sagaronlineyash.R;
+import com.example.sagaronlineyash.Utils.Session_management;
 
 public class SplashActivity extends AppCompatActivity {
 
+    Session_management session_management;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,13 +22,20 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-
+       session_management=new Session_management(SplashActivity.this);
         Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i =new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(i);
+                if (session_management.isLoggedIn())
+                {
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    finish();
+                }
+                else{
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    finish();
+                }
                 finish();
             }
         },2500);

@@ -20,9 +20,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 //import android.widget.TextView;
 
+import com.example.sagaronlineyash.Config.Module;
 import com.example.sagaronlineyash.Fragments.AddressFragment;
 import com.example.sagaronlineyash.Fragments.CartFragment;
 import com.example.sagaronlineyash.Fragments.ContactUsFragment;
@@ -47,11 +49,21 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
     Toolbar toolbar;
     int padding = 0;
+    Module module;
     Fragment fragment = null;
     DrawerLayout drawer;
+    private String[] mNavigationDrawerItemTitles;
+    private ListView mDrawerList;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+   // ActionBarDrawerToggle actionBarDrawerToggle;
+  //  DataModel[] drawerItem = new DataModel[10];
+  //  DrawerAdapter adapter;
+
     NavigationView navigationView;
     Session_management session_management;
-    TextView view;
+    TextView tv_name;
+    ImageView iv_edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +71,31 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         session_management = new Session_management(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        ImageView edit = (ImageView) findViewById(R.id.editProfile);
-        view = (TextView) findViewById(R.id.viewProfile);
-    //    updatename();
+
+       // tv_name = (TextView) findViewById(R.id.viewProfile);
+
         toolbar.setPadding(padding, toolbar.getPaddingTop(), padding, toolbar.getPaddingBottom());
         navigationView = findViewById(R.id.nav_view);
 
-/**
-        edit.setOnClickListener(new View.OnClickListener() {
+       View header = navigationView.getHeaderView(0);
+       tv_name = (TextView) header.findViewById(R.id.viewProfile);
+        iv_edit = (ImageView) header.findViewById(R.id.editProfile);
+        module=new Module(MainActivity.this);
+        updatename();
+
+       // tv_name.setText("XYZ");
+
+        iv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Intent i = new Intent(MainActivity.this,ProfileFragment.class);
+                if (savedInstanceState == null) {
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
+                }
+            }
+        });
+
+ /**       edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ProfileFragment profileFragment = new ProfileFragment();
@@ -80,15 +109,15 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             }
         });
 
-        view.setOnClickListener(new View.OnClickListener() {
+        tv_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ProfileFragment profileFragment = new ProfileFragment();
                 Bundle bun = new Bundle();
                 bun.putString("type","view");
-                //bun.putString("id",session_management.getUserDetails().get(KEY_ID));
+                bun.putString("id",session_management.getUserDetails().get(KEY_ID));
                 bun.putString("name",session_management.getUserDetails().get(KEY_NAME));
-              //  bun.putString("number",session_management.getUserDetails().get(KEY_MOBILE));
+                bun.putString("number",session_management.getUserDetails().get(KEY_MOBILE));
                 loadFragment(profileFragment,bun);
                 drawer.closeDrawer(GravityCompat.START);
             }
@@ -137,8 +166,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
                     case R.id.nav_logout:
                         session_management.logoutSession();
-                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                        finishAffinity();
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                        finish();
+//                        finishAffinity();
                         break;
 
                 }
@@ -156,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         toggle.syncState();
     }
 
-    /**  private BroadcastReceiver nameRec=new BroadcastReceiver() {
+   /**   private BroadcastReceiver nameRec=new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String type=intent.getStringExtra("type");
@@ -164,13 +194,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                 updatename();
             }
         }
-    };
+    };*/
 
-  private void updatename() {
-        view.setText(session_management.getUserDetails().get(KEY_NAME).toString());
+  public void updatename() {
+        tv_name.setText(""+module.checkNull( session_management.getUserDetails().get(KEY_NAME)));
     }
 
-    @Override
+  /**  @Override
     public void onResume() {
         super.onResume();
         registerReceiver(nameRec,new IntentFilter("namechanged"));
@@ -180,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     public void onPause() {
         super.onPause();
         unregisterReceiver(nameRec);
-    }
+    }*/
 
     public void loadFragment(Fragment fm, Bundle args) {
 
@@ -190,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         HomeFragment home = new HomeFragment();
         Log.e("frag_pos", String.valueOf(getFragmentManager().getBackStackEntryCount()));
     }
-*/
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
