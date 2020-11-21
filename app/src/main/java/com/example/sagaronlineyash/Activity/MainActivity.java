@@ -9,21 +9,27 @@ import androidx.drawerlayout.widget.DrawerLayout;
 //import androidx.fragment.app.Fragment;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.sagaronlineyash.Fragments.AddressFragment;
+import com.example.sagaronlineyash.Fragments.CartFragment;
 import com.example.sagaronlineyash.Fragments.ContactUsFragment;
 import com.android.volley.NetworkError;
+import com.example.sagaronlineyash.Fragments.EmptyCartFragment;
 import com.example.sagaronlineyash.Fragments.HomeFragment;
-import com.example.sagaronlineyash.Fragments.MyOrderFragment;
+import com.example.sagaronlineyash.Fragments.Search_fragment;
 import com.example.sagaronlineyash.Fragments.ShopFragment;
 import com.example.sagaronlineyash.Fragments.TermsFragment;
+import com.example.sagaronlineyash.Fragments.WishlistFragment;
 import com.example.sagaronlineyash.R;
 import com.example.sagaronlineyash.Utils.ConnectivityReceiver;
+import com.example.sagaronlineyash.Utils.DatabaseCartHandler;
 import com.example.sagaronlineyash.Utils.Session_management;
 import com.google.android.material.navigation.NavigationView;
+
 
 public class MainActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     Fragment fragment = null;
     DrawerLayout drawer;
     NavigationView navigationView;
+    private DatabaseCartHandler db_cart;
     Session_management session_management;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setPadding(padding, toolbar.getPaddingTop(), padding, toolbar.getPaddingBottom());
         navigationView = findViewById(R.id.nav_view);
+        db_cart=new DatabaseCartHandler(this);
         if (savedInstanceState==null)
         {
             getFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
@@ -61,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                     case R.id.nav_policy:
                         fragment = new TermsFragment();
                            break;
+                    case R.id.nav_wishlist:
+                        fragment = new WishlistFragment();
+                        break;
 
                     case R.id.nav_contactus:
                         fragment = new ContactUsFragment();
@@ -94,12 +105,47 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_shop_now:
-                drawer.openDrawer(GravityCompat.START);
-                return true;
+        int id = item.getItemId();
+       /* if (id == R.id.action_language) {
+            openLanguageDialog();
+        }*/
+
+        if (id == R.id.action_cart) {
+            if (db_cart.getCartCount() > 0) {
+                Fragment fm = new CartFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+                        .addToBackStack(null).commit();
+
+            } else {
+                Fragment fm = new EmptyCartFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+                        .addToBackStack(null).commit();
+
+            }
+            return true;
         }
-        super.onOptionsItemSelected(item);
+        if(id== R.id.action_search)
+        {
+            Fragment fm = new Search_fragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+                    .addToBackStack(null).commit();
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        final MenuItem item = menu.findItem(R.id.action_cart);
+        item.setVisible(true);
+
         return true;
     }
 

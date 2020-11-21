@@ -1,4 +1,4 @@
-package binplus.SagarOnline.Fragment;
+package com.example.sagaronlineyash.Fragments;
 
 
 import android.app.Dialog;
@@ -66,7 +66,7 @@ public class WishlistFragment extends Fragment {
         ((MainActivity) getActivity()).setTitle("My WishList" );
         rv_wishlist = view.findViewById( R.id.rv_wishlist );
         rel_no = view.findViewById( R.id.rel_no );
-        rv_wishlist.setLayoutManager( new GridLayoutManager( getActivity(),2 ) );
+        rv_wishlist.setLayoutManager( new GridLayoutManager( getActivity(),1) );
         db_cart=new DatabaseCartHandler(getActivity());
         //db = new DatabaseHandler(getActivity());
         db_wish = new WishlistHandler( getActivity() );

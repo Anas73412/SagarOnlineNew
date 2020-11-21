@@ -31,6 +31,7 @@ import com.example.sagaronlineyash.Model.NewProductModel;
 import com.example.sagaronlineyash.R;
 import com.example.sagaronlineyash.Utils.CustomVolleyJsonRequest;
 import com.example.sagaronlineyash.Utils.LoadingBar;
+import com.example.sagaronlineyash.Utils.RecyclerTouchListener;
 import com.example.sagaronlineyash.Utils.Session_management;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -64,6 +65,7 @@ public class HomeFragment extends android.app.Fragment {
     List<NewProductModel> newProductList , top_selling_models;
     Home_adapter categoryAdapter;
     RecyclerView rec_category , rec_new_product , rec_top_product;
+    String getid="";
     private boolean isSubcat = false;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -123,6 +125,55 @@ public class HomeFragment extends android.app.Fragment {
         makeGetCategoryRequest();
         new_products();
         make_top_selling();
+        rec_category.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rec_category, new RecyclerTouchListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.e("RV_HEADER","RV_HEADER");
+                getid = categoryList.get(position).getId();
+                String title=categoryList.get(position).getTitle();
+                String parent=categoryList.get(position).getCount();
+                String slab_value=categoryList.get(position).getSlab_value();
+                String max_slab=categoryList.get(position).getMax_slab_amt();
+
+                if(parent.equals("0"))
+                {
+                    Bundle args = new Bundle();
+                    android.app.Fragment fm = new ProductFragment();
+                    args.putString("cat_id", getid);
+                    args.putString( "title" ,title );
+                    args.putString("slab_value",slab_value);
+                    args.putString("max_slab",max_slab);
+                    session_management.setCategoryId(getid);
+                    // args.putString( "" );
+                    // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
+                    fm.setArguments(args);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace( R.id.fragment_container, fm)
+                            .addToBackStack(null).commit();
+
+                }
+                else
+                {
+                    Bundle args = new Bundle();
+                    android.app.Fragment fm = new SubcategoryFragment();
+                    args.putString("cat_id", getid);
+                    args.putString( "title" ,title );
+                    // args.putString( "" );
+                    // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
+                    fm.setArguments(args);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace( R.id.fragment_container, fm)
+                            .addToBackStack(null).commit();
+
+                }
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
         return v;
     }
     private void makeGetSliderRequest() {

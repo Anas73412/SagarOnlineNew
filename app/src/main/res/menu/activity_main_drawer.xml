@@ -7,6 +7,15 @@
      <item android:title=""></item>
      <item android:title=""></item> -->
 
+    <group
+        android:id="@+id/group_wishlist"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_wishlist"
+            android:icon="@drawable/wish_before"
+            android:iconTint="@android:color/white"
+            android:title="My Wishlist" />
+    </group>
 
     <group
         android:id="@+id/group_shop_now"
@@ -93,10 +102,7 @@
             android:iconTint="@android:color/white"
             android:title="@string/nav_logout" />
     </group>
-    <!--<item
-        android:id="@+id/nav_powerd"
-        android:icon="@drawable/copy"
-        android:title="@string/status_stop" />-->
+
 
 
 </menu>
