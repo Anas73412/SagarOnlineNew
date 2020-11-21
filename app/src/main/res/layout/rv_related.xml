@@ -7,18 +7,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
    >
-    <androidx.cardview.widget.CardView
+   <!-- <androidx.cardview.widget.CardView
 
         android:layout_margin="@dimen/space_4"
         android:orientation="vertical"
         app:cardCornerRadius="@dimen/space_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/card_product">
+        android:id="@+id/card_product">   -->
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="320dp"
+        android:layout_margin="4dp"
       >
 
 
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/product_price"
-
+                    android:fontFamily="@font/aileron_regular"
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,6 +85,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/aileron_regular"
                     android:text="price"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="14sp"
@@ -109,6 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
+                android:fontFamily="@font/aileron_regular"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_below="@+id/product_price"
@@ -131,6 +134,7 @@
                     android:id="@+id/txtId"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:fontFamily="@font/aileron_regular"
                     android:textSize="10dp"
                     android:text="Weight :"
                     android:visibility="invisible"
@@ -139,6 +143,7 @@
                     android:id="@+id/txtVar"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:fontFamily="@font/aileron_regular"
                     android:textSize="10dp"
                     android:text="Weight :"
                     android:visibility="invisible"
@@ -148,6 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:text="1kg"
+                    android:fontFamily="@font/aileron_regular"
                     android:textAlignment="gravity"
                     android:gravity="center_vertical"
                     android:layout_centerVertical="true"
@@ -168,6 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:padding="@dimen/space_2"
+                        android:fontFamily="@font/aileron_regular"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="text"
@@ -237,14 +244,15 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ribbinlayout"
+                android:id="@+id/product_discount_img"
                 android:rotation="180"/>
         <TextView
             android:id="@+id/product_discount"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text=" discount"
+            android:fontFamily="@font/aileron_regular"
             android:layout_centerVertical="true"
-
             android:padding="2dp"
             android:textColor="@android:color/white"/>
         </RelativeLayout>
@@ -281,4 +289,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-    </androidx.cardview.widget.CardView></RelativeLayout>
+  <!--  </androidx.cardview.widget.CardView></RelativeLayout>-->
+</RelativeLayout>

@@ -36,7 +36,7 @@
                 android:text="KIWI Fruit"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:fontFamily="@font/bold"
+                android:fontFamily="@font/aileron_regular"
                 android:textSize="@dimen/space_18"
                 android:id="@+id/name_product"/>
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_marginTop="@dimen/space_5"
                 android:textSize="@dimen/space_16"
                 android:textStyle="bold"
-                android:fontFamily="@font/bold"
+                android:fontFamily="@font/aileron_regular"
                 android:id="@+id/rate_product"/>
 
 
@@ -99,7 +99,7 @@
                 android:textStyle="bold"
                 android:id="@+id/product_total"
                 android:textColor="@color/black"
-                android:fontFamily="@font/bold"
+                android:fontFamily="@font/aileron_regular"
                 android:textSize="@dimen/space_20"
                 android:layout_centerInParent="true"/>
             <ImageView

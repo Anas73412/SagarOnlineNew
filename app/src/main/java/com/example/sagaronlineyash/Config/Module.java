@@ -170,4 +170,15 @@ public class Module {
         updates.putExtra("type", "update");
         context.sendBroadcast(updates);
     }
+    public String checkNull(String str){
+        String s="";
+        if(str==null || str.isEmpty() || str.equalsIgnoreCase("null")){
+            s="";
+        }else {
+            s=str;
+        }
+        return s;
+
+
+    }
 }

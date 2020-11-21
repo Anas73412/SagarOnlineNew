@@ -6,21 +6,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+//import androidx.fragment.app.FragmentManager;
 //import androidx.fragment.app.Fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+//import android.content.DialogInterface;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+//import android.widget.TextView;
 
+import com.example.sagaronlineyash.Fragments.CartFragment;
+import com.example.sagaronlineyash.Config.Module;
+import com.example.sagaronlineyash.Fragments.AddressFragment;
 import com.example.sagaronlineyash.Fragments.CartFragment;
 import com.example.sagaronlineyash.Fragments.ContactUsFragment;
 import com.android.volley.NetworkError;
 import com.example.sagaronlineyash.Fragments.EmptyCartFragment;
 import com.example.sagaronlineyash.Fragments.HomeFragment;
 import com.example.sagaronlineyash.Fragments.Search_fragment;
+import com.example.sagaronlineyash.Fragments.MyOrderFragment;
+import com.example.sagaronlineyash.Fragments.ProfileFragment;
 import com.example.sagaronlineyash.Fragments.ShopFragment;
 import com.example.sagaronlineyash.Fragments.TermsFragment;
 import com.example.sagaronlineyash.Fragments.WishlistFragment;
@@ -31,15 +47,30 @@ import com.example.sagaronlineyash.Utils.Session_management;
 import com.google.android.material.navigation.NavigationView;
 
 
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_ID;
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_MOBILE;
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_NAME;
+
 public class MainActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
     Toolbar toolbar;
     int padding = 0;
+    Module module;
     Fragment fragment = null;
     DrawerLayout drawer;
+    private String[] mNavigationDrawerItemTitles;
+    private ListView mDrawerList;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+   // ActionBarDrawerToggle actionBarDrawerToggle;
+  //  DataModel[] drawerItem = new DataModel[10];
+  //  DrawerAdapter adapter;
+
     NavigationView navigationView;
     private DatabaseCartHandler db_cart;
     Session_management session_management;
+    TextView tv_name;
+    ImageView iv_edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +80,53 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         toolbar.setPadding(padding, toolbar.getPaddingTop(), padding, toolbar.getPaddingBottom());
         navigationView = findViewById(R.id.nav_view);
         db_cart=new DatabaseCartHandler(this);
+
+       View header = navigationView.getHeaderView(0);
+       tv_name = (TextView) header.findViewById(R.id.viewProfile);
+        iv_edit = (ImageView) header.findViewById(R.id.editProfile);
+        module=new Module(MainActivity.this);
+        updatename();
+
+       // tv_name.setText("XYZ");
+
+        iv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Intent i = new Intent(MainActivity.this,ProfileFragment.class);
+                if (savedInstanceState == null) {
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
+                }
+            }
+        });
+
+ /**       edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFragment profileFragment = new ProfileFragment();
+                Bundle bun = new Bundle();
+                bun.putString("type","edit");
+                bun.putString("id",session_management.getUserDetails().get(KEY_ID));
+                bun.putString("name",session_management.getUserDetails().get(KEY_NAME));
+                bun.putString("number",session_management.getUserDetails().get(KEY_MOBILE));
+                loadFragment(profileFragment,bun);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+
+        tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFragment profileFragment = new ProfileFragment();
+                Bundle bun = new Bundle();
+                bun.putString("type","view");
+                bun.putString("id",session_management.getUserDetails().get(KEY_ID));
+                bun.putString("name",session_management.getUserDetails().get(KEY_NAME));
+                bun.putString("number",session_management.getUserDetails().get(KEY_MOBILE));
+                loadFragment(profileFragment,bun);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+*/
         if (savedInstanceState==null)
         {
             getFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
@@ -61,31 +139,40 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         fragment = new ShopFragment();
                          break;
 
+                    case R.id.nav_wishlist:
+                        fragment = new WishlistFragment();
+                        break;
+
+                    /*case R.id.nav_cart:
+                        fragment = new CartFragment();
+                        break;
+
+                    case R.id.nav_address:
+                        fragment = new AddressFragment();
+                        break;*/
+
                     case R.id.nav_aboutus:
 
-                        Intent in= new Intent(MainActivity.this,AboutUsActivity.class);
+                        Intent in = new Intent(MainActivity.this,AboutUsActivity.class);
                         startActivity(in);
                            break;
                     case R.id.nav_policy:
                         fragment = new TermsFragment();
                            break;
-                    case R.id.nav_wishlist:
-                        fragment = new WishlistFragment();
-                        break;
 
                     case R.id.nav_contactus:
                         fragment = new ContactUsFragment();
                            break;
 
                     case R.id.nav_share:
-                        Intent inte= new Intent(MainActivity.this,NewAddressActivity.class);
-                        startActivity(inte);
+                        fragment = new ShopFragment();
                         break;
 
                     case R.id.nav_logout:
                         session_management.logoutSession();
-                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                        finishAffinity();
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                        finish();
+//                        finishAffinity();
                         break;
 
                 }
@@ -103,6 +190,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         toggle.syncState();
     }
 
+    public void updatename() {
+        tv_name.setText(""+module.checkNull( session_management.getUserDetails().get(KEY_NAME)));
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
