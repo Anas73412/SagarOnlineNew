@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,9 +20,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.sagaronlineyash.Activity.MainActivity;
+import com.example.sagaronlineyash.Adapter.HistoryAdapter;
+import com.example.sagaronlineyash.Adapter.SearchAdapter;
+import com.example.sagaronlineyash.Adapter.SuggestionAdapter;
+import com.example.sagaronlineyash.AppController;
+import com.example.sagaronlineyash.Config.BaseURL;
 import com.example.sagaronlineyash.Config.Module;
+import com.example.sagaronlineyash.Model.NewProductModel;
 import com.example.sagaronlineyash.R;
+import com.example.sagaronlineyash.Utils.ConnectivityReceiver;
+import com.example.sagaronlineyash.Utils.CustomVolleyJsonRequest;
 import com.example.sagaronlineyash.Utils.LoadingBar;
+import com.example.sagaronlineyash.Utils.RecyclerTouchListener;
+import com.example.sagaronlineyash.Utils.SearchHistoryHandler;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,26 +40,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.sagaronlineyash.Utils.SearchHistoryHandler.HISTORY_NAME;
 
 
 public class Search_fragment extends Fragment {
 
   Module module;
   private static String TAG = Search_fragment.class.getSimpleName();
-  //    String[] fruits = {"MIlk butter & cream", "Bread Buns & Pals", "Dals Mix Pack", "buns-pavs", "cakes", "Channa Dal", "Toor Dal", "Wheat Atta"
-//            , "Beson", "Almonds", "Packaged Drinking", "Cola drinks", "Other soft drinks", "Instant Noodles", "Cup Noodles", "Salty Biscuits", "cookie", "Sanitary pads", "sanitary Aids"
-//            , "Toothpaste", "Mouthwash", "Hair oil", "Shampoo", "Pure & pomace olive", "ICE cream", "Theme Egg", "Amul Milk", "AMul Milk Pack power", "kaju pista dd"};
   private AutoCompleteTextView acTextView;
-  private RelativeLayout btn_search;
-  private RecyclerView rv_search;
+  SearchHistoryHandler searchHistoryHandler;
+  private CardView btn_search;
+  private RecyclerView rv_search,rv_history;
+
   ImageView img_no_products;
 
-  //private List<Product_model> product_modelList = new ArrayList<>();
-  //private Search_adapter adapter_product;
+  private List<NewProductModel> product_modelList = new ArrayList<>();
+  private SearchAdapter adapter_product;
   LoadingBar loadingBar ;
 
   public Search_fragment() {
@@ -62,26 +77,33 @@ public class Search_fragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_details, container, false);
+    View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-    /*((MainActivity) getActivity()).setTitle(getResources().getString(R.string.search));
+    ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.search));
     module=new Module(getActivity());
     loadingBar = new LoadingBar(getActivity());
     acTextView = (AutoCompleteTextView) view.findViewById(R.id.et_search);
     img_no_products = (ImageView) view.findViewById(R.id.img_no_products);
-
-
+    searchHistoryHandler = new SearchHistoryHandler(getActivity());
     acTextView.setAdapter(new SuggestionAdapter(getActivity(), acTextView.getText().toString()));
 
     acTextView.setTextColor(getResources().getColor(R.color.colorPrimary));
-    btn_search = (RelativeLayout) view.findViewById(R.id.btn_search);
+    btn_search = view.findViewById(R.id.btn_search);
     rv_search = (RecyclerView) view.findViewById(R.id.rv_search);
+    rv_history = view.findViewById(R.id.history);
     rv_search.setLayoutManager(new GridLayoutManager(getActivity(),2));
-
+    ArrayList<HashMap<String ,String>> search = searchHistoryHandler.getHistoryAll();
+    rv_history.setAdapter(new HistoryAdapter(search));
+    rv_history.setLayoutManager(new GridLayoutManager(getActivity(),2));
     btn_search.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+        String history_text = acTextView.getText().toString();
         String get_search_txt ="%"+ acTextView.getText().toString() +"%";
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY hh:mm:ss");
+        Date date = cal.getTime();
+        String dateString=sdf.format(date);
         if (acTextView.length()<=0) {
           acTextView.setError( "Enter product to search" );
           acTextView.requestFocus();
@@ -90,6 +112,7 @@ public class Search_fragment extends Fragment {
         else {
           if (ConnectivityReceiver.isConnected()) {
             makeGetProductRequest(get_search_txt);
+            searchHistoryHandler.setHistory(history_text,dateString);
           } else {
             ((MainActivity) getActivity()).onNetworkConnectionChanged(false);
           }
@@ -104,7 +127,7 @@ public class Search_fragment extends Fragment {
 
 
 
-        Fragment details_fragment = new Details_Fragment();
+        Fragment details_fragment = new DetailsFragment();
         // bundle.putString("data",as);
         Bundle args = new Bundle();
 
@@ -131,7 +154,7 @@ public class Search_fragment extends Fragment {
 
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contentPanel, details_fragment)
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, details_fragment)
 
                 .addToBackStack(null).commit();
 
@@ -142,12 +165,36 @@ public class Search_fragment extends Fragment {
       public void onLongItemClick(View view, int position) {
 
       }
-    }));*/
+    }));
+    rv_history.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_history, new RecyclerTouchListener.OnItemClickListener() {
+      @Override
+      public void onItemClick(View view, int position) {
+
+        String history_text = search.get(position).get(HISTORY_NAME);
+        String get_search_txt ="%"+ history_text +"%";
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY hh:mm:ss");
+        Date date = cal.getTime();
+        String dateString=sdf.format(date);
+        if (ConnectivityReceiver.isConnected()) {
+          makeGetProductRequest(get_search_txt);
+          searchHistoryHandler.setHistory(history_text,dateString);
+        } else {
+          ((MainActivity) getActivity()).onNetworkConnectionChanged(false);
+        }
+
+      }
+
+      @Override
+      public void onLongItemClick(View view, int position) {
+
+      }
+    }));
     return view;
   }
 
-  /*
-   * Method to make json object request where json response starts wtih {
+
+   // Method to make json object request where json response starts wtih {
 
   private void makeGetProductRequest(String search_text) {
 
@@ -171,29 +218,31 @@ public class Search_fragment extends Fragment {
           {
             img_no_products.setVisibility(View.GONE);
             rv_search.setVisibility(View.VISIBLE);
+            rv_history.setVisibility(View.GONE);
           }
           else
           {
             img_no_products.setVisibility(View.VISIBLE);
             rv_search.setVisibility(View.GONE);
+            rv_history.setVisibility(View.GONE);
           }
           Boolean status = response.getBoolean("responce");
           if (status) {
 
             Gson gson = new Gson();
-            Type listType = new TypeToken<List<Product_model>>() {
+            Type listType = new TypeToken<List<NewProductModel>>() {
             }.getType();
 
             product_modelList = gson.fromJson(response.getString("data"), listType);
 
-            adapter_product = new Search_adapter(product_modelList, getActivity());
+            adapter_product = new SearchAdapter(product_modelList, getActivity());
             rv_search.setAdapter(adapter_product);
             adapter_product.notifyDataSetChanged();
 
 
             if (getActivity() != null) {
               if (product_modelList.isEmpty()) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.no_rcord_found), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No Record Found", Toast.LENGTH_SHORT).show();
               }
             }
 
@@ -217,6 +266,6 @@ public class Search_fragment extends Fragment {
 
     // Adding request to request queue
     AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-  }*/
+  }
 
 }

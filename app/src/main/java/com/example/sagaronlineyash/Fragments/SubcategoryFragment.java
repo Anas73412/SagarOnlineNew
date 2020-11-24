@@ -180,10 +180,8 @@ public class SubcategoryFragment extends android.app.Fragment {
                         category_modelList = gson.fromJson(response.getString("data"), listType);
                         if (!category_modelList.isEmpty()) {
                             rv_items.setVisibility(View.VISIBLE);
-
-                            home_icon_adapter=new Home_adapter(category_modelList);
+                            home_icon_adapter=new Home_adapter(category_modelList,"h");
                             rv_items.setAdapter(home_icon_adapter);
-
                             home_icon_adapter.notifyDataSetChanged();
                             loadingBar.dismiss();
 

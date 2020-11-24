@@ -57,6 +57,9 @@ import com.example.sagaronlineyash.Utils.LoadingBar;
 import com.example.sagaronlineyash.Utils.RecyclerTouchListener;
 import com.example.sagaronlineyash.Utils.Session_management;
 import com.example.sagaronlineyash.Utils.WishlistHandler;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 import com.travijuu.numberpicker.library.NumberPicker;
@@ -67,6 +70,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -141,7 +145,7 @@ public class DetailsFragment extends android.app.Fragment {
     ListView listView,listView1;
     String colorSelected="";
     String sizeSelected = "";
-    public static ArrayList<String> image_list;
+    public static ArrayList<String> image_list,sub_image_list;
     ArrayList<ColorModel> color_list;
     //ArrayList<SizeModel> size_list;
 
@@ -186,6 +190,7 @@ public class DetailsFragment extends android.app.Fragment {
         Bundle bundle=getArguments();
         variantList=new ArrayList<>();
 
+        sub_image_list = new ArrayList<>();
         cat_id=bundle.getString("cat_id");
         product_id=bundle.getString("product_id");
         product_images=bundle.getString("product_images");
@@ -195,6 +200,7 @@ public class DetailsFragment extends android.app.Fragment {
         details_product_inStock=bundle.getString("in_stock");
         details_stock=bundle.getString("stock");
         details_product_attribute=bundle.getString("product_attribute");
+        Log.e("Attribute",details_product_attribute);
         details_product_price=bundle.getString("price");
         details_product_mrp=bundle.getString("mrp");
         details_product_unit_value=bundle.getString("unit_value");
@@ -216,7 +222,6 @@ public class DetailsFragment extends android.app.Fragment {
         wish_before = view.findViewById( R.id.wish_before );
         wish_after = view.findViewById( R.id.wish_after );
         rel_out= view.findViewById( R.id.rel_out );
-
         lin_img = view.findViewById(R.id.relative_layout_img);
         img_slider = view.findViewById(R.id.img_slider);
         image_list=new ArrayList<String>();
@@ -240,12 +245,8 @@ public class DetailsFragment extends android.app.Fragment {
         txtName.setText(details_product_name);
 
 
-//        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-
         final float stock = Float.parseFloat( details_stock );
 
-//        numberButton.setRange( 0, (int) (stock+1) );
         numberButton.setMin(1);
         numberButton.setMax((int) (stock+1));
         if (stock<1 || details_product_inStock.equals("0"))
@@ -312,34 +313,8 @@ public class DetailsFragment extends android.app.Fragment {
                 attribute_value=jsonObj.getString("attribute_value");
                 attribute_mrp=jsonObj.getString("attribute_mrp");
                 attribute_color=jsonObj.getString("attribute_color");
-                JSONArray colorarray= null;
-                try {
-                    colorarray = new JSONArray(attribute_color );
-                    if(product_images.equals(null))
-                    {
-                        Toast.makeText(getActivity(),"There is no color for this product",Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        for (int j = 0; j <= colorarray.length() - 1; j++) {
-
-                            colorModel = new ColorModel(colorarray.get(j).toString(),false);
-                            color_list.add(colorModel);
-                            Log.e("color "+j,colorarray.get(j).toString());
-                        }
-                    }
-                } catch (JSONException e) {
-                    Log.e("Error",e.toString());
-                }
-                LinearLayoutManager HorizontalLayout;
-                Log.e("Colors",color_list.toString());
-                colorAdapter = new ColorAdapter(color_list);
-                HorizontalLayout
-                        = new LinearLayoutManager(
-                        getActivity(),
-                        LinearLayoutManager.HORIZONTAL,
-                        false);
-                recyclerViewColor.setLayoutManager(HorizontalLayout);
-                recyclerViewColor.setAdapter(colorAdapter);
+                getValues(attribute_color);
+                setColor();
                 String atr_price=String.valueOf(attribute_value);
                 String atr_mrp=String.valueOf(attribute_mrp);
                 int atr_dis=getDiscount(atr_price,atr_mrp);
@@ -422,19 +397,7 @@ public class DetailsFragment extends android.app.Fragment {
                         attribute_color=String.valueOf(variantList.get(i).getAttribute_color());
                         JSONArray colorarray= null;
                         try {
-                            colorarray = new JSONArray(attribute_color );
-                            if(product_images.equals(null))
-                            {
-                                Toast.makeText(getActivity(),"There is no color for this product",Toast.LENGTH_LONG).show();
-                            }
-                            else {
-                                for (int j = 0; j <= colorarray.length() - 1; j++) {
-
-                                    colorModel = new ColorModel(colorarray.get(j).toString(),false);
-                                    color_list.add(colorModel);
-                                    Log.e("color "+j,colorarray.get(j).toString());
-                                }
-                            }
+                            getValues(attribute_color);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -477,7 +440,6 @@ public class DetailsFragment extends android.app.Fragment {
                             }
                         }
 
-//    numberButton.setNumber(db_cart.getCartItemQty( product_id ));
 
                         txtTotal.setText("\u20B9"+String.valueOf(db_cart.getTotalAmount()));
                         ddlg.dismiss();
@@ -901,6 +863,8 @@ public class DetailsFragment extends android.app.Fragment {
             color_list.get(i).setSelected(false);
             colorAdapter.notifyDataSetChanged();
         }
+        product_images = sub_image_list.get(position);
+        getImages();
     }
 
     private void setColor() {
@@ -930,39 +894,16 @@ public class DetailsFragment extends android.app.Fragment {
         txtTotal.setText("\u20B9"+String.valueOf(db_cart.getTotalAmount()));
 
         String atr=String.valueOf(details_product_attribute);
-        /*if(atr.equals("[]"))
-        {
-            boolean st=db_cart.isInCart(product_id);
-            if(st==true)
-            {
-//                btn_add.setVisibility(View.GONE);
-                numberButton.setValue(Integer.parseInt(db_cart.getCartItemQty(product_id)));
-//                numberButton.setVisibility(View.VISIBLE);
-            }
-        }
-        else
-        {
-            String str_id=dialog_txtId.getText().toString();
-            String[] str=str_id.split("@");
-            String at_id=String.valueOf(str[0]);
-            Log.e("onStart: ATID",str.toString());
-            boolean st=db_cart.isInCart(at_id);
-            if(st==true)
-            {
-//                btn_add.setVisibility(View.GONE);
-                numberButton.setValue(Integer.parseInt(db_cart.getCartItemQty(at_id)));
-//                numberButton.setVisibility(View.VISIBLE);
-            }
-        }*/
-
-        //Toast.makeText(getActivity(),""+cat_id, Toast.LENGTH_LONG).show();
         makeRelatedProductRequest(cat_id);
+        getImages();
+    }
 
+    private void getImages()
+    {
         try
         {
             image_list.clear();
-            JSONArray array=new JSONArray(product_images );
-            Log.e("img_arr",array.toString());
+            JSONArray array=new JSONArray(product_images);
             //Toast.makeText(this,""+product_images,Toast.LENGTH_LONG).show();
             if(product_images.equals(null))
             {
@@ -970,68 +911,38 @@ public class DetailsFragment extends android.app.Fragment {
             }
             else
             {
-                ArrayList<HashMap<String, String>> img_array = new ArrayList<>();
                 for(int i=0; i<=array.length()-1;i++)
                 {
                     HashMap<String, String> img_map= new HashMap<>();
 
                     image_list.add(array.get(i).toString());
-                    img_map.put("image",array.get(i).toString());
-                    img_array.add(img_map);
 
                 }
 
-                /*for (final HashMap<String, String> name : img_array) {
-                    CustomSlider customSlider = new CustomSlider(getActivity());
-                    Log.e("slider_images",""+name.get("image").toString());
-                    customSlider.description(name.get("")).image(IMG_PRODUCT_URL+name.get("image")).setScaleType( BaseSliderView.ScaleType.Fit);;
-                    img_slider.addSlider(customSlider);
-                    customSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                        @Override
-                        public void onSliderClick(BaseSliderView slider) {
-                            android.app.Fragment fm = new ImagesViewFragment();
-                            FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-                                    .addToBackStack(null).commit();
-                        }
-                    });
-
-
-                }*/
-                for (final HashMap<String, String> name : img_array) {
-
-                    img_slider.setImageListener(new ImageListener() {
-                        @Override
-                        public void setImageForPosition(int position, ImageView imageView) {
-                            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 500);
-                            imageView.setLayoutParams(layoutParams);
-                            Glide.with(getActivity())
-                                    .load(IMG_PRODUCT_URL + name.get("image"))
-                                    .thumbnail(0.9f)
-                                    .centerCrop()
-                                    .into(imageView);
-                        }
-                    });
-                    img_slider.setPageCount(img_array.size());
-                }
+                img_slider.setImageListener(new ImageListener() {
+                    @Override
+                    public void setImageForPosition(int position, ImageView imageView) {
+                        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 500);
+                        imageView.setLayoutParams(layoutParams);
+                        Glide.with(getActivity())
+                                .load(IMG_PRODUCT_URL + image_list.get(position))
+                                .thumbnail(0.9f)
+                                .centerCrop()
+                                .into(imageView);
+                    }
+                });
+                img_slider.setPageCount(image_list.size());
 
 
             }
-
-
-
 
         }
         catch (Exception ex)
         {
             // Toast.makeText(Product_Frag_details.this,""+ex.getMessage(),Toast.LENGTH_LONG).show();
         }
-
-
-
     }
-
 
 
 
@@ -1274,5 +1185,22 @@ public class DetailsFragment extends android.app.Fragment {
     {
         //((MainActivity) getActivity()).setCartCounter("" + db_cart.getCartCount());
     }
+    private void getValues(String str) throws JSONException {
+        JSONObject json=new JSONObject(str);
+        color_list.clear();
+        sub_image_list.clear();
+        Iterator<String> iterator=json.keys();
+        while (iterator.hasNext()){
+              String objKey=iterator.next();
+              color_list.add(new ColorModel(objKey,false));
+              String value=json
+                    .getString(objKey);
+              sub_image_list.add(value);
+              Log.e("DAta",objKey+" : "+value);
+        }
+
+
+    }
+    //
 
 }

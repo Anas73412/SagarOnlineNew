@@ -32,6 +32,7 @@ public class Home_adapter extends RecyclerView.Adapter<Home_adapter.MyViewHolder
     private List<CategoryModel> modelList;
     private Context context;
     String language;
+    String type;
     SharedPreferences preferences;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
@@ -44,14 +45,24 @@ public class Home_adapter extends RecyclerView.Adapter<Home_adapter.MyViewHolder
         }
     }
 
-    public Home_adapter(List<CategoryModel> modelList) {
+    public Home_adapter(List<CategoryModel> modelList,String type) {
         this.modelList = modelList;
+        this.type = type;
     }
 
     @Override
     public Home_adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_category, parent, false);
+        View itemView = null;
+        if(type.equalsIgnoreCase("h"))
+        {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.row_category, parent, false);
+        }
+        else
+        {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.row_cat, parent, false);
+        }
 
         context = parent.getContext();
 

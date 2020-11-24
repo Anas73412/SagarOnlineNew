@@ -274,7 +274,7 @@ public class HomeFragment extends android.app.Fragment {
                             Type listType = new TypeToken<List<CategoryModel>>() {
                             }.getType();
                             categoryList = gson.fromJson(response.getString("data"), listType);
-                            categoryAdapter = new Home_adapter(categoryList);
+                            categoryAdapter = new Home_adapter(categoryList,"h");
                             LinearLayoutManager HorizontalLayout
                                     = new LinearLayoutManager(
                                     getActivity(),

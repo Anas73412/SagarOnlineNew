@@ -46,15 +46,6 @@
     <!--android:title="@string/nav_chat" />-->
     <!--</group>-->
 
-    <group
-        android:id="@+id/group_wishlist"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_wishlist"
-            android:icon="@drawable/wish_before"
-            android:iconTint="@android:color/white"
-            android:title="My WishList" />
-    </group>
 
     <group
         android:id="@+id/group_cart"
