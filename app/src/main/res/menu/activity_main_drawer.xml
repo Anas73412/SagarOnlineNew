@@ -58,16 +58,6 @@
     </group>
 
     <group
-        android:id="@+id/group_address"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_address"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:iconTint="@android:color/white"
-            android:title="New Address" />
-    </group>
-
-    <group
         android:id="@+id/group_aboutus"
         android:checkableBehavior="single">
         <item
@@ -95,16 +85,6 @@
             android:title="Contact Us" />
     </group>
 
-    <group
-        android:id="@+id/group_contact"
-        android:checkableBehavior="single"
-        android:visible="false">
-        <item
-            android:id="@+id/nav_contact"
-            android:icon="@drawable/online_support_30px"
-            android:iconTint="@android:color/white"
-            android:title="@string/nav_contact" />
-    </group>
     <group
         android:id="@+id/group_share"
         android:checkableBehavior="single">

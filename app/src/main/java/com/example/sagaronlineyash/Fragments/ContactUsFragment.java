@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.sagaronlineyash.R;
+import com.example.sagaronlineyash.Utils.Session_management;
+
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_MOBILE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,11 +60,18 @@ public class ContactUsFragment extends android.app.Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    Session_management session_management;
+    EditText etphone;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_us, container, false);
+        View v = inflater.inflate(R.layout.fragment_contact_us, container, false);
+        session_management = new Session_management(getActivity());
+        etphone = v.findViewById(R.id.et_phone);
+        etphone.setText(session_management.getUserDetails().get(KEY_MOBILE));
+        return v;
+
     }
 }

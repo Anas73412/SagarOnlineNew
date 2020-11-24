@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 //import android.widget.TextView;
 
 import com.example.sagaronlineyash.Fragments.CartFragment;
@@ -87,13 +88,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         module=new Module(MainActivity.this);
         updatename();
 
-       // tv_name.setText("XYZ");
-
         iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // Intent i = new Intent(MainActivity.this,ProfileFragment.class);
                 if (savedInstanceState == null) {
+                    if (drawer.isDrawerOpen(GravityCompat.START))
+                        drawer.closeDrawer(GravityCompat.START);
                     getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
                 }
             }
@@ -143,19 +144,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         fragment = new WishlistFragment();
                         break;
 
-                    /*case R.id.nav_cart:
-                        fragment = new CartFragment();
-                        break;
-
-                    case R.id.nav_address:
-                        fragment = new AddressFragment();
-                        break;*/
-
                     case R.id.nav_aboutus:
-
-                        Intent in = new Intent(MainActivity.this,AboutUsActivity.class);
-                        startActivity(in);
-                           break;
+                        fragment = new AboutUsActivity();
+                        break;
                     case R.id.nav_policy:
                         fragment = new TermsFragment();
                            break;
@@ -165,14 +156,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                            break;
 
                     case R.id.nav_share:
-                        fragment = new ShopFragment();
+                        Toast.makeText(getApplicationContext(),"To Be Added",Toast.LENGTH_LONG).show();
                         break;
 
                     case R.id.nav_logout:
                         session_management.logoutSession();
                         startActivity(new Intent(MainActivity.this,LoginActivity.class));
                         finish();
-//                        finishAffinity();
                         break;
 
                 }

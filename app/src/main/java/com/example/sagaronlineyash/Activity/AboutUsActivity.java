@@ -1,10 +1,15 @@
 package com.example.sagaronlineyash.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,16 +26,17 @@ import java.util.HashMap;
 
 import static com.example.sagaronlineyash.Config.BaseURL.GET_ABOUT_URL;
 
-public class AboutUsActivity extends AppCompatActivity {
+public class AboutUsActivity extends Fragment {
 TextView tv_aboutus;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us);
-
-        tv_aboutus=findViewById(R.id.TV_AboutUs);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_about_us, container, false);
+        tv_aboutus=v.findViewById(R.id.TV_AboutUs);
+        ((MainActivity) getActivity()).setTitle("About Us");
         getaboutus();
+        return v;
     }
 
     private void getaboutus() {

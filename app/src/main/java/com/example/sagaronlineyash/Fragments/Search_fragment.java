@@ -59,12 +59,10 @@ public class Search_fragment extends Fragment {
   SearchHistoryHandler searchHistoryHandler;
   private CardView btn_search;
   private RecyclerView rv_search,rv_history;
-
   ImageView img_no_products;
-
   private List<NewProductModel> product_modelList = new ArrayList<>();
   private SearchAdapter adapter_product;
-  LoadingBar loadingBar ;
+  LoadingBar loadingBar;
 
   public Search_fragment() {
   }
