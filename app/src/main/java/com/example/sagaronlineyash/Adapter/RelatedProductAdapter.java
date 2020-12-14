@@ -876,7 +876,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
     }
 
     private void updateintent() {
-        Intent updates = new Intent("Grocery_cart");
+        Intent updates = new Intent("Cart");
         updates.putExtra("type", "update");
         context.sendBroadcast(updates);
     }

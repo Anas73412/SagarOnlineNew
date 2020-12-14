@@ -803,7 +803,7 @@ public class DetailsFragment extends android.app.Fragment {
                     {
                         fm = new EmptyCartFragment();
                         FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                 .addToBackStack(null).commit();
                         //Toast.makeText(getActivity(),"Cart is Empty",Toast.LENGTH_LONG ).show();
 
@@ -1165,7 +1165,7 @@ public class DetailsFragment extends android.app.Fragment {
     public void onResume() {
         super.onResume();
         // register reciver
-        getActivity().registerReceiver(mCart, new IntentFilter("Grocery_cart"));
+        getActivity().registerReceiver(mCart, new IntentFilter("Cart"));
     }
 
 

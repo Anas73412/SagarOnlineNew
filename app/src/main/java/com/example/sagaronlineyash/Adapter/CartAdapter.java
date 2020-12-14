@@ -473,7 +473,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
     }
 
     private void updateintent() {
-        Intent updates = new Intent("Grocery_cart");
+        Intent updates = new Intent("Cart");
         updates.putExtra("type", "update");
         activity.sendBroadcast(updates);
     }

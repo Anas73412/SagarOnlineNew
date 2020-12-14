@@ -2,6 +2,10 @@ package com.example.sagaronlineyash.Fragments;
 
 //import android.app.FragmentManager;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.bumptech.glide.Glide;
+import com.example.sagaronlineyash.Activity.MainActivity;
 import com.example.sagaronlineyash.Adapter.Home_adapter;
 import com.example.sagaronlineyash.Adapter.NewProductAdapter;
 import com.example.sagaronlineyash.AppController;
@@ -30,6 +35,7 @@ import com.example.sagaronlineyash.Model.CategoryModel;
 import com.example.sagaronlineyash.Model.NewProductModel;
 import com.example.sagaronlineyash.R;
 import com.example.sagaronlineyash.Utils.CustomVolleyJsonRequest;
+import com.example.sagaronlineyash.Utils.DatabaseCartHandler;
 import com.example.sagaronlineyash.Utils.LoadingBar;
 import com.example.sagaronlineyash.Utils.RecyclerTouchListener;
 import com.example.sagaronlineyash.Utils.Session_management;
@@ -62,6 +68,7 @@ public class HomeFragment extends android.app.Fragment {
     LoadingBar loadingBar;
     NewProductAdapter newProductAdapter , top_selling_adapter;
     List<CategoryModel> categoryList;
+    DatabaseCartHandler db_cart;
     List<NewProductModel> newProductList , top_selling_models;
     Home_adapter categoryAdapter;
     RecyclerView rec_category , rec_new_product , rec_top_product;
@@ -121,6 +128,7 @@ public class HomeFragment extends android.app.Fragment {
         rec_category = v.findViewById(R.id.rec_category);
         rec_new_product = v.findViewById(R.id.rec_new_product);
         rec_top_product = v.findViewById(R.id.rec_best_product);
+        db_cart=new DatabaseCartHandler(getActivity());
         makeGetSliderRequest();
         makeGetCategoryRequest();
         new_products();
@@ -414,5 +422,31 @@ public class HomeFragment extends android.app.Fragment {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 
+    }
+
+    BroadcastReceiver mCart=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String type=intent.getStringExtra("type");
+            if(type.contentEquals("update")){
+                updateData();
+            }
+        }
+    };
+
+    private void updateData() {
+        ((MainActivity)getActivity()).setCartCounter(db_cart.getCartCount());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(mCart);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().registerReceiver(mCart,new IntentFilter("Cart"));
     }
 }

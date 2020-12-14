@@ -134,7 +134,7 @@ public class WishlistFragment extends Fragment {
         super.onResume();
         ((MainActivity) getActivity()).setTitle("My WishList" );
         // register reciver
-        getActivity().registerReceiver(mCart, new IntentFilter("Grocery_cart"));
+        getActivity().registerReceiver(mCart, new IntentFilter("Cart"));
     }
 
     // broadcast reciver for receive data

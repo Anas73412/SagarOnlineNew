@@ -178,7 +178,11 @@ public class Module {
             s=str;
         }
         return s;
+    }
 
-
+    public void updateIntent(Context context){
+        Intent i=new Intent("Cart");
+        i.putExtra("type","update");
+        context.sendBroadcast(i);
     }
 }

@@ -63,10 +63,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     private ListView mDrawerList;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-   // ActionBarDrawerToggle actionBarDrawerToggle;
-  //  DataModel[] drawerItem = new DataModel[10];
-  //  DrawerAdapter adapter;
-
+    TextView tv_count;
     NavigationView navigationView;
     private DatabaseCartHandler db_cart;
     Session_management session_management;
@@ -225,7 +222,17 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
         final MenuItem item = menu.findItem(R.id.action_cart);
         item.setVisible(true);
+        View count = item.getActionView();
+        count.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                menu.performIdentifierAction(item.getItemId(), 0);
+            }
+        });
+
+        tv_count = (TextView) count.findViewById(R.id.tv_cart_count);
+        tv_count.setText("" + db_cart.getCartCount());
         return true;
     }
 
@@ -253,5 +260,15 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             Intent intent = new Intent(MainActivity.this, NetworkError.class);
             startActivity(intent);
         }
+
+    }
+
+    public void setCartCounter(int count){
+        if(count<=0){
+            tv_count.setVisibility(View.GONE);
+        }else{
+            tv_count.setVisibility(View.VISIBLE);
+        }
+        tv_count.setText(String.valueOf(count));
     }
 }

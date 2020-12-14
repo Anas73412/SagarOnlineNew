@@ -39,4 +39,11 @@
     <dimen name="space_19">19dp</dimen>
     <dimen name="space_20">20dp</dimen>
 
+    <dimen name="reward_point_size">60dp</dimen>
+    <dimen name="reward_picture_size">100dp</dimen>
+    <dimen name="apply_coupon_code_layout_height">40dp</dimen>
+    <dimen name="select_payment_method">18dp</dimen>
+    <dimen name="confirm_order_button">32dp</dimen>
+    <dimen name="reward_point_layout_width">85dp</dimen>
+
 </resources>

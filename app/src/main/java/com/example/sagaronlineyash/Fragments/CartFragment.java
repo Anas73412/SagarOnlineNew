@@ -180,7 +180,7 @@ public class CartFragment extends Fragment implements View.OnClickListener{
     private void updateData() {
         // tv_total.setText(getActivity().getString(R.string.currency)+ db_cart.getTotalAmount());
         tv_item.setText("" + db_cart.getCartCount());
-        //((MainActivity) getActivity()).setCartCounter("" + db_cart.getCartCount());
+        ((MainActivity) getActivity()).setCartCounter(db_cart.getCartCount());
     }
 
     private void showClearDialog() {
@@ -311,7 +311,7 @@ public class CartFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
         // register reciver
-        getActivity().registerReceiver(mCart, new IntentFilter("Grocery_cart"));
+        getActivity().registerReceiver(mCart, new IntentFilter("Cart"));
     }
     public String getTotMRp()
     {

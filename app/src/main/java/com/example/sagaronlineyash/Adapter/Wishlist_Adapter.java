@@ -636,7 +636,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
         }
     }
     private void updateintent() {
-        Intent updates = new Intent("Grocery_cart");
+        Intent updates = new Intent("Cart");
         updates.putExtra("type", "update");
         activity.sendBroadcast(updates);
     }
