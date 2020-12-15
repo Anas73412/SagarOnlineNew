@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -507,13 +508,13 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 args.putString("increment", modelList.get(position).getIncreament());
                 args.putString("title", modelList.get(position).getTitle());
                 // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
-                DetailsFragment fm = new DetailsFragment();
+              Fragment fm = new DetailsFragment();
                 fm.setArguments(args);
 //                FragmentManager fragmentManager = .beginTransaction().replace(R.id.contentPanel, fm)
 //                        .addToBackStack(null).commit();
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                activity.getFragmentManager().beginTransaction().replace(R.id.fragment_container, fm)
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fm)
                         .addToBackStack(null)
                         .commit();
 

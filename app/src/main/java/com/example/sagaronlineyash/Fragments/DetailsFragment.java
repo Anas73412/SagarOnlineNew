@@ -3,7 +3,6 @@ package com.example.sagaronlineyash.Fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,7 +77,7 @@ import java.util.Map;
 import static com.example.sagaronlineyash.Config.BaseURL.IMG_PRODUCT_URL;
 import static com.example.sagaronlineyash.Config.BaseURL.KEY_ID;
 
-public class DetailsFragment extends android.app.Fragment {
+public class DetailsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -789,7 +789,7 @@ public class DetailsFragment extends android.app.Fragment {
         btn_add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.app.Fragment fm=new CartFragment();
+               Fragment fm=new CartFragment();
 
 
                 if (ConnectivityReceiver.isConnected()) {
@@ -802,7 +802,7 @@ public class DetailsFragment extends android.app.Fragment {
                     else
                     {
                         fm = new EmptyCartFragment();
-                        FragmentManager fragmentManager = getFragmentManager();
+                    androidx.fragment.app.FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                 .addToBackStack(null).commit();
                         //Toast.makeText(getActivity(),"Cart is Empty",Toast.LENGTH_LONG ).show();
@@ -1117,9 +1117,9 @@ public class DetailsFragment extends android.app.Fragment {
                                 if (sessionManagement.isLoggedIn()) {
                                     Bundle args = new Bundle();
                                     args.putString("buy_now","Y");
-                                    android.app.Fragment fm = new DeliveryFragment();
+                                Fragment fm = new DeliveryFragment();
                                     fm.setArguments(args);
-                                    FragmentManager fragmentManager = getFragmentManager();
+                               FragmentManager fragmentManager = getFragmentManager();
                                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                             .addToBackStack(null).commit();
                                 } else {

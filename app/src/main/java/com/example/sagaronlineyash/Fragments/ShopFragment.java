@@ -1,9 +1,9 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +45,7 @@ import java.util.Map;
  * Use the {@link ShopFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShopFragment extends android.app.Fragment {
+public class ShopFragment extends Fragment {
 
     List<CategoryModel> categoryList;
     Home_adapter categoryAdapter;
@@ -119,7 +119,7 @@ public class ShopFragment extends android.app.Fragment {
                 if(parent.equals("0"))
                 {
                     Bundle args = new Bundle();
-                    android.app.Fragment fm = new ProductFragment();
+                   Fragment fm = new ProductFragment();
                     args.putString("cat_id", getid);
                     args.putString( "title" ,title );
                     args.putString("slab_value",slab_value);
@@ -128,7 +128,7 @@ public class ShopFragment extends android.app.Fragment {
                     // args.putString( "" );
                     // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
                     fm.setArguments(args);
-                    FragmentManager fragmentManager = getFragmentManager();
+                   androidx.fragment.app.FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace( R.id.fragment_container, fm)
                             .addToBackStack(null).commit();
 
@@ -136,13 +136,13 @@ public class ShopFragment extends android.app.Fragment {
                 else
                 {
                     Bundle args = new Bundle();
-                    android.app.Fragment fm = new SubcategoryFragment();
+                  Fragment fm = new SubcategoryFragment();
                     args.putString("cat_id", getid);
                     args.putString( "title" ,title );
                     // args.putString( "" );
                     // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
                     fm.setArguments(args);
-                    FragmentManager fragmentManager = getFragmentManager();
+                   FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace( R.id.fragment_container, fm)
                             .addToBackStack(null).commit();
 

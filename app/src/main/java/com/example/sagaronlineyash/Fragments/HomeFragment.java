@@ -1,7 +1,6 @@
 package com.example.sagaronlineyash.Fragments;
 
 //import android.app.FragmentManager;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,7 +60,7 @@ import java.util.Map;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends android.app.Fragment {
+public class HomeFragment extends Fragment {
 
     Module module;
     CarouselView carouselView;
@@ -146,7 +146,7 @@ public class HomeFragment extends android.app.Fragment {
                 if(parent.equals("0"))
                 {
                     Bundle args = new Bundle();
-                    android.app.Fragment fm = new ProductFragment();
+                   Fragment fm = new ProductFragment();
                     args.putString("cat_id", getid);
                     args.putString( "title" ,title );
                     args.putString("slab_value",slab_value);
@@ -155,7 +155,7 @@ public class HomeFragment extends android.app.Fragment {
                     // args.putString( "" );
                     // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
                     fm.setArguments(args);
-                    FragmentManager fragmentManager = getFragmentManager();
+                    androidx.fragment.app.FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace( R.id.fragment_container, fm)
                             .addToBackStack(null).commit();
 
@@ -163,13 +163,13 @@ public class HomeFragment extends android.app.Fragment {
                 else
                 {
                     Bundle args = new Bundle();
-                    android.app.Fragment fm = new SubcategoryFragment();
+              Fragment fm = new SubcategoryFragment();
                     args.putString("cat_id", getid);
                     args.putString( "title" ,title );
                     // args.putString( "" );
                     // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
                     fm.setArguments(args);
-                    FragmentManager fragmentManager = getFragmentManager();
+                 androidx.fragment.app.FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace( R.id.fragment_container, fm)
                             .addToBackStack(null).commit();
 
@@ -217,7 +217,7 @@ public class HomeFragment extends android.app.Fragment {
                                     public void onClick(int position) {
                                         Bundle args = new Bundle();
                                         String sub_cat = listarray.get(position).get("sub_cat");
-                                        android.app.Fragment fm = null;
+                                      Fragment fm = null;
                                         args.putString("cat_id", sub_cat);
                                         args.putString("title",name.get("slider_title"));
                                         session_management.setCategoryId(sub_cat);
@@ -230,7 +230,7 @@ public class HomeFragment extends android.app.Fragment {
                                             fm = new ProductFragment();
                                         }
                                         fm.setArguments(args);
-                                        FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                       FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                         fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                                 .addToBackStack(null).commit();
                                     }

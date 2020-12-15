@@ -6,11 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 //import androidx.fragment.app.FragmentManager;
 //import androidx.fragment.app.Fragment;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
 //import android.content.DialogInterface;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     Toolbar toolbar;
     int padding = 0;
     Module module;
-    Fragment fragment = null;
+   androidx.fragment.app.Fragment fragment = null;
     DrawerLayout drawer;
     private String[] mNavigationDrawerItemTitles;
     private ListView mDrawerList;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                 if (savedInstanceState == null) {
                     if (drawer.isDrawerOpen(GravityCompat.START))
                         drawer.closeDrawer(GravityCompat.START);
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).addToBackStack(null).commit();
                 }
             }
         });
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 */
         if (savedInstanceState==null)
         {
-            getFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -152,6 +153,10 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         fragment = new ContactUsFragment();
                            break;
 
+                    case R.id.nav_orders:
+                        fragment = new MyOrderFragment();
+                           break;
+
                     case R.id.nav_share:
                         Toast.makeText(getApplicationContext(),"To Be Added",Toast.LENGTH_LONG).show();
                         break;
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         break;
 
                 }
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
                 if (drawer.isDrawerOpen(GravityCompat.START))
                     drawer.closeDrawer(GravityCompat.START);
                 return true;
@@ -190,13 +195,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         if (id == R.id.action_cart) {
             if (db_cart.getCartCount() > 0) {
                 Fragment fm = new CartFragment();
-                FragmentManager fragmentManager = getFragmentManager();
+               FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                         .addToBackStack(null).commit();
 
             } else {
                 Fragment fm = new EmptyCartFragment();
-                FragmentManager fragmentManager = getFragmentManager();
+               FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                         .addToBackStack(null).commit();
 
@@ -206,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         if(id== R.id.action_search)
         {
             Fragment fm = new Search_fragment();
-            FragmentManager fragmentManager = getFragmentManager();
+          FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                     .addToBackStack(null).commit();
 

@@ -857,7 +857,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
 //                        .addToBackStack(null).commit();
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                activity.getFragmentManager().beginTransaction().replace(R.id.fragment_container, fm)
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fm)
                         .addToBackStack(null)
                         .commit();
 

@@ -1,7 +1,6 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
 import android.os.Bundle;
 
 
@@ -10,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,7 +82,7 @@ public class FilterFragment extends Fragment {
                 bundle.putString("max",max);
                 bundle.putString("min",min);
                 fm.setArguments(bundle);
-                FragmentManager fragmentManager = getFragmentManager();
+             FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace( R.id.fragment_container, fm).commit();
 
             }

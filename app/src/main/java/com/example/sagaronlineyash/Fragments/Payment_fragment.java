@@ -1,7 +1,8 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -171,7 +172,7 @@ public class Payment_fragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     Fragment fm = new HomeFragment();
-                    FragmentManager fragmentManager = getFragmentManager();
+                 androidx.fragment.app.FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                             .addToBackStack(null).commit();
                     return true;
@@ -444,11 +445,11 @@ public class Payment_fragment extends Fragment {
                         db_cart.clearCart();
                         loadingBar.dismiss();
                         Bundle args = new Bundle();
-                        Fragment fm = new Thanks_fragment();
+                      Fragment fm = new Thanks_fragment();
                         args.putString("msg", msg);
                         // args.putString("msgarb",msg_arb);
                         fm.setArguments(args);
-                        FragmentManager fragmentManager = getFragmentManager();
+                      FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                 .addToBackStack(null).commit();
 

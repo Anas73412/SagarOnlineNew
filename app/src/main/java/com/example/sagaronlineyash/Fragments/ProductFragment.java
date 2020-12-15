@@ -1,7 +1,6 @@
 package com.example.sagaronlineyash.Fragments;
 
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,7 +64,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Use the {@link ProductFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProductFragment extends android.app.Fragment implements View.OnClickListener {
+public class ProductFragment extends Fragment implements View.OnClickListener {
 
     private static String TAG = ProductFragment.class.getSimpleName();
     private RecyclerView rv_cat;
@@ -339,12 +339,12 @@ public class ProductFragment extends android.app.Fragment implements View.OnClic
 
     private void getFilterFragment() {
         Bundle args = new Bundle();
-        android.app.Fragment fm = new FilterFragment();
+       Fragment fm = new FilterFragment();
         args.putString("slab_value",slab_value);
         args.putString("max_slab",max_slab);
         args.putString("cat_id",getcat_id);
         fm.setArguments(args);
-        FragmentManager fragmentManager = getFragmentManager();
+       FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace( R.id.fragment_container, fm)
                 .addToBackStack(null).commit();
     }

@@ -1,7 +1,7 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -264,9 +265,9 @@ public class CartFragment extends Fragment implements View.OnClickListener{
                             if (!issmall && !isbig) {
                                 if (sessionManagement.isLoggedIn()) {
                                     Bundle args = new Bundle();
-                                    Fragment fm = new DeliveryFragment();
+                                   Fragment fm = new DeliveryFragment();
                                     fm.setArguments(args);
-                                    FragmentManager fragmentManager = getFragmentManager();
+                                   FragmentManager fragmentManager = getFragmentManager();
                                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                             .addToBackStack(null).commit();
 

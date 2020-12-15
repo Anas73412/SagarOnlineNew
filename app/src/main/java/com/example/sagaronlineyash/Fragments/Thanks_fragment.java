@@ -1,7 +1,8 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -57,7 +58,7 @@ public class Thanks_fragment extends Fragment implements View.OnClickListener {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     Fragment fm = new HomeFragment();
-                    FragmentManager fragmentManager = getFragmentManager();
+                  androidx.fragment.app.FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                             .addToBackStack(null).commit();
                     return true;
@@ -89,7 +90,7 @@ public class Thanks_fragment extends Fragment implements View.OnClickListener {
         int id = view.getId();
         if (id == R.id.btn_thank_home) {
             Fragment fm = new HomeFragment();
-            FragmentManager fragmentManager = getFragmentManager();
+           FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                     .addToBackStack(null).commit();
         }

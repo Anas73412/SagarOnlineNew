@@ -274,7 +274,7 @@
                     android:fontFamily="@font/bold"
                     android:id="@+id/btn_add"
                     android:layout_width="80dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:clickable="true"
                     android:background="@drawable/bg_rounded_button"

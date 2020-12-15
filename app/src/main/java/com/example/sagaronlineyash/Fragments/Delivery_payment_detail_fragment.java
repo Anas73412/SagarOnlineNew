@@ -1,7 +1,8 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -151,7 +152,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (ConnectivityReceiver.isConnected()) {
-                    Fragment fm = new Payment_fragment();
+                   Fragment fm = new Payment_fragment();
                     Bundle args = new Bundle();
                     args.putString("total", String.valueOf(total));
                     args.putString("getdate", getdate);
@@ -162,7 +163,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
                     args.putString( "deli_charges", String.valueOf( deli_charges ) );
 
                     fm.setArguments(args);
-                    FragmentManager fragmentManager = getFragmentManager();
+                 FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                             .addToBackStack(null).commit();
                     SharedPref.putString(getActivity(), BaseURL.TOTAL_AMOUNT, String.valueOf(total));

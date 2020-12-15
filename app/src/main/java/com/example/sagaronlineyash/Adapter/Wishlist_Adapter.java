@@ -428,7 +428,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
 //                        .addToBackStack(null).commit();
 
                 AppCompatActivity activity=(AppCompatActivity) view.getContext();
-                activity.getFragmentManager().beginTransaction().replace(R.id.fragment_container,fm)
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fm)
                         .addToBackStack(null)
                         .commit();
             }
@@ -465,7 +465,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
 //                        .addToBackStack(null).commit();
 
                 AppCompatActivity activity=(AppCompatActivity) view.getContext();
-                activity.getFragmentManager().beginTransaction().replace(R.id.fragment_container,fm)
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fm)
                         .addToBackStack(null)
                         .commit();
             }

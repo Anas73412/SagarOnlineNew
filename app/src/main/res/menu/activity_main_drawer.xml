@@ -32,14 +32,14 @@
             android:visible="false"/>
     </group>
 
-    <!--<group-->
-    <!--android:id="@+id/group_support"-->
-    <!--android:checkableBehavior="single">-->
-    <!--<item-->
-    <!--android:id="@+id/nav_support"-->
-    <!--android:icon="@drawable/ic_nav_support"-->
-    <!--android:title="@string/nav_chat" />-->
-    <!--</group>-->
+    <group
+    android:id="@+id/group_order"
+    android:checkableBehavior="single">
+    <item
+    android:id="@+id/nav_orders"
+    android:icon="@drawable/icons8_bulleted_list_128px"
+    android:title="My Orders" />
+    </group>
 
 
     <group

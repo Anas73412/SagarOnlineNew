@@ -20,6 +20,8 @@
 <pl.droidsonroids.gif.GifImageView
     android:layout_width="100dp"
     android:layout_height="100dp"
+    android:padding="@dimen/space_10"
+    android:rotationY="180"
     android:src="@drawable/loading"/>
 
 

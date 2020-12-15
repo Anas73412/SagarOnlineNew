@@ -30,7 +30,7 @@ import static com.example.sagaronlineyash.Config.BaseURL.GET_TERMS_URL;
  * Use the {@link TermsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TermsFragment extends android.app.Fragment {
+public class TermsFragment extends Fragment {
 
     TextView tv_term;
 

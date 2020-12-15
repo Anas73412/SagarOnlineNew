@@ -1,7 +1,7 @@
 package com.example.sagaronlineyash.Fragments;
 
 import android.app.DatePickerDialog;
-import android.app.FragmentManager;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -202,10 +203,10 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
 
 
             Bundle args = new Bundle();
-            android.app.Fragment fm = new View_time_fragment();
+         Fragment fm = new View_time_fragment();
             args.putString("date", getCurrentDate());
             fm.setArguments(args);
-            FragmentManager fragmentManager = getActivity().getFragmentManager();
+          androidx.fragment.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                     .addToBackStack(null).commit();
 //            }
@@ -213,8 +214,8 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
 
             sessionManagement.updateSocity("", "");
 
-            android.app.Fragment fm = new Add_delivery_address_fragment();
-            FragmentManager fragmentManager = getActivity().getFragmentManager();
+         Fragment fm = new Add_delivery_address_fragment();
+        androidx.fragment.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                     .addToBackStack(null).commit();
 
@@ -336,7 +337,7 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
             args.putString("deli_charges", deli_charges);
             args.putString("store_id", store_id);
             fm.setArguments(args);
-            FragmentManager fragmentManager = getActivity().getFragmentManager();
+           FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                     .addToBackStack(null).commit();
 

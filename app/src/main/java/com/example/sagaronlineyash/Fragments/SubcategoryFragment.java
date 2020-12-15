@@ -1,9 +1,9 @@
 package com.example.sagaronlineyash.Fragments;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +46,7 @@ import java.util.Map;
  * Use the {@link SubcategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SubcategoryFragment extends android.app.Fragment {
+public class SubcategoryFragment extends Fragment {
 
     Module module;
     private static String TAG = SubcategoryFragment.class.getSimpleName();
@@ -137,7 +137,7 @@ public class SubcategoryFragment extends android.app.Fragment {
                 getid=category_modelList.get(position).getId();
                 String title=category_modelList.get(position).getTitle();
                 Bundle args = new Bundle();
-                android.app.Fragment fm = new ProductFragment();
+               Fragment fm = new ProductFragment();
                 args.putString("cat_id", getid);
                 args.putString( "title" , title);
                 args.putString("slab_value",category_modelList.get(position).getSlab_value());
@@ -146,7 +146,7 @@ public class SubcategoryFragment extends android.app.Fragment {
                 // args.putString( "" );
                 // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
                 fm.setArguments(args);
-                FragmentManager fragmentManager = getFragmentManager();
+               FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                         .addToBackStack(null).commit();
             }

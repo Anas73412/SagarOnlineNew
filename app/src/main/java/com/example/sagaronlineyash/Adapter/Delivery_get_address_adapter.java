@@ -2,8 +2,6 @@ package com.example.sagaronlineyash.Adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +14,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -231,7 +232,7 @@ public class Delivery_get_address_adapter extends RecyclerView.Adapter<Delivery_
                 sessionManagement.updateSocity("","");
 
                 Bundle args = new Bundle();
-                Fragment fm = new Add_delivery_address_fragment();
+            Fragment fm = new Add_delivery_address_fragment();
                 args.putString("location_id",mList.getLocation_id());
                 args.putString("name", mList.getReceiver_name());
                 args.putString("mobile", mList.getReceiver_mobile());
@@ -242,9 +243,13 @@ public class Delivery_get_address_adapter extends RecyclerView.Adapter<Delivery_
                 //  args.putString( "address",getaddress );
 
                 fm.setArguments(args);
-                FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
-                        .addToBackStack(null).commit();
+//            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+//                        .addToBackStack(null).commit();
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fm)
+                        .addToBackStack(null)
+                        .commit();
 //
             }
         });
