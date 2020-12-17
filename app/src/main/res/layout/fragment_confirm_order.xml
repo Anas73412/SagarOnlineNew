@@ -609,7 +609,7 @@
             <Button
                 android:id="@+id/btn_order_now"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"
                 android:text="@string/order_now"

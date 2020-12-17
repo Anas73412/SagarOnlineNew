@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.Adapter.Home_adapter;
 import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Config.BaseURL;
@@ -98,6 +99,7 @@ public class ShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        ((MainActivity) getActivity()).setTitle("All Categories");
         categoryList = new ArrayList<>();
         rec_category = view.findViewById(R.id.rv_cat);
         session_management= new Session_management(getActivity());

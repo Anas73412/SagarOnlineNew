@@ -600,9 +600,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/relll"
-                app:background="@color/colorPrimary"
-                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/bg_rounded_button"
+                app:backgroundTint="@color/colorPrimary"
                 android:textColor="@color/white"
+                android:textAllCaps="true"
                 android:text="Checkout"/>
         </RelativeLayout>
 

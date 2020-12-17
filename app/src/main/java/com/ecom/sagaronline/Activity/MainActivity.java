@@ -104,15 +104,15 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
         }
 
-        getFragmentManager().
+        getSupportFragmentManager().
 
-                addOnBackStackChangedListener(new android.app.FragmentManager.OnBackStackChangedListener() {
+                addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
                     @Override
                     public void onBackStackChanged() {
                         try {
                             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                         Fragment fr = getSupportFragmentManager().findFragmentById(R.id.contentPanel);
+                         Fragment fr = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
                             final String fm_name = fr.getClass().getSimpleName();
                             Log.e("backstack: ", ": " + fm_name);
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                                     public void onClick(View view) {
                                       Fragment fm = new HomeFragment();
                                      FragmentManager fragmentManager = getSupportFragmentManager();
-                                        fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+                                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                                 .addToBackStack(null).commit();
                                     }
                                 });

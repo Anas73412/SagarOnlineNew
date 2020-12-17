@@ -82,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:id="@+id/edit"
+
                     android:layout_alignParentLeft="true"
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"

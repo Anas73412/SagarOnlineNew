@@ -9,6 +9,10 @@
     app:cardElevation="@dimen/space_3"
     app:cardUseCompatPadding="true"
     card_view:cardCornerRadius="4dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
     <LinearLayout
         android:id="@+id/l2"
@@ -592,4 +596,12 @@
 
 
     </LinearLayout>
+     <ImageView
+            android:src="@drawable/cancelled"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:id="@+id/iv_cancelled"
+         android:visibility="gone"
+            android:layout_height="150dp"/>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

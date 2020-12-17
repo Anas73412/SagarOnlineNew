@@ -71,7 +71,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
 
         ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.payment));
         loadingBar = new LoadingBar(getActivity());
-
+        ((MainActivity) getActivity()).setTitle("Payment Details");
         module=new Module(getActivity());
         db_cart = new DatabaseCartHandler(getActivity());
         sessionManagement = new Session_management(getActivity());

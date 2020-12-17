@@ -83,6 +83,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ((MainActivity) getActivity()).setTitle("Add New Address");
         View view = inflater.inflate(R.layout.fragment_add_delivery_address, container, false);
         list=new ArrayList<>();
         ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.add));
