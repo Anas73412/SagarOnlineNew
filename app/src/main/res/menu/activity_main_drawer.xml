@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <group
+        android:id="@+id/group_shop_now"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_shop_now"
+            android:icon="@drawable/grid_view_32px"
+            android:iconTint="@android:color/white"
+            android:title="Shop Now" />
+    </group>
     <group
         android:id="@+id/group_wishlist"
         android:checkableBehavior="single">
@@ -12,15 +20,7 @@
             android:title="My Wishlist" />
     </group>
 
-    <group
-        android:id="@+id/group_shop_now"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_shop_now"
-            android:icon="@drawable/grid_view_32px"
-            android:iconTint="@android:color/white"
-            android:title="Shop Now" />
-    </group>
+
     <group
         android:id="@+id/group_my_profile"
         android:checkableBehavior="single">
@@ -82,6 +82,7 @@
 
     <group
         android:id="@+id/group_share"
+        android:visible="false"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_share"

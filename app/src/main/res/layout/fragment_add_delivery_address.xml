@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.example.sagaronlineyash.Fonts.LatoBLack
+                <com.ecom.sagaronline.Fonts.LatoBLack
                     android:id="@+id/tv_add_adres_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.example.sagaronlineyash.Fonts.LatoBLack
+                <com.ecom.sagaronline.Fonts.LatoBLack
                     android:id="@+id/tv_add_adres_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.example.sagaronlineyash.Fonts.LatoBLack
+                <com.ecom.sagaronline.Fonts.LatoBLack
                     android:id="@+id/tv_add_adres_pin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.example.sagaronlineyash.Fonts.LatoBLack
+                <com.ecom.sagaronline.Fonts.LatoBLack
                     android:id="@+id/tv_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                 android:background="@drawable/bg_rounded_button"
                 android:padding="12dp">
 
-                <com.example.sagaronlineyash.Fonts.LatoBLack
+                <com.ecom.sagaronline.Fonts.LatoBLack
                     android:id="@+id/add_updt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
