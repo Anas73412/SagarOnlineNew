@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class RegisterDetailsActivity extends AppCompatActivity {
 
     Module module;
     private static String TAG = RegisterActivity.class.getSimpleName();
-    CardView btn_register;
+    Button btn_register;
     String number="";
     String verfiy_number;
     private EditText et_phone, et_name, et_password,et_reg__con_password;

@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class Thanks_fragment extends Fragment implements View.OnClickListener {
 
     TextView tv_info;
-    RelativeLayout btn_home, btn_order;
+    Button btn_home, btn_order;
   LoadingBar loadingBar ;
     SharedPreferences preferences;
     Module module;
@@ -70,8 +71,8 @@ public class Thanks_fragment extends Fragment implements View.OnClickListener {
         String data = getArguments().getString("msg");
         String dataarb=getArguments().getString("msg");
         tv_info = (TextView) view.findViewById(R.id.tv_thank_info);
-        btn_home = (RelativeLayout) view.findViewById(R.id.btn_thank_home);
-        btn_order = (RelativeLayout) view.findViewById(R.id.btn_track_order);
+        btn_home = (Button) view.findViewById(R.id.btn_thank_home);
+        btn_order = (Button) view.findViewById(R.id.btn_track_order);
 
         if (language.contains("english")) {
             tv_info.setText(Html.fromHtml(data));

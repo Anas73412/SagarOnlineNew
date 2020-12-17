@@ -194,7 +194,7 @@
             <RelativeLayout
                 android:id="@+id/rel_add"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="@dimen/space_5"
@@ -205,14 +205,12 @@
                 <Button
                     android:fontFamily="@font/bold"
                     android:id="@+id/add_btn"
-                    android:padding="5dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/bg_rounded_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:text="add"
                     android:textColor="@color/white"
-                    android:drawablePadding="5dp"
 
                     />
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton

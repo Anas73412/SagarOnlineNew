@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView btn_register,btn_forgot;
     Module module;
     EditText et_password , et_email;
-    CardView btn_continue;
+    Button btn_continue;
     Session_management sessionManagement;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

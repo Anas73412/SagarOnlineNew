@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -67,7 +68,7 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
     private TextView tv_afternoon, tv_morning, tv_total, tv_item, tv_socity ,txtdelivery;
     private TextView tv_date, tv_time;
     private EditText et_address;
-    private RelativeLayout btn_checkout, tv_add_adress;
+    Button btn_checkout, tv_add_adress;
     private RecyclerView rv_address;
 
     private Delivery_get_address_adapter adapter;
@@ -109,10 +110,10 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
 
         tv_date = (TextView) view.findViewById(R.id.tv_deli_date);
         tv_time = (TextView) view.findViewById(R.id.tv_deli_fromtime);
-        tv_add_adress = (RelativeLayout) view.findViewById(R.id.tv_deli_add_address);
+        tv_add_adress = (Button) view.findViewById(R.id.tv_deli_add_address);
         tv_total = (TextView) view.findViewById(R.id.tv_deli_total);
         tv_item = (TextView) view.findViewById(R.id.tv_deli_item);
-        btn_checkout = (RelativeLayout) view.findViewById(R.id.btn_deli_checkout);
+        btn_checkout = (Button) view.findViewById(R.id.btn_deli_checkout);
         rv_address = (RecyclerView) view.findViewById(R.id.rv_deli_address);
         txtdelivery =(TextView)view.findViewById( R.id.txtdelivery );
         rv_address.setLayoutManager(new LinearLayoutManager(getActivity()));

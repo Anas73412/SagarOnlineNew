@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class ForgotActivity extends AppCompatActivity implements View.OnClickLis
     Module module;
     private static String TAG = ForgotActivity.class.getSimpleName();
     LoadingBar loadingBar ;
-    private CardView btn_continue;
+    Button btn_continue;
     private EditText et_con_pass,et_new_pass;
     private TextView tv_email;
     String lan;

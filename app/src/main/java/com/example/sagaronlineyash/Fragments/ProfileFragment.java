@@ -41,8 +41,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import static com.example.sagaronlineyash.Config.BaseURL.EDIT_PROFILE_URL;
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_EMAIL;
 import static com.example.sagaronlineyash.Config.BaseURL.KEY_HOUSE;
 import static com.example.sagaronlineyash.Config.BaseURL.KEY_IMAGE;
+import static com.example.sagaronlineyash.Config.BaseURL.KEY_MOBILE;
 import static com.example.sagaronlineyash.Config.BaseURL.KEY_NAME;
 import static com.example.sagaronlineyash.Config.BaseURL.KEY_PINCODE;
 import static com.example.sagaronlineyash.Config.BaseURL.KEY_REWARDS_POINTS;
@@ -58,9 +60,10 @@ import static com.example.sagaronlineyash.Fragments.DetailsFragment.progressBar;
 public class ProfileFragment extends Fragment {
 
     Session_management session_management;
-    EditText et_email,et_dob;
-    EditText et_name , et_number;
+    EditText et_email;
+    EditText et_name , et_number, et_addess;
     Button update;
+    TextView txtusername,txtuseremail,et_dob;
 
     ProgressBar progressBar;
     String name;
@@ -71,6 +74,7 @@ public class ProfileFragment extends Fragment {
     String wallet;
     String rewards;
     String house;
+    String email="";
 
     TextView tv_name;
    // ImageView iv_edit;
@@ -131,11 +135,13 @@ DatePickerDialog.OnDateSetListener setListener;
 
         et_name = v.findViewById(R.id.name);
         et_number = v.findViewById(R.id.number);
+        et_addess = v.findViewById(R.id.address);
         update = v.findViewById(R.id.update);
-        progressBar = v.findViewById(R.id.progressBar);
+       // progressBar = v.findViewById(R.id.progressBar);
         et_dob=v.findViewById(R.id.date_of_birth);
         et_email=v.findViewById(R.id.email_update);
-
+        txtusername=v.findViewById(R.id.username);
+        txtuseremail=v.findViewById(R.id.useremail);
         Session_management session_management= new Session_management(getActivity());
          pincode=session_management.getUserDetails().get(KEY_PINCODE);
          socity_id=session_management.getUserDetails().get(KEY_SOCITY_ID);
@@ -144,7 +150,9 @@ DatePickerDialog.OnDateSetListener setListener;
          rewards=session_management.getUserDetails().get(KEY_REWARDS_POINTS);
          house=session_management.getUserDetails().get(KEY_HOUSE);
 
-
+        et_number.setText(session_management.getUserDetails().get(KEY_MOBILE));
+        txtusername.setText(session_management.getUserDetails().get(KEY_NAME));
+        txtuseremail.setText(session_management.getUserDetails().get(KEY_EMAIL));
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -157,7 +165,7 @@ DatePickerDialog.OnDateSetListener setListener;
             public void onClick(View v) {
 
                 DatePickerDialog datePickerDialog =new DatePickerDialog(getActivity(),android.R.style.Theme_Material_Light_DarkActionBar,setListener,year,month,day);
-                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 datePickerDialog.show();
             }
         });
@@ -186,6 +194,7 @@ DatePickerDialog.OnDateSetListener setListener;
 
                String username=et_name.getText().toString();
                 String usernumber=et_number.getText().toString();
+                 email = et_email.getText().toString();
 
              //  session_management.updateUserName(username);
 
@@ -193,6 +202,7 @@ DatePickerDialog.OnDateSetListener setListener;
                    params.put("user_fullname",username);
 //                   params.put("user_fullname",name);
                    params.put("user_mobile",usernumber);
+                   params.put("user_email",email);
                    Log.e(TAG, "user_id-  " + params.toString());
 
 //                if (TextUtils.isEmpty(username))
@@ -219,7 +229,7 @@ DatePickerDialog.OnDateSetListener setListener;
                                 {
                                     Toast.makeText(getActivity(),"Updated Successfully",Toast.LENGTH_LONG).show();
 //                                    progressBar.setVisibility(View.GONE);
-                                    session_management.updateData(username,usernumber,pincode,socity_id, image,wallet,rewards,house);
+                                    session_management.updateData(username,usernumber,pincode,socity_id, image,wallet,rewards,house,email);
                                     updatename();
 //                                    HomeFragment addressFragment = new HomeFragment();
 //                                    ((MainActivity)getActivity()).loadFragment(addressFragment,null);

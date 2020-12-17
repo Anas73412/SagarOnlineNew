@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -58,7 +59,7 @@ public class Search_fragment extends Fragment {
   private static String TAG = Search_fragment.class.getSimpleName();
   private AutoCompleteTextView acTextView;
   SearchHistoryHandler searchHistoryHandler;
-  private CardView btn_search;
+  Button btn_search;
   private RecyclerView rv_search,rv_history;
   ImageView img_no_products;
   private List<NewProductModel> product_modelList = new ArrayList<>();

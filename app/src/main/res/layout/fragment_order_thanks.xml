@@ -46,44 +46,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/btn_thank_home"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_margin="12dp"
-                android:onClick="onClick"
-                android:background="@drawable/bg_rounded_button"
-                android:padding="12dp">
 
-                <com.example.sagaronlineyash.Fonts.LatoBLack
+
+                <Button
+                    android:id="@+id/btn_thank_home"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:gravity="center"
                     android:text="@string/tv_thanks_home"
+                    android:background="@drawable/bg_rounded_button"
+                    android:layout_margin="12dp"
                     android:textColor="#fff"
                     android:textSize="@dimen/space_16" />
 
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/btn_track_order"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:onClick="goToAttract"
-                android:layout_margin="12dp"
-                android:background="@drawable/bg_rounded_button"
-                android:padding="12dp">
-
-                <com.example.sagaronlineyash.Fonts.LatoBLack
+                <Button
+                    android:id="@+id/btn_track_order"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:gravity="center"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/bg_rounded_button"
                     android:text="@string/tv_thanks_order"
                     android:textColor="#fff"
                     android:textSize="@dimen/space_16" />
 
-            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

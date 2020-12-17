@@ -59,26 +59,19 @@
                         tools:ignore="LabelFor" />
 
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/btn_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        card_view:cardCornerRadius="@dimen/space_10"
-                        android:layout_margin="12dp"
-                        android:padding="12dp">
-
-                        <TextView
+                        <Button
+                            android:id="@+id/btn_search"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:background="@drawable/gradient"
+                            android:background="@drawable/bg_rounded_button"
                             android:text="Search"
+                            android:layout_margin="12dp"
                             android:fontFamily="@font/bold"
                             android:textColor="#fff"
                             android:textSize="@dimen/space_14" />
 
 
-                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

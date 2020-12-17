@@ -441,15 +441,15 @@
         <Button
             android:id="@+id/confirm_order"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/confirm_order_button"
-            android:fontFamily="@font/bold"
-            android:layout_marginLeft="@dimen/space_6"
-            android:layout_marginRight="@dimen/space_6"
+            android:layout_height="50dp"
+            android:padding="@dimen/space_10"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Confirm"
             android:background="@drawable/bg_rounded_button"
-            android:textSize="@dimen/space_16"
-            android:text="@string/confirm_order"
+            android:fontFamily="@font/bold"
             android:textColor="#fff"
-            android:padding="12dp"/>
+            android:textSize="16sp"/>
 
 
         <!--        <RelativeLayout-->

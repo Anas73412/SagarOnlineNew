@@ -166,25 +166,19 @@
                 android:textSize="@dimen/space_14"
                 />
 
-            <RelativeLayout
-                android:id="@+id/btn_add_adres_edit"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_margin="12dp"
-                android:background="@drawable/bg_rounded_button"
-                android:padding="12dp">
 
-                <com.example.sagaronlineyash.Fonts.LatoBLack
-                    android:id="@+id/add_updt"
+                <Button
+                    android:id="@+id/btn_add_adres_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_rounded_button"
                     android:text="@string/add_del"
                     android:textColor="#fff"
                     android:textSize="@dimen/space_16" />
 
 
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

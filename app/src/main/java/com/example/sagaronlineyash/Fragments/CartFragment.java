@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -55,7 +56,7 @@ public class CartFragment extends Fragment implements View.OnClickListener{
     Module module;
     public static RecyclerView rv_cart;
     public static TextView tv_clear, tv_total, tv_item;
-    public static TextView btn_checkout;
+    public static  Button btn_checkout;
     public static LinearLayout linear_empty ,linear_cart ;
 
     //  private DatabaseHandler db;

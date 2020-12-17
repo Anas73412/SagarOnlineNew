@@ -39,7 +39,7 @@ import static com.example.sagaronlineyash.Config.BaseURL.URL_REGISTER_OTP;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText et_reg_number;
-    CardView btn_verify_number;
+    Button btn_verify_number;
     LoadingBar loadingBar ;
     String type="";
     Module module;

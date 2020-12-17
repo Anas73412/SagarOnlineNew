@@ -118,7 +118,7 @@ public class Session_management {
     }
 
     public void updateData(String name, String mobile, String pincode
-            , String socity_id, String image, String wallet, String rewards, String house) {
+            , String socity_id, String image, String wallet, String rewards, String house, String email) {
 
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_MOBILE, mobile);
@@ -128,6 +128,7 @@ public class Session_management {
         editor.putString(KEY_WALLET_Ammount, wallet);
         editor.putString(KEY_REWARDS_POINTS, rewards);
         editor.putString(KEY_HOUSE, house);
+        editor.putString(KEY_EMAIL, email);
 
         editor.apply();
     }

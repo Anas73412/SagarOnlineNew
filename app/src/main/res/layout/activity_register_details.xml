@@ -139,33 +139,21 @@
         </LinearLayout>
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/Register"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerHorizontal="true"
-            app:cardBackgroundColor="@color/card_color"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView"
+                <Button
+                    android:id="@+id/Register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bold"
                     android:gravity="center"
                     android:padding="3dp"
+                    android:background="@drawable/bg_rounded_button"
                     android:layout_centerInParent="true"
                     android:text="Register"
                     android:textColor="#fff"
                     android:textSize="16sp" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+
 
 
     </LinearLayout>

@@ -263,9 +263,9 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-    <TextView
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:gravity="center"
         android:text="Checkout Now"
         android:layout_alignParentBottom="true"
@@ -275,4 +275,5 @@
         android:background="@drawable/bg_rounded_button"
         android:textColor="#fff"
         android:textSize="@dimen/space_16" />
+
 </RelativeLayout>

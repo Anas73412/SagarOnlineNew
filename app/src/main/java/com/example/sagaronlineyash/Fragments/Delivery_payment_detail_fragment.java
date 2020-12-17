@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +37,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
 
     Module module;
     private TextView tv_timeslot, tv_address;
-    private LinearLayout btn_order;
+    Button btn_order;
 
     private String getlocation_id = "";
     private String gettime = "";
@@ -91,7 +92,8 @@ public class Delivery_payment_detail_fragment extends Fragment {
         house_no = view.findViewById( R.id.Houseno );
         society = view.findViewById( R.id.Society );
 
-        btn_order = (LinearLayout) view.findViewById(R.id.btn_order_now);
+        btn_order = (Button) view.findViewById(R.id.btn_order_now);
+
 
         getdate = getArguments().getString("getdate");
 

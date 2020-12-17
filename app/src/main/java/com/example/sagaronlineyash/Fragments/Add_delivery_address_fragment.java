@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,7 +58,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
     List<String> list;
     private EditText et_phone, et_name, et_address;
     private AutoCompleteTextView et_pin;
-    private RelativeLayout btn_update;
+    Button btn_update;
     private TextView tv_phone, tv_name, tv_pin, tv_address, tv_socity, btn_socity ,tv_submit;
     private String getsocity_id = "";
 
@@ -96,9 +97,9 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
         et_pin = (AutoCompleteTextView) view.findViewById(R.id.et_add_adres_pin);
         et_address = (EditText) view.findViewById(R.id.et_add_adres_home);
         tv_address =(TextView)view.findViewById( R.id.tv_add );
-        tv_submit = view.findViewById( R.id.add_updt );
+      //  tv_submit = view.findViewById( R.id.add_updt );
         //tv_socity = (TextView) view.findViewById(R.id.tv_add_adres_socity);
-        btn_update = (RelativeLayout) view.findViewById(R.id.btn_add_adres_edit);
+        btn_update = (Button) view.findViewById(R.id.btn_add_adres_edit);
         //  btn_socity = (TextView) view.findViewById(R.id.btn_add_adres_socity);
 
 

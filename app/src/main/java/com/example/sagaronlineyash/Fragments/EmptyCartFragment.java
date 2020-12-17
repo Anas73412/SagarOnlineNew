@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.sagaronlineyash.Activity.MainActivity;
@@ -18,7 +19,7 @@ public class EmptyCartFragment extends Fragment {
 
     private static String TAG = EmptyCartFragment.class.getSimpleName();
 
-    RelativeLayout Shop_now;
+    Button Shop_now;
 
     LoadingBar loadingBar;
     public EmptyCartFragment() {
@@ -35,7 +36,7 @@ public class EmptyCartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_empty_cart, container, false);
         ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.cart));
         loadingBar = new LoadingBar(getActivity());
-        Shop_now = (RelativeLayout) view.findViewById(R.id.btn_shopnow);
+        Shop_now = (Button) view.findViewById(R.id.btn_shopnow);
         Shop_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

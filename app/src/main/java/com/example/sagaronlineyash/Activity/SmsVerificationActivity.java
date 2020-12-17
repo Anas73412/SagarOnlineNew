@@ -48,7 +48,7 @@ import static com.example.sagaronlineyash.Config.BaseURL.URL_VERIFY_REGISTER_OTP
 
 public class SmsVerificationActivity extends AppCompatActivity implements View.OnClickListener {
     private final int REQUEST_ID_MULTIPLE_PERMISSIONS=1;
-    CardView btn_msg;
+    Button btn_msg;
     EditText et_otp;
     String type="";
     String Otp="";

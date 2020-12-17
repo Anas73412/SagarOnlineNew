@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,141 +7,429 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Fragments.ProfileFragment">
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="@font/bold"
-                android:text="Profile"
-                android:textColor="@color/colorPrimary"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-
-            <androidx.cardview.widget.CardView
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                app:cardBackgroundColor="@color/colorPrimary"
-                android:padding="@dimen/space_20"
-                app:cardCornerRadius="20dp">
+                android:orientation="vertical"
+                android:background="@drawable/bg_rectangle">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgs"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_launcher_round" />
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Binplus"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="2dp"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:id="@+id/useremail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="xyz@gamil.com"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="20sp"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:text="Account Info"
+                android:layout_marginTop="30dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_name"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Name"
+               android:textColor="@color/black"
+               android:layout_weight="1"
+               android:textSize="18sp"/>
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="abcd"
+                android:textColorHint="@color/gray"
+                android:textSize="18dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_mobile"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moblie"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:textSize="18dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_email"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/space_10"
-                    android:background="@color/colorPrimary"
-                    android:orientation="vertical"
-                    android:padding="@dimen/space_10">
-
-                    <EditText
-                        android:id="@+id/name"
-                        android:layout_width="match_parent"
+                    android:weightSum="2"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_10"
-                        android:layout_marginBottom="@dimen/space_10"
-                        android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_account_box_24"
-                        android:drawablePadding="5dp"
-                        android:drawableTint="@color/grey"
-                        android:fontFamily="@font/aileron_regular"
-                        android:hint="Enter Name"
-                        android:padding="@dimen/space_10"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_10"
-                        android:layout_marginBottom="@dimen/space_10"
-                        android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_phone_android_24"
-                        android:drawablePadding="5dp"
-                        android:drawableTint="@color/grey"
-                        android:enabled="false"
-                        android:fontFamily="@font/aileron_regular"
-                        android:hint="Name"
-                        android:inputType="number"
-                        android:padding="@dimen/space_10"
-                        android:text="9927933812"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp" />
-
+                        android:text="Email"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:textSize="18sp"/>
                     <EditText
                         android:id="@+id/email_update"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_10"
-                        android:layout_marginBottom="@dimen/space_10"
-                        android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
-                        android:drawablePadding="5dp"
-                        android:drawableTint="@color/grey"
-                        android:fontFamily="@font/aileron_regular"
-                        android:hint="Enter Email Id"
-                        android:padding="@dimen/space_10"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/date_of_birth"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_10"
-                        android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
-                        android:drawablePadding="5dp"
-                        android:drawableTint="@color/grey"
-                        android:fontFamily="@font/aileron_regular"
-                        android:hint="Date of Birth (MM/DD/YY)"
-                        android:padding="@dimen/space_10"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp" />
+                        android:hint="abcd@gmail.com"
+                        android:textSize="18dp"
+                        android:textColorHint="@color/gray"
+                        android:layout_weight="1"/>
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/update"
-                android:layout_width="200dp"
-                android:layout_height="35dp"
-                android:layout_margin="35dp"
-                android:background="@drawable/active"
-                android:layout_gravity="center"
-                android:fontFamily="@font/aileron_regular"
-                android:padding="1dp"
-                android:text="UPDATE"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:backgroundTint="@color/colorPrimary" />
+            </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_address"
+                    />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:textSize="18sp"/>
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="shivaji nagar"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18dp"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_dob"
+
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="D.O.B"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:id="@+id/date_of_birth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:hint="12/12/2020"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18dp"
+                        android:layout_weight="1"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/update"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Update"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/bg_rounded_button"
+             />
         </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
-</LinearLayout>
+
+</RelativeLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@color/white"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:context=".Fragments.ProfileFragment">-->
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="40dp"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:fontFamily="@font/bold"-->
+<!--                android:text="Profile"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                android:textSize="24dp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="20dp"-->
+<!--                app:cardBackgroundColor="@color/colorPrimary"-->
+<!--                android:padding="@dimen/space_20"-->
+<!--                app:cardCornerRadius="20dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/space_10"-->
+<!--                    android:background="@color/colorPrimary"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="@dimen/space_10">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/name"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="@dimen/space_10"-->
+<!--                        android:layout_marginBottom="@dimen/space_10"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:drawableLeft="@drawable/ic_baseline_account_box_24"-->
+<!--                        android:drawablePadding="5dp"-->
+<!--                        android:drawableTint="@color/grey"-->
+<!--                        android:fontFamily="@font/aileron_regular"-->
+<!--                        android:hint="Enter Name"-->
+<!--                        android:padding="@dimen/space_10"-->
+<!--                        android:text=""-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textColorHint="@color/grey"-->
+<!--                        android:textSize="14sp" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/number"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="@dimen/space_10"-->
+<!--                        android:layout_marginBottom="@dimen/space_10"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:drawableLeft="@drawable/ic_baseline_phone_android_24"-->
+<!--                        android:drawablePadding="5dp"-->
+<!--                        android:drawableTint="@color/grey"-->
+<!--                        android:enabled="false"-->
+<!--                        android:fontFamily="@font/aileron_regular"-->
+<!--                        android:hint="Name"-->
+<!--                        android:inputType="number"-->
+<!--                        android:padding="@dimen/space_10"-->
+<!--                        android:text="9927933812"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textColorHint="@color/grey"-->
+<!--                        android:textSize="14sp" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/email_update"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="@dimen/space_10"-->
+<!--                        android:layout_marginBottom="@dimen/space_10"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:drawableLeft="@drawable/ic_baseline_mail_outline_24"-->
+<!--                        android:drawablePadding="5dp"-->
+<!--                        android:drawableTint="@color/grey"-->
+<!--                        android:fontFamily="@font/aileron_regular"-->
+<!--                        android:hint="Enter Email Id"-->
+<!--                        android:padding="@dimen/space_10"-->
+<!--                        android:text=""-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textColorHint="@color/grey"-->
+<!--                        android:textSize="14sp" />-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/date_of_birth"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="@dimen/space_10"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:drawableLeft="@drawable/ic_baseline_calendar_today_24"-->
+<!--                        android:drawablePadding="5dp"-->
+<!--                        android:drawableTint="@color/grey"-->
+<!--                        android:fontFamily="@font/aileron_regular"-->
+<!--                        android:hint="Date of Birth (MM/DD/YY)"-->
+<!--                        android:padding="@dimen/space_10"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textColorHint="@color/grey"-->
+<!--                        android:textSize="14sp" />-->
+
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <Button-->
+<!--                android:id="@+id/update"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_margin="35dp"-->
+<!--                android:background="@drawable/active"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:fontFamily="@font/aileron_regular"-->
+<!--                android:padding="1dp"-->
+<!--                android:text="UPDATE"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp"-->
+<!--                app:backgroundTint="@color/card_color" />-->
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progressBar"-->
+<!--                style="?android:attr/progressBarStyle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:visibility="gone" />-->
+
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
+<!--</LinearLayout>-->

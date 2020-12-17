@@ -216,7 +216,7 @@
                 <Button
                     android:id="@+id/btn_add_address"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:text="SAVE DELIVERY ADDRESS"
                     android:textAllCaps="false"
                     android:layout_marginTop="20dp"
@@ -228,8 +228,8 @@
                     android:layout_gravity="center_horizontal"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/bold"
-                    android:background="@drawable/active"
-                    app:backgroundTint="@color/card_color"
+                    android:background="@drawable/bg_rounded_button"
+
                     android:textAlignment="center"
                     android:gravity="center" />
             </LinearLayout>

@@ -273,10 +273,12 @@
                 <Button
                     android:fontFamily="@font/bold"
                     android:id="@+id/btn_add"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
                     android:clickable="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/bg_rounded_button"
                     android:text="Add"
                     android:textColor="@color/white" />
