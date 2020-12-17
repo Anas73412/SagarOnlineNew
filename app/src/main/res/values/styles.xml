@@ -11,25 +11,23 @@
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="textAppearanceCaption">@font/bold</item>
         <item name="textAppearanceBody1">@font/bold</item>
-        <item name="expandActivityOverflowButtonDrawable">@drawable/bg_rounded_button</item>
+
     </style>
     <style name="AppTheme2" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/white</item>
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
         <item name="colorNavigationItemSelected">@color/white</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="textAppearanceCaption">@font/bold</item>
         <item name="textAppearanceBody1">@font/bold</item>
-        <item name="expandActivityOverflowButtonDrawable">@drawable/bg_rounded_button</item>
+
     </style>
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <item name="android:layout_marginLeft">40dp</item>

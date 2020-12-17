@@ -227,7 +227,6 @@
                     app:textSize="7dp"
                     android:layout_centerInParent="true"
                     app:initialNumber="0"
-                    app:finalNumber="10"
                     android:visibility="gone"
                     app:backGroundColor="@color/colorAccent"
                     app:backgroundDrawable="@drawable/bg_rounded_button"
