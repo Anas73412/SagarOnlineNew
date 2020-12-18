@@ -45,7 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         public TextView tv_pending_date, tv_pending_time, tv_confirm_date, tv_confirm_time, tv_delevered_date, tv_delevered_time, tv_cancel_date, tv_cancel_time;
         public View view1, view2, view3, view4, view5, view6;
         public RelativeLayout relative_background;
-        public ImageView Confirm, Out_For_Deliverde, Delivered;
+        public ImageView Confirm, Out_For_Deliverde, Delivered ,iv_cancelled;
         CardView cardView;
         public TextView tv_methid1;
         public String method;
@@ -65,7 +65,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
             cardView = view.findViewById(R.id.card_view);
 
-            linearLayout=view.findViewById(R.id.l2);
+            linearLayout=view.findViewById(R.id.l1);
 //            //Payment Method
             tv_methid1 = (TextView) view.findViewById(R.id.method1);
             //Date And Time
@@ -85,7 +85,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             view5 = (View) view.findViewById(R.id.view5);
             view6 = (View) view.findViewById(R.id.view6);
             relative_background = (RelativeLayout) view.findViewById(R.id.relative_background);
-
+            iv_cancelled = view.findViewById(R.id.iv_cancelled);
             Confirm = (ImageView) view.findViewById(R.id.confirm_image);
             Out_For_Deliverde = (ImageView) view.findViewById(R.id.delivered_image);
             Delivered = (ImageView) view.findViewById(R.id.cancal_image);
@@ -136,7 +136,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         }
            else if (mList.getStatus().equals("4")) {
-holder.linearLayout.setVisibility(View.GONE);
+            holder.linearLayout.setVisibility(View.GONE);
+            holder.iv_cancelled.setVisibility(View.VISIBLE);
         }
 
         if (mList.getPayment_method().equals("Store Pick Up")) {
@@ -192,11 +193,7 @@ holder.linearLayout.setVisibility(View.GONE);
 //        holder.tv_cancel_time.setText(mList.getDelivery_time_from() + "-" + mList.getDelivery_time_to());
         holder.tv_cancel_date.setText(mList.getOn_date());
     }
-    public void removeddata(int postion){
-        modelList.remove(postion);
-        notifyItemRemoved(postion);
-        notifyItemRangeChanged(postion,getItemCount());
-    }
+
 
     @Override
     public int getItemCount() {

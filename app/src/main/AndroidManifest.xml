@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SagarOnlineYash"
+        android:theme="@style/AppTheme2"
         tools:replace="android:theme">
         <activity android:name="com.ecom.sagaronline.Activity.NoInternetConnection"></activity>
         <activity
@@ -31,7 +31,8 @@
         <activity
             android:name="com.ecom.sagaronline.Activity.SmsVerificationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.ecom.sagaronline.Activity.LoginActivity" />
+        <activity android:name="com.ecom.sagaronline.Activity.LoginActivity"
+            android:theme="@style/AppTheme"/>
         <activity android:name="com.ecom.sagaronline.Activity.AboutUsActivity" />
         <activity android:name="com.ecom.sagaronline.Activity.SampleActivity"></activity>
         <activity android:name="com.ecom.sagaronline.Activity.RegisterDetailsActivity" />

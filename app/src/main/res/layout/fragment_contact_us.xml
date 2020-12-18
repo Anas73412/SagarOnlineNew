@@ -198,7 +198,7 @@
                     <Button
                         android:id="@+id/submit"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/et_message"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
@@ -207,7 +207,7 @@
                         android:layout_marginBottom="20dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginLeft="15dp"
-                        android:background="@drawable/gradient"
+                        android:background="@drawable/bg_rounded_button"
                         app:backgroundTint="@color/colorPrimary"
                         android:fontFamily="@font/bold"
                         android:padding="3dp"

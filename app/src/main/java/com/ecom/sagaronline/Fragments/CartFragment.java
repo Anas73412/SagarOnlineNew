@@ -81,7 +81,7 @@ public class CartFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.cart));
+        ((MainActivity) getActivity()).setTitle("My Cart");
 
         module = new Module(getActivity());
         loadingBar = new LoadingBar(getActivity());

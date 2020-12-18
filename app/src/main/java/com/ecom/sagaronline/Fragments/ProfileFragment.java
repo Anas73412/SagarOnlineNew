@@ -118,7 +118,7 @@ DatePickerDialog.OnDateSetListener setListener;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_profile, container, false);
-
+        ((MainActivity) getActivity()).setTitle("My Profile");
        // String type = getArguments().getString("type");
       //  String id = getArguments().getString("id");
       //  String username = getArguments().getString("name");

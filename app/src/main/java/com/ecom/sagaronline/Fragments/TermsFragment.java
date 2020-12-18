@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
@@ -78,6 +79,7 @@ public class TermsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ((MainActivity) getActivity()).setTitle("Terms & Condition");
         View v = inflater.inflate(R.layout.fragment_terms, container, false);
 
         tv_term=v.findViewById(R.id.TV_Terms);

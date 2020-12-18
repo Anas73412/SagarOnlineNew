@@ -84,6 +84,7 @@
                 android:layout_centerHorizontal="true"
                 android:clickable="true"
                 android:background="@drawable/bg_rounded_button"
+                app:backgroundTint="@color/colorAccent"
                 android:text="Add"
                 android:textColor="@color/white" />
         </LinearLayout>

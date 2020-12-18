@@ -119,6 +119,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+        ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.app_name));
         module=new Module(getActivity());
         loadingBar = new LoadingBar(getActivity());
         session_management = new Session_management(getActivity());

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ecom.sagaronline.Activity.MainActivity;
-import com.ecom.sagaronline.Activity.OrderViewPagerAdapter;
+import com.ecom.sagaronline.Adapter.OrderViewPagerAdapter;
 import com.ecom.sagaronline.R;
 import com.google.android.material.tabs.TabLayout;
 

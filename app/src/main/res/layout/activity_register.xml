@@ -100,7 +100,7 @@
             android:layout_height="50dp"
             android:text="Submit"
             android:background="@drawable/bg_rounded_button"
-            android:backgroundTint="@color/card_color"
+            app:backgroundTint="@color/card_color"
             />
 <!--        <androidx.cardview.widget.CardView-->
 <!--            android:id="@+id/submit"-->

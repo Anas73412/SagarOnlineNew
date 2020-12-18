@@ -76,7 +76,7 @@
                         <Button
                             android:id="@+id/tv_deli_add_address"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:background="@drawable/bg_rounded_button"
                             android:text="@string/tv_pro_add"
@@ -185,7 +185,7 @@
             <Button
                 android:id="@+id/btn_deli_checkout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Continue"
                 android:background="@drawable/bg_rounded_button"
