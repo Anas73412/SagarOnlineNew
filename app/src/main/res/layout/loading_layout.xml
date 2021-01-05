@@ -1,40 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@android:color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-   >
-<RelativeLayout
-    android:layout_width="wrap_content"
 
-    android:layout_height="wrap_content">
-    <RelativeLayout
-        android:id="@+id/rel_loader"
-        android:padding="20dp"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:padding="@dimen/space_10"
+        app:lottie_rawRes="@raw/loader"
+        app:lottie_autoPlay="true"
+        android:background="@android:color/transparent"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-<pl.droidsonroids.gif.GifImageView
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:padding="@dimen/space_10"
-    android:rotationY="180"
-    android:src="@drawable/loading"/>
+        app:lottie_loop="true"/>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Loading.."
-        android:id="@+id/textView6"
-        android:layout_marginLeft="10dp"
-        android:textSize="16dp"
-       android:visibility="gone"
-        android:textColor="@color/white"
-     />
-    </RelativeLayout>
-</RelativeLayout>
 </RelativeLayout>

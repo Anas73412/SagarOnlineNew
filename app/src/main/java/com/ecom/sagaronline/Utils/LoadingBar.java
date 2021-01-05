@@ -3,6 +3,7 @@ package com.ecom.sagaronline.Utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ecom.sagaronline.R;
@@ -14,7 +15,7 @@ import com.ecom.sagaronline.R;
 public class LoadingBar {
     Context context;
     Dialog dialog;
-    RelativeLayout rel_loader;
+    LinearLayout rel_loader;
 
 
 
@@ -26,10 +27,18 @@ public class LoadingBar {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(R.layout.loading_layout);
         dialog.setCanceledOnTouchOutside(false);
-        rel_loader =dialog.findViewById(R.id.rel_loader);
+
+
+
     }
     public void show()
+
     {
+        if (dialog.isShowing())
+        {
+            dialog.dismiss();
+        }
+
         dialog.show();
     }
 
@@ -44,6 +53,7 @@ public class LoadingBar {
 
     public boolean isShowing()
     {
-       return dialog.isShowing();
+        return dialog.isShowing();
     }
 }
+
