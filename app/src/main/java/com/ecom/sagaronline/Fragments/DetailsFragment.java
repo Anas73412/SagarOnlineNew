@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,9 +166,6 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
-        // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_details, container, false);
 
         sessionManagement = new Session_management(getActivity());
@@ -240,7 +238,7 @@ public class DetailsFragment extends Fragment {
         int df=Math.round(per);
 
         txtName.setText(details_product_name);
-
+        numberButton.setBackgroundColor(getContext().getResources().getColor(R.color.white));
 
         final float stock = Float.parseFloat( details_stock );
 

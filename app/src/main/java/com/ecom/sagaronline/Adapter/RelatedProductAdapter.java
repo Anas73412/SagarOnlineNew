@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -852,7 +853,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                 // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
                 DetailsFragment fm = new DetailsFragment();
                 fm.setArguments(args);
-//                FragmentManager fragmentManager = .beginTransaction().replace(R.id.contentPanel, fm)
+//                FragmentManager fragmentManager = context.getS.beginTransaction().replace(R.id.contentPanel, fm)
 //                        .addToBackStack(null).commit();
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();

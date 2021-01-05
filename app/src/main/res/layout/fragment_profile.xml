@@ -258,8 +258,8 @@
                         android:textSize="20sp"/>
                     <TextView
                         android:id="@+id/date_of_birth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:hint="12/12/2020"
                         android:textColorHint="@color/gray"
                         android:textSize="18dp"
@@ -277,6 +277,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Update"
+                android:textColor="@color/white"
                 android:layout_marginTop="35dp"
                 android:background="@drawable/bg_rounded_button"
              />

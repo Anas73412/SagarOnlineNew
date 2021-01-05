@@ -436,7 +436,7 @@
                     android:layout_margin="@dimen/space_10"
                     android:elevation="6dp"
                     app:textSize="8dp"
-
+                    android:theme="@style/Theme.AppCompat.Light"
                     app:textColor="@color/white"
                     />
             </RelativeLayout>
