@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,9 +22,11 @@ import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Config.Module;
+import com.ecom.sagaronline.Model.GetCongifDataModel;
 import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
 import com.ecom.sagaronline.Utils.LoadingBar;
+import com.ecom.sagaronline.Utils.OnGetConfigData;
 import com.ecom.sagaronline.Utils.Session_management;
 
 import org.json.JSONException;
@@ -45,7 +49,9 @@ public class ContactUsFragment extends Fragment {
     EditText et_phone,et_name,et_message;
     Module module;
     Button submit;
+    TextView tv_whatsapp,tv_call;
     String name,mobile,message;
+    LinearLayout ll_whatsapp,ll_call;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,8 +102,12 @@ public class ContactUsFragment extends Fragment {
         loadingBar= new LoadingBar(getContext());
         session_management = new Session_management(getActivity());
         et_phone = v.findViewById(R.id.et_phone);
+        ll_call=v.findViewById(R.id.ll_call);
+        ll_whatsapp=v.findViewById(R.id.ll_call);
         et_name= v.findViewById(R.id.et_name);
         et_message=v.findViewById(R.id.et_message);
+        tv_call = v.findViewById(R.id.tv_call);
+        tv_whatsapp = v.findViewById(R.id.tv_whatsapp);
 
         et_phone.setText(session_management.getUserDetails().get(KEY_MOBILE));
 
@@ -105,6 +115,23 @@ public class ContactUsFragment extends Fragment {
         submit=v.findViewById(R.id.submit);
 
        // et_phone.setText(session_management.getUserDetails().get(KEY_MOBILE));
+module.getCongifData(new OnGetConfigData() {
+    @Override
+    public void onGetConfigData(GetCongifDataModel model) {
+
+        String call = model.getCall_no();
+        String whatsapp = model.getWhatsapp_no();
+        tv_whatsapp.setText(whatsapp);
+        tv_call.setText(call);
+        if (call.isEmpty()||call.equals(null)||call.equalsIgnoreCase("0000000000")){
+            ll_call.setVisibility(View.GONE);
+        }
+        if (whatsapp.isEmpty()||whatsapp.equals(null)||whatsapp.equalsIgnoreCase("0000000000"))
+        {
+            ll_whatsapp.setVisibility(View.GONE);
+        }
+    }
+});
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

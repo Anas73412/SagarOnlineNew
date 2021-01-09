@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,11 +13,25 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.ecom.sagaronline.AppController;
+import com.ecom.sagaronline.Model.GetCongifDataModel;
+import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
+import com.ecom.sagaronline.Utils.OnGetConfigData;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.ecom.sagaronline.Config.BaseURL.GET_VERSION_URL;
 
 
 public class Module {
@@ -79,6 +94,54 @@ public class Module {
         }, 1000);
     }
 
+    public void getCongifData(OnGetConfigData onGetConfigData)
+    {
+        HashMap<String, String> param = new HashMap<String, String>();
+
+        CustomVolleyJsonRequest customVolleyJsonRequest = new CustomVolleyJsonRequest(Request.Method.POST, GET_VERSION_URL, param, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.e("getConfigData",response.toString());
+                    Boolean resp=response.getBoolean("responce");
+                    if (resp)
+                    {
+                        JSONObject jsonObject=response.getJSONObject("data");
+                        String id = jsonObject.getString("id");
+                        String data =jsonObject.getString("data");
+                        String app_version = jsonObject.getString("app_version");
+                        String msg_status=jsonObject.getString("msg_status");
+                        String whatsapp_no=jsonObject.getString("whatsapp_no");
+                        String call_no=jsonObject.getString("call_no");
+
+                        GetCongifDataModel getCongifDataModel= new GetCongifDataModel();
+
+                        ArrayList<GetCongifDataModel> list = new ArrayList<>();
+                        getCongifDataModel.setId(id);
+                        getCongifDataModel.setData(data);
+                        getCongifDataModel.setMsg_status(msg_status);
+                        getCongifDataModel.setCall_no(call_no);
+                        getCongifDataModel.setApp_version(app_version);
+                        getCongifDataModel.setWhatsapp_no(whatsapp_no);
+                        Log.e("sASa", "onResponse: "+getCongifDataModel.getWhatsapp_no() );
+                       onGetConfigData.onGetConfigData(getCongifDataModel);
+//                        list.add(getCongifDataModel);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        AppController.getInstance().addToRequestQueue(customVolleyJsonRequest);
+    }
 
     /*public void addToCart(Context context, String cart_id, String product_id, String product_image, String cat_id, String product_name, String price, String unit_price, String unit, String mrp, String stock, String type, float qty)
     {
@@ -109,6 +172,7 @@ public class Module {
         }
 
     }
+
 
     public void addToWishlist(Context context , String product_id , String product_images , String cat_id , String product_name , String price,
                               String product_desc , String rewards , String unit_value , String unit , String increment , String stock , String in_stock,

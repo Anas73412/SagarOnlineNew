@@ -162,7 +162,7 @@
                         android:layout_marginTop="@dimen/space_10"
                         android:layout_marginLeft="@dimen/space_10"
                         android:layout_marginRight="@dimen/space_10"
-                        android:visibility="gone"
+
                         android:background="@drawable/relative_unit_layout">
                         <TextView
                             android:id="@+id/unit_type"

@@ -35,6 +35,7 @@ import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.Model.CategoryModel;
+import com.ecom.sagaronline.Model.GetCongifDataModel;
 import com.ecom.sagaronline.Model.NewProductModel;
 import com.ecom.sagaronline.Model.SliderSubcatModel;
 import com.ecom.sagaronline.R;
@@ -42,6 +43,7 @@ import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.LoadingBar;
+import com.ecom.sagaronline.Utils.OnGetConfigData;
 import com.ecom.sagaronline.Utils.Session_management;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -144,7 +146,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 
 
         loadingBar = new LoadingBar(getActivity());
-
+        module=new Module(getActivity());
 
         float_filter = view.findViewById(R.id.flot_filter);
         tab_cat = (TabLayout) view.findViewById( R.id.tab_cat);
@@ -153,7 +155,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         tab_sort =(ImageView) view.findViewById( R.id.sort );
         tab_grid.setOnClickListener( this );
         tab_sort.setOnClickListener( this );
-        module=new Module(getActivity());
+
         session_management=new Session_management(getActivity());
 
         //   banner_slider = (SliderLayout) view.findViewById(R.id.relative_banner);
@@ -1010,6 +1012,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
 
 
 

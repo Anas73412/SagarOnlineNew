@@ -90,6 +90,7 @@ public class BaseURL {
     public static String GET_PRODUCT_NEWEST = BASE_URL + "index.php/api/get_products_new";
 
     public static String GET_VERSION_URL = BASE_URL + "index.php/api/getVersionData";
+    public  static String GET_PRODUCT_DETAIL_URL = BASE_URL + "index.php/api/get_product_by_id";
 
     public static String GET_ABOUT_URL = BASE_URL + "index.php/api/aboutus";
 
