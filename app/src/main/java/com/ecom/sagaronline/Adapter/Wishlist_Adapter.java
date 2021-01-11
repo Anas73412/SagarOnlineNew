@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.ecom.sagaronline.Activity.NewDetailFragment;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Fragments.DetailsFragment;
 import com.ecom.sagaronline.Fragments.WishlistFragment;
@@ -414,7 +415,8 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                 args.putString("increment",map.get("increment"));
                 args.putString("title",map.get( "title" ));
                 // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
-                DetailsFragment fm = new DetailsFragment();
+              //  DetailsFragment fm = new DetailsFragment();
+                NewDetailFragment fm = new NewDetailFragment();
                 fm.setArguments(args);
 //                FragmentManager fragmentManager = .beginTransaction().replace(R.id.contentPanel, fm)
 //                        .addToBackStack(null).commit();
@@ -451,7 +453,8 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                 args.putString("increment",map.get("increment"));
                 args.putString("title",map.get( "title" ));
                 // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
-                DetailsFragment fm = new DetailsFragment();
+               // DetailsFragment fm = new DetailsFragment();
+                NewDetailFragment fm = new NewDetailFragment();
                 fm.setArguments(args);
 //                FragmentManager fragmentManager = .beginTransaction().replace(R.id.contentPanel, fm)
 //                        .addToBackStack(null).commit();

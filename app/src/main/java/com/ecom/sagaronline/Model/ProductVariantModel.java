@@ -2,7 +2,7 @@ package com.ecom.sagaronline.Model;
 
 public class ProductVariantModel {
 
-    String id,product_id,attribute_name,attribute_value,attribute_mrp,attribute_color;
+    String id,product_id,attribute_name,attribute_value,attribute_mrp,attribute_color,stock_value,status,attribute_size;
 
 
     public ProductVariantModel() {
@@ -15,6 +15,30 @@ public class ProductVariantModel {
         this.attribute_value = attribute_value;
         this.attribute_mrp = attribute_mrp;
         this.attribute_color = attribute_color;
+    }
+
+    public String getStock_value() {
+        return stock_value;
+    }
+
+    public void setStock_value(String stock_value) {
+        this.stock_value = stock_value;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAttribute_size() {
+        return attribute_size;
+    }
+
+    public void setAttribute_size(String attribute_size) {
+        this.attribute_size = attribute_size;
     }
 
     public String getId() {

@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ecom.sagaronline.Activity.MainActivity;
+import com.ecom.sagaronline.Activity.NewDetailFragment;
 import com.ecom.sagaronline.Adapter.HistoryAdapter;
 import com.ecom.sagaronline.Adapter.SearchAdapter;
 import com.ecom.sagaronline.Adapter.SuggestionAdapter;
@@ -126,7 +127,8 @@ public class Search_fragment extends Fragment {
 
 
 
-        Fragment details_fragment = new DetailsFragment();
+        //Fragment details_fragment = new DetailsFragment();
+        Fragment details_fragment = new NewDetailFragment();
         // bundle.putString("data",as);
         Bundle args = new Bundle();
 

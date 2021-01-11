@@ -187,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         fragment = new AboutUsActivity();
                         break;
                     case R.id.nav_policy:
-                     //   fragment = new TermsFragment();
-                        fragment = new NewDetailFragment();
+                        fragment = new TermsFragment();
+                       // fragment = new NewDetailFragment();
                            break;
 
                     case R.id.nav_contactus:

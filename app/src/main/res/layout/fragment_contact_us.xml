@@ -116,7 +116,7 @@
                             android:background="@color/colorPrimary"
                             android:text="We are here to help"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -140,8 +140,8 @@
                         android:layout_height="100dp"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginRight="31dp"
-                        android:layout_marginBottom="31dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginBottom="30dp"
                         android:src="@drawable/callservice"/>
 
                 </RelativeLayout>

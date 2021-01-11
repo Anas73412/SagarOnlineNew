@@ -30,6 +30,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.ecom.sagaronline.Activity.LoginActivity;
 import com.ecom.sagaronline.Activity.MainActivity;
+import com.ecom.sagaronline.Activity.NewDetailFragment;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Fragments.DetailsFragment;
 import com.ecom.sagaronline.Model.NewProductModel;
@@ -202,7 +203,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             String m= String.valueOf(mList.getMrp());
             int pp = Integer.parseInt( p );
             int mm = Integer.parseInt( m );
-            holder.product_prize.setText(context.getResources().getString( R.string.currency)+ mList.getPrice());
+            holder.product_prize.setText(context.getResources().getString( R.string.currency)+ mList.getPrice()+" ");
             if (mm>pp) {
 
                 holder.product_mrp.setText( context.getResources().getString( R.string.currency ) + mList.getMrp() );
@@ -227,7 +228,8 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 holder.product_discount_img.setVisibility(View.GONE);
             }
             holder.txtrate.setVisibility( View.VISIBLE);
-            holder.txtrate.setText(mList.getUnit_value()+" "+mList.getUnit());
+            holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
+           // holder.txtrate.setText(mList.getUnit_value()+" "+mList.getUnit());
 
 
         }
@@ -262,7 +264,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 String atr_mrp= String.valueOf(attribute_mrp);
                 int atr_m = Integer.parseInt( atr_mrp );
                 int atr_p = Integer.parseInt( atr_price );
-                holder.product_prize.setText("\u20B9"+attribute_value.toString());
+                holder.product_prize.setText("\u20B9"+attribute_value.toString()+" ");
                 if(atr_m >atr_p) {
                     int atr_dis = getDiscount( atr_price, atr_mrp );
 
@@ -414,7 +416,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
 
                             //    txtPer.setText(String.valueOf(df)+"% off");
 
-                            holder.product_prize.setText("\u20B9" + attribute_value.toString());
+                            holder.product_prize.setText("\u20B9" + attribute_value.toString()+" ");
 
                             String pr = String.valueOf(attribute_value);
                             String mr = String.valueOf(attribute_mrp);
@@ -508,7 +510,9 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 args.putString("increment", modelList.get(position).getIncreament());
                 args.putString("title", modelList.get(position).getTitle());
                 // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
-              Fragment fm = new DetailsFragment();
+             // Fragment fm = new DetailsFragment();
+                Fragment fm = new NewDetailFragment();
+
                 fm.setArguments(args);
 //                FragmentManager fragmentManager = .beginTransaction().replace(R.id.contentPanel, fm)
 //                        .addToBackStack(null).commit();

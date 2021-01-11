@@ -1,9 +1,13 @@
 package com.ecom.sagaronline.Adapter;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.ecom.sagaronline.Activity.SplashActivity;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Fragments.CartFragment;
 import com.ecom.sagaronline.R;
@@ -89,7 +94,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
     @Override
     public void onBindViewHolder(final ProductHolder holder, final int position) {
         final HashMap<String, String> map = list.get(position);
-
+        Log.e("cart_item", "pos "+position+" data :"+map.toString() );
         String img_array=map.get("product_image");
         String img_name = null;
         try {
@@ -399,44 +404,106 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
         holder.iv_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String type=String.valueOf(map.get("type"));
-                if(type.equals("p"))
-                {
-                    db_cart.removeItemFromCart(map.get("product_id"));
 
-                }
-                else if(type.equals("a"))
-                {
-                    db_cart.removeItemFromCart(map.get("cart_id"));
-                }
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
+                builder.setCancelable(false);
+                builder.setMessage("Are You Sure! You want to remove this item.");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
 
-                list.remove(position);
-                notifyDataSetChanged();
+                        String type=String.valueOf(map.get("type"));
 
-                updateintent();
-                tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
-                int items = db_cart.getCartCount();
+                        if(type.equals("p"))
+                        {
+                            db_cart.removeItemFromCart(map.get("product_id"));
 
-                String mrp= getTotMRp();
-                String price=String.valueOf(db_cart.getTotalAmount());
-                //  tvMrp.setText(activity.getResources().getString(R.string.currency) +mrp);
-                double mp=Double.parseDouble(mrp);
-                double pp=Double.parseDouble(price);
-                double d=mp-pp;
+                        }
+                        else if(type.equals("a"))
+                        {
+                            db_cart.removeItemFromCart(map.get("cart_id"));
+                        }
 
-                tvDiscount.setText("-"+activity.getResources().getString(R.string.currency)+String.valueOf(d));
-                double db = mp-d;
-                // tvDelivary.setText(activity.getResources().getString(R.string.currency)+deli_charges);
-                tvSubTotal.setText(activity.getResources().getString(R.string.currency)+db);
+                        list.remove(position);
+                        notifyDataSetChanged();
 
-                if(list.size()<=0)
-                {
-                    CartFragment.linear_empty.setVisibility(View.VISIBLE);
-                    CartFragment.rv_cart.setVisibility(View.GONE);
-                    CartFragment.linear_cart.setVisibility(View.GONE);
-                    CartFragment.btn_checkout.setVisibility(View.GONE);
-                }
+                        updateintent();
+                        tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
+                        int items = db_cart.getCartCount();
 
+                        String mrp= getTotMRp();
+                        String price=String.valueOf(db_cart.getTotalAmount());
+                        //  tvMrp.setText(activity.getResources().getString(R.string.currency) +mrp);
+                        double mp=Double.parseDouble(mrp);
+                        double pp=Double.parseDouble(price);
+                        double d=mp-pp;
+
+                        tvDiscount.setText("-"+activity.getResources().getString(R.string.currency)+String.valueOf(d));
+                        double db = mp-d;
+                        // tvDelivary.setText(activity.getResources().getString(R.string.currency)+deli_charges);
+                        tvSubTotal.setText(activity.getResources().getString(R.string.currency)+db);
+
+                        if(list.size()<=0)
+                        {
+                            CartFragment.linear_empty.setVisibility(View.VISIBLE);
+                            CartFragment.rv_cart.setVisibility(View.GONE);
+                            CartFragment.linear_cart.setVisibility(View.GONE);
+                            CartFragment.btn_checkout.setVisibility(View.GONE);
+                        }
+
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        dialogInterface.dismiss();
+                        // finishAffinity();
+                    }
+                });
+                android.app.AlertDialog dialogs = builder.create();
+                dialogs.show();
+
+                //-----------------ok button-------------------------------------------
+//                String type=String.valueOf(map.get("type"));
+//
+//                if(type.equals("p"))
+//                {
+//                    db_cart.removeItemFromCart(map.get("product_id"));
+//
+//                }
+//                else if(type.equals("a"))
+//                {
+//                    db_cart.removeItemFromCart(map.get("cart_id"));
+//                }
+//
+//                list.remove(position);
+//                notifyDataSetChanged();
+//
+//                updateintent();
+//                tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
+//                int items = db_cart.getCartCount();
+//
+//                String mrp= getTotMRp();
+//                String price=String.valueOf(db_cart.getTotalAmount());
+//                //  tvMrp.setText(activity.getResources().getString(R.string.currency) +mrp);
+//                double mp=Double.parseDouble(mrp);
+//                double pp=Double.parseDouble(price);
+//                double d=mp-pp;
+//
+//                tvDiscount.setText("-"+activity.getResources().getString(R.string.currency)+String.valueOf(d));
+//                double db = mp-d;
+//                // tvDelivary.setText(activity.getResources().getString(R.string.currency)+deli_charges);
+//                tvSubTotal.setText(activity.getResources().getString(R.string.currency)+db);
+//
+//                if(list.size()<=0)
+//                {
+//                    CartFragment.linear_empty.setVisibility(View.VISIBLE);
+//                    CartFragment.rv_cart.setVisibility(View.GONE);
+//                    CartFragment.linear_cart.setVisibility(View.GONE);
+//                    CartFragment.btn_checkout.setVisibility(View.GONE);
+//                }
+//-----------------------------------------------------------------------
             }
         });
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.ecom.sagaronline.Activity.LoginActivity;
 import com.ecom.sagaronline.Activity.MainActivity;
+import com.ecom.sagaronline.Activity.NewDetailFragment;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Fragments.DetailsFragment;
 import com.ecom.sagaronline.Model.ProductVariantModel;
@@ -199,7 +201,9 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
             }
 
             holder.txtrate.setVisibility( View.VISIBLE);
-            holder.txtrate.setText(mList.getUnit_value()+" "+mList.getUnit());
+           // holder.txtrate.setVisibility(View.GONE);
+           // holder.product_prize.setText("\u20B9"+attribute_value.toString());
+            holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
 
         }
 
@@ -352,7 +356,11 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
 
                             //Toast.makeText(getActivity(),"id "+atr_id+"\n p_id "+product_id+"\n atr_name "+attribute_name+"\n atr_value "+attribute_value,Toast.LENGTH_LONG).show();
                         }
-
+//                        Log.e("check_data", attribute_name+" "+attribute_value);
+//                        if (attribute_name.isEmpty()||attribute_value.isEmpty())
+//                        {
+//                            holder.rv_weight.setVisibility(View.GONE);
+//                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -785,7 +793,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
         private TextView dialog_unit_type,dialog_txtId,txtrate,dialog_txtVar;
     //    CardView card_view_top ;
         RelativeLayout card_view_top;
-        RelativeLayout relativeLayout ,rel_add ,rel_out ;
+        RelativeLayout relativeLayout ,rel_add ,rel_out,rv_weight ;
 
         public MyViewHolder(View view) {
             super(view);
@@ -814,6 +822,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
             dialog_txtVar=(TextView)view.findViewById( R.id.txtVar);
             rel_add = view.findViewById( R.id.rel_add );
             rel_out=view.findViewById( R.id.rel_out );
+            rv_weight=view.findViewById(R.id.weight);
             relativeLayout.setOnClickListener(this);
 
         }
@@ -851,7 +860,8 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                 args.putString("title", modelList.get(position).getTitle());
 
                 // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
-                DetailsFragment fm = new DetailsFragment();
+              //  DetailsFragment fm = new DetailsFragment();
+                NewDetailFragment fm = new NewDetailFragment();
                 fm.setArguments(args);
 //                FragmentManager fragmentManager = context.getS.beginTransaction().replace(R.id.contentPanel, fm)
 //                        .addToBackStack(null).commit();
