@@ -202,7 +202,7 @@
                     <Button
                         android:id="@+id/submit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_below="@+id/et_message"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"

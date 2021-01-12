@@ -75,9 +75,10 @@
                     app:tint="@color/colorAccent" />
                 <TextView
                     android:id="@+id/tv_subcat_contetiy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/space_5"
+                    android:textAlignment="center"
                     android:enabled="false"
                     android:text="1"
                     android:textSize="16dp"

@@ -3,6 +3,7 @@ package com.ecom.sagaronline.Fragments;
 import android.app.DatePickerDialog;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 //import androidx.fragment.app.Fragment;
@@ -158,6 +159,8 @@ DatePickerDialog.OnDateSetListener setListener;
                 DatePickerDialog datePickerDialog =new DatePickerDialog(getActivity(),android.R.style.Theme_Material_Light_DarkActionBar,setListener,year,month,day);
                 datePickerDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 datePickerDialog.show();
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
             }
         });
         setListener =new DatePickerDialog.OnDateSetListener() {

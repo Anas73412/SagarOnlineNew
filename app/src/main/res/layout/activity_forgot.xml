@@ -98,7 +98,7 @@
                 <Button
                     android:id="@+id/btnContinue"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:fontFamily="@font/bold"
                     android:background="@drawable/bg_rounded_button"
                     android:layout_centerInParent="true"

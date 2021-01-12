@@ -61,8 +61,8 @@
             android:layout_marginBottom="@dimen/space_20">
             <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                 android:id="@+id/product_qty"
-                android:layout_width="140dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
                 android:gravity="center_vertical"
                 app:textSize="7dp"
                 app:initialNumber="0"
@@ -79,7 +79,8 @@
                 android:fontFamily="@font/bold"
                 android:id="@+id/btn_add"
                 android:layout_width="100dp"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
+                android:textAlignment="center"
                 android:layout_marginTop="40dp"
                 android:layout_centerHorizontal="true"
                 android:clickable="true"

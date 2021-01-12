@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         module=new Module(MainActivity.this);
         updatename();
 
+        if (savedInstanceState != null) {
+          //  mCloseNavDrawer = savedInstanceState.getBoolean(CLOSE_NAV_DRAWER);
+        }
+
+
         iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
         if (savedInstanceState==null)
         {
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).addToBackStack(null).commit();
         }
 
@@ -122,10 +128,11 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                                 toggle.syncState();
 
+
                             } else if (fm_name.contentEquals("MyOrderFragment") ||
                                     fm_name.contentEquals("Thanks_fragment")) {
-                                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
+                               // drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                                  drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                                 toggle.setDrawerIndicatorEnabled(false);
                                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                                 toggle.syncState();
@@ -137,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                                      FragmentManager fragmentManager = getSupportFragmentManager();
                                         fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                                                 .addToBackStack(null).commit();
+                                       // onBackPressed();
                                     }
                                 });
                             } else {
@@ -210,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         break;
 
                 }
+
                 if (fragment!=null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
                 }
@@ -221,7 +230,20 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
 
     }
-
+    @Override
+    public void onBackPressed() {
+        if (this.drawer.isDrawerOpen(GravityCompat.START)) {
+            this.drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        drawer.closeDrawers();
+    }
     public void updatename() {
         tv_name.setText(""+module.checkNull( session_management.getUserDetails().get(KEY_NAME)));
     }

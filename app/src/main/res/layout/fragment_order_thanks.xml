@@ -52,23 +52,25 @@
                     android:id="@+id/btn_thank_home"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:textAlignment="center"
                     android:gravity="center"
                     android:text="@string/tv_thanks_home"
                     android:background="@drawable/bg_rounded_button"
                     android:layout_margin="12dp"
                     android:textColor="#fff"
-                    android:textSize="@dimen/space_16" />
+                    android:textSize="@dimen/space_14" />
 
                 <Button
                     android:id="@+id/btn_track_order"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:textAlignment="center"
                     android:gravity="center"
                     android:layout_margin="12dp"
                     android:background="@drawable/bg_rounded_button"
                     android:text="@string/tv_thanks_order"
                     android:textColor="#fff"
-                    android:textSize="@dimen/space_16" />
+                    android:textSize="@dimen/space_14" />
 
 
         </LinearLayout>

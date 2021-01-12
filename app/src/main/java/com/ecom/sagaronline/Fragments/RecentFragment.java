@@ -61,6 +61,20 @@ public class RecentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
       View v= inflater.inflate(R.layout.fragment_recent, container, false);
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+        v.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+//                    ((MainActivity)getActivity()).finish();
+                    Toast.makeText(getContext(),"hey",Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
+
       initView(v);
       return  v;
     }

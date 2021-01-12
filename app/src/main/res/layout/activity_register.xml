@@ -80,7 +80,7 @@
             <EditText
                 android:id="@+id/etMobile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:padding="@dimen/space_10"
                 android:background="#11000000"
                 android:fontFamily="@font/aileron_regular"
@@ -97,7 +97,7 @@
         <Button
             android:id="@+id/submit"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:text="Submit"
             android:background="@drawable/bg_rounded_button"
             app:backgroundTint="@color/card_color"

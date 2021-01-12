@@ -99,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="abcd"
+                android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:textSize="18dp"
                 android:layout_weight="1"/>
@@ -141,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:editable="false"
                     android:textSize="18dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"/>
 
             </LinearLayout>
@@ -180,6 +182,7 @@
                         android:layout_height="wrap_content"
                         android:hint="abcd@gmail.com"
                         android:textSize="18dp"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:layout_weight="1"/>
 
@@ -220,6 +223,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="shivaji nagar"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="18dp"
                         android:layout_weight="1"/>
@@ -261,6 +265,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="12/12/2020"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="18dp"
                         android:layout_weight="1"/>
@@ -276,6 +281,7 @@
                 android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:textAlignment="center"
                 android:text="Update"
                 android:textColor="@color/white"
                 android:layout_marginTop="35dp"

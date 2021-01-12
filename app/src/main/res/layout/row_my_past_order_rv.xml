@@ -103,7 +103,6 @@
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
                     android:text="time"
-                    android:layout_marginTop="@dimen/space_10"
                     android:textSize="@dimen/text_size_small"
                     android:textColor="#000" />
 
@@ -224,14 +223,17 @@
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_marginRight="@dimen/space_10"
                     android:layout_marginTop="@dimen/space_14"
-                    android:gravity="center"
-                    android:background="@drawable/bg_rounded_button">
+                    android:background="@drawable/bg_rounded_button"
+                    android:gravity="center">
 
                     <com.ecom.sagaronline.Fonts.LatoBLack
                         android:id="@+id/status"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
+                        android:textAlignment="center"
                         android:gravity="center"
+
+                        android:backgroundTint="@color/colorPrimary"
                         android:text="Ram"
                         android:textColor="#fff"
                         android:textSize="@dimen/text_size_small" />
