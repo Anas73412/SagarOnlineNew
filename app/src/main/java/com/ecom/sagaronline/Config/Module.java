@@ -113,6 +113,7 @@ public class Module {
                         String msg_status=jsonObject.getString("msg_status");
                         String whatsapp_no=jsonObject.getString("whatsapp_no");
                         String call_no=jsonObject.getString("call_no");
+                        String note=jsonObject.getString("note");
 
                         GetCongifDataModel getCongifDataModel= new GetCongifDataModel();
 
@@ -123,6 +124,7 @@ public class Module {
                         getCongifDataModel.setCall_no(call_no);
                         getCongifDataModel.setApp_version(app_version);
                         getCongifDataModel.setWhatsapp_no(whatsapp_no);
+                        getCongifDataModel.setNote(note);
                         Log.e("sASa", "onResponse: "+getCongifDataModel.getWhatsapp_no() );
                        onGetConfigData.onGetConfigData(getCongifDataModel);
 //                        list.add(getCongifDataModel);

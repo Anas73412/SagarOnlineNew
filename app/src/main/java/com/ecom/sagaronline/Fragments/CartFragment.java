@@ -34,10 +34,12 @@ import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.R;
+import com.ecom.sagaronline.Utils.BuyNowHandler;
 import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.LoadingBar;
 import com.ecom.sagaronline.Utils.Session_management;
+import com.google.gson.internal.$Gson$Types;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,12 +63,16 @@ public class CartFragment extends Fragment implements View.OnClickListener{
 
     //  private DatabaseHandler db;
     private DatabaseCartHandler db_cart;
+    private static BuyNowHandler db_buy_now;
     private Session_management sessionManagement;
     public static TextView tvDiscount , tvDelivary ,tvSubTotal ,tvMrp ;
     String deli_charge ;
     LoadingBar loadingBar ;
     ScrollView cart_scroll ;
+    String database="";
+    String type;
     public static RelativeLayout rel_out ;
+    boolean buynow=false;
     public CartFragment() {
         // Required empty public constructor
     }
@@ -109,9 +115,30 @@ public class CartFragment extends Fragment implements View.OnClickListener{
 
         //db = new DatabaseHandler(getActivity());
         db_cart=new DatabaseCartHandler(getActivity());
+        db_buy_now= new BuyNowHandler(getActivity());
 //    deli_charge = getArguments().getString("deli_charges");
         // int deli_charges = Integer.parseInt( deli_charge);
-        int items = db_cart.getCartCount();
+
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            type = bundle.getString("type");
+        }
+        Log.e(TAG, "onCreateView: "+type );
+        if (type!=null || type.equalsIgnoreCase("buy_now"))
+        {
+            buynow=true;
+        }
+        else {
+             buynow=false;
+        }
+
+        int items =0;
+        if(buynow){
+           items= db_buy_now.getCartCount();
+        }else{
+            items= db_cart.getCartCount();
+        }
+
         if (items== 0)
         {
             linear_empty.setVisibility(View.VISIBLE);
@@ -122,7 +149,14 @@ public class CartFragment extends Fragment implements View.OnClickListener{
         }
         // int deli_charges = 10*items;
         String mrp= getTotMRp();
-        String price= String.valueOf(db_cart.getTotalAmount());
+        String price="";
+        if(buynow){
+            price = String.valueOf(db_buy_now.getTotalAmount());
+        }else{
+            price = String.valueOf(db_cart.getTotalAmount());
+        }
+
+
         tvMrp.setText(getResources().getString(R.string.currency)+mrp);
         double m= Double.parseDouble(mrp);
         double p= Double.parseDouble(price);
@@ -135,13 +169,35 @@ public class CartFragment extends Fragment implements View.OnClickListener{
 
 
 
-        ArrayList<HashMap<String, String>> map = db_cart.getCartAll();
-//        final HashMap<String, String> map1 = map.get(0);
-//       Log.d("cart all ",""+map1);
+        ArrayList<HashMap<String, String>> map=new ArrayList<>();
+        Log.e(TAG, "onCreateView: "+db_buy_now.getCartCount()+" - "+buynow );
+        if (buynow)
+        {
+           map = db_buy_now.getCartAll();
 
-        CartAdapter adapter = new CartAdapter( map,getActivity());
-        rv_cart.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        }
+        else {
+           map = db_cart.getCartAll();
+        }
+//        final HashMap<String, String> map1 = map.get(0);
+       Log.d("cart all ",""+map.get(0).toString());
+
+        if (buynow)
+        {
+            CartAdapter adapter = new CartAdapter( map,getActivity(),true);
+            rv_cart.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+        }else {
+            CartAdapter adapter = new CartAdapter( map,getActivity());
+
+            rv_cart.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+
+
+
+
 
         updateData();
 
@@ -163,15 +219,31 @@ public class CartFragment extends Fragment implements View.OnClickListener{
         } else if (id == R.id.btn_cart_checkout) {
 
             if (ConnectivityReceiver.isConnected()) {
-                if (db_cart.getCartCount()>0)
-                {
-                    makeGetLimiteRequest();
+
+                if(buynow){
+                    if (db_buy_now.getCartCount()>0)
+                    {
+                        makeGetLimiteRequest();
+                    }
+                    else
+                    {
+                        Toast.makeText( getActivity(),"Cart is Empty", Toast.LENGTH_LONG ).show();
+                    }
+
+                }else{
+                    if (db_cart.getCartCount()>0)
+                    {
+                        makeGetLimiteRequest();
+                    }
+                    else
+                    {
+                        Toast.makeText( getActivity(),"Cart is Empty", Toast.LENGTH_LONG ).show();
+                    }
                 }
-                else
-                {
-                    Toast.makeText( getActivity(),"Cart is Empty", Toast.LENGTH_LONG ).show();
-                }
-            } else {
+
+
+            }
+            else {
                 ((MainActivity) getActivity()).onNetworkConnectionChanged(false);
             }
             module.preventMultipleClick(btn_checkout);
@@ -181,8 +253,13 @@ public class CartFragment extends Fragment implements View.OnClickListener{
     // update UI
     private void updateData() {
         // tv_total.setText(getActivity().getString(R.string.currency)+ db_cart.getTotalAmount());
-        tv_item.setText("" + db_cart.getCartCount());
-        ((MainActivity) getActivity()).setCartCounter(db_cart.getCartCount());
+        if(buynow){
+            tv_item.setText("" + db_buy_now.getCartCount());
+            ((MainActivity) getActivity()).setCartCounter(db_buy_now.getCartCount());
+        }else{
+            tv_item.setText("" + db_cart.getCartCount());
+            ((MainActivity) getActivity()).setCartCounter(db_cart.getCartCount());
+        }
     }
 
     private void showClearDialog() {
@@ -198,8 +275,18 @@ public class CartFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // clear cart data
-                db_cart.clearCart();
-                ArrayList<HashMap<String, String>> map = db_cart.getCartAll();
+                if(buynow){
+                    db_buy_now.clearCart();
+                }else{
+                    db_cart.clearCart();
+                }
+
+                ArrayList<HashMap<String, String>> map;
+                if(buynow){
+                    map = db_buy_now.getCartAll();
+                }else{
+                    map = db_cart.getCartAll();
+                }
                 CartAdapter adapter = new CartAdapter( map,getActivity());
                 rv_cart.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -225,8 +312,12 @@ public class CartFragment extends Fragment implements View.OnClickListener{
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
-
-                        Double total_amount = Double.parseDouble(db_cart.getTotalAmount());
+                        Double total_amount =0.0;
+                        if(buynow){
+                            total_amount = Double.parseDouble(db_buy_now.getTotalAmount());
+                        }else{
+                            total_amount = Double.parseDouble(db_cart.getTotalAmount());
+                        }
 
 
                         try {
@@ -317,7 +408,14 @@ public class CartFragment extends Fragment implements View.OnClickListener{
     }
     public String getTotMRp()
     {
-        ArrayList<HashMap<String, String>> list = db_cart.getCartAll();
+        ArrayList<HashMap<String, String>> list;
+
+        if(buynow){
+            list = db_buy_now.getCartAll();
+        }else{
+            list = db_cart.getCartAll();
+        }
+
         float sum=0;
         for(int i=0;i<list.size();i++)
         {

@@ -16,10 +16,12 @@ import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.Config.SharedPref;
+import com.ecom.sagaronline.Model.GetCongifDataModel;
 import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.LoadingBar;
+import com.ecom.sagaronline.Utils.OnGetConfigData;
 import com.ecom.sagaronline.Utils.Session_management;
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
     SharedPreferences preferences;
     private DatabaseCartHandler db_cart;
     private Session_management sessionManagement;
+    TextView txtNote;
 
     public Delivery_payment_detail_fragment() {
         // Required empty public constructor
@@ -69,12 +72,14 @@ public class Delivery_payment_detail_fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm_order, container, false);
 
+
         ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.payment));
         loadingBar = new LoadingBar(getActivity());
         ((MainActivity) getActivity()).setTitle("Payment Details");
         module=new Module(getActivity());
         db_cart = new DatabaseCartHandler(getActivity());
         sessionManagement = new Session_management(getActivity());
+        txtNote= view.findViewById(R.id.txtNote);
 
         //TextView tvItems,tvMrp,tvDiscount,tvDelivary,tvSubTotal;
         tv_timeslot = (TextView) view.findViewById(R.id.textTimeSlot);
@@ -148,6 +153,13 @@ public class Delivery_payment_detail_fragment extends Fragment {
         //        getResources().getString(R.string.delivery_charge) + deli_charges + "\n" +
         //        getResources().getString(R.string.total_amount) +
         //       db_cart.getTotalAmount() + " + " + deli_charges + " = " + total+ getResources().getString(R.string.currency));
+module.getCongifData(new OnGetConfigData() {
+    @Override
+    public void onGetConfigData(GetCongifDataModel model) {
+        txtNote.setText(model.getNote());
+       // model.getNote();
+    }
+});
 
 
         btn_order.setOnClickListener(new View.OnClickListener() {

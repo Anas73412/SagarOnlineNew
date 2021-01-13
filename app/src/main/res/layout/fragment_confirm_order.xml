@@ -590,10 +590,10 @@
                                         android:textSize="14dp"
                                         android:padding="2dp"
                                         android:textColor="@android:color/holo_red_dark"
-                                        android:layout_marginTop="@dimen/space_5"
+                                        android:layout_marginTop="@dimen/space_5" />
 
-                                        android:text="Order placed after 04:00 PM will be delivered next day. "/>
 
+<!--                                    android:text="Order placed after 04:00 PM will be delivered next day. "-->
 
                                 </RelativeLayout>
                             </LinearLayout>
@@ -609,11 +609,11 @@
             <Button
                 android:id="@+id/btn_order_now"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"
                 android:text="@string/order_now"
-                android:background="@drawable/bg_rounded_button"
+               android:backgroundTint="@color/colorPrimary"
                 android:textColor="#fff"
                 android:textSize="@dimen/space_16"/>
 

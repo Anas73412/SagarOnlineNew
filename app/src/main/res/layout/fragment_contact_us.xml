@@ -187,11 +187,12 @@
                     <EditText
                         android:id="@+id/et_message"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="120dp"
                         android:layout_below="@+id/et_phone"
                         android:layout_margin="10dp"
                         android:text=""
                         android:paddingLeft="5dp"
+                        android:gravity="top"
                         android:background="@drawable/inactive"
                         android:hint="Message"
                         android:textColor="@color/black"

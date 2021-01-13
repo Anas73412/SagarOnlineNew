@@ -21,6 +21,7 @@ import com.ecom.sagaronline.Activity.SplashActivity;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Fragments.CartFragment;
 import com.ecom.sagaronline.R;
+import com.ecom.sagaronline.Utils.BuyNowHandler;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.Session_management;
 
@@ -57,11 +58,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
     int lastpostion;
     // DatabaseHandler dbHandler;
     DatabaseCartHandler db_cart;
+    BuyNowHandler bd_buy_now;
+    boolean type=false;
 
+    public CartAdapter(ArrayList<HashMap<String, String>> list, Activity activity,boolean type) {
+        this.list = list;
+        this.activity = activity;
+        bd_buy_now= new BuyNowHandler(activity);
+        //db_cart = new DatabaseCartHandler( activity );
+        this.type=type;
+    }
     public CartAdapter(ArrayList<HashMap<String, String>> list, Activity activity) {
         this.list = list;
         this.activity = activity;
         db_cart = new DatabaseCartHandler( activity );
+        this.type=type;
     }
 
 
@@ -119,7 +130,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
 
         holder.tv_price.setText(activity.getResources().getString(R.string.currency)+map.get("unit_price")+"/-");
         holder.tv_contetiy.setText(map.get("qty"));
-        int items = Integer.parseInt(db_cart.getInCartItemQty(map.get("cart_id")));
+        int items = 0;
+        if (type){
+            items = Integer.parseInt(bd_buy_now.getInCartItemQty(map.get("cart_id")));
+        }
+        else
+        {
+            items = Integer.parseInt(db_cart.getInCartItemQty(map.get("cart_id")));
+        }
+
+
         price = Double.parseDouble(map.get("unit_price"));
         holder.tv_total.setText("" + price * items);
         //   holder.tv_reward.setText("" + reward * items);
@@ -172,7 +192,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
 
                 int id=Integer.parseInt(map.get("cart_id"));
 
-                ArrayList<HashMap<String, String>> mapP=db_cart.getCartProduct(id);
+
+                ArrayList<HashMap<String, String>> mapP= new ArrayList<>();
+                if (type)
+                {
+                    mapP=bd_buy_now.getCartProduct(id);
+                }
+                else {
+                    mapP=db_cart.getCartProduct(id);
+                }
 
                 HashMap<String,String> m=mapP.get(0);
 
@@ -208,7 +236,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
 //                        "\n size- "+ map.get("size")+"\n col- "+ map.get("color")+"rew- "+ map.get("rewards")+"unit_value- "+ map.get("unit_value")+
 //                        "unit- "+map.get("unit")+"\n inc- "+map.get("increament")+"stock- "+map.get("stock")+"title- "+map.get("title"),Toast.LENGTH_LONG).show();
 
-                    boolean update_cart=db_cart.setCart(mapProduct,qt);
+                    boolean update_cart=false;
+                    if (type)
+                    {
+                        update_cart=bd_buy_now.setCart(mapProduct,qt);
+                    }
+                    else {
+                        update_cart=db_cart.setCart(mapProduct,qt);
+                    }
+
                     if(update_cart==true)
                     {
                         Toast.makeText(activity,"Qty Not Updated",Toast.LENGTH_SHORT).show();
@@ -218,11 +254,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
                     {
                         Toast.makeText(activity,"Qty Updated",Toast.LENGTH_SHORT).show();
                         //      Cart_fragment.tv_total.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
-                        tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
+
+                        if (type){
+                            tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+bd_buy_now.getTotalAmount());
+                        }else {
+                            tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
+                        }
+
 
                         //  String mrp= getTotMRp();
                         String mrp = "20";
-                        String price=String.valueOf(db_cart.getTotalAmount());
+                        String price="";
+                        if (type){
+                            price=String.valueOf(bd_buy_now.getTotalAmount());
+                        }else {
+                            price=String.valueOf(db_cart.getTotalAmount());
+                        }
                         // tvMrp.setText(activity.getResources().getString(R.string.currency) +mrp);
                         double mp=Double.parseDouble(mrp);
                         double pp=Double.parseDouble(price);
@@ -238,14 +285,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
 
                 if (holder.tv_contetiy.getText().toString().equalsIgnoreCase("0")) {
 
-                    String type=String.valueOf(map.get("type"));
-                    if(type.equals("p"))
+                    String types=String.valueOf(map.get("type"));
+                    if(types.equals("p"))
                     {
-                        db_cart.removeItemFromCart(map.get("product_id"));
-                        tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
+                        if (type){
+                            bd_buy_now.removeItemFromCart(map.get("product_id"));
+                            tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+bd_buy_now.getTotalAmount());
+                        }else {
+                            db_cart.removeItemFromCart(map.get("product_id"));
+                            tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());
+                        }
+
 
                         String mrp= getTotMRp();
-                        String price=String.valueOf(db_cart.getTotalAmount());
+                        String price="";
+                        if (type){
+                            price=String.valueOf(bd_buy_now.getTotalAmount());
+                        }
+                        else {
+                            price=String.valueOf(db_cart.getTotalAmount());
+                        }
                         //  tvMrp.setText(activity.getResources().getString(R.string.currency) +mrp);
                         double mp=Double.parseDouble(mrp);
                         double pp=Double.parseDouble(price);
@@ -257,7 +316,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductHolder>
                         tvSubTotal.setText(activity.getResources().getString(R.string.currency)+db);
 
                     }
-                    else if(type.equals("a"))
+                    else if(types.equals("a"))
                     {
                         db_cart.removeItemFromCart(map.get("cart_id"));
                         tvMrp.setText(activity.getResources().getString(R.string.currency)+" "+db_cart.getTotalAmount());

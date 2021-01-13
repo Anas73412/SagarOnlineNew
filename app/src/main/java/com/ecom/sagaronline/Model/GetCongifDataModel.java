@@ -1,9 +1,17 @@
 package com.ecom.sagaronline.Model;
 
 public class GetCongifDataModel {
- String id,data,app_version,msg_status,whatsapp_no,call_no;
+ String id,data,app_version,msg_status,whatsapp_no,call_no,note;
 
     public GetCongifDataModel() {
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getId() {

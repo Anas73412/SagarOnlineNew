@@ -22,11 +22,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
                 android:padding="5dp"
                 android:fontFamily="@font/aileron_regular"
                 android:textStyle="bold"
                 android:text="Name"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/dark_gray"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
