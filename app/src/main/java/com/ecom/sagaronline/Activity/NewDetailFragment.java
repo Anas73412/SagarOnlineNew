@@ -33,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.bumptech.glide.Glide;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.ecom.sagaronline.Adapter.ColorAdapter;
 import com.ecom.sagaronline.Adapter.ProductVariantAdapter;
 import com.ecom.sagaronline.Adapter.RelatedProductAdapter;
@@ -96,7 +97,7 @@ public class NewDetailFragment extends Fragment {
     Module module;
     RelativeLayout rv_weight;
     ProductVariantAdapter productVariantAdapter;
-    private NumberPicker numberButton;
+    private ElegantNumberButton numberButton;
     Session_management session_management;
     RecyclerView  recyclerViewColor , recyclerViewSize;
     DatabaseCartHandler db_carts;
@@ -150,7 +151,7 @@ public class NewDetailFragment extends Fragment {
         btn_checkout = view.findViewById(R.id.btn_f_Add_to_cart);
         btn_add=view.findViewById(R.id.btn_add);
         btn_buy_now=view.findViewById(R.id.btn_buy_now);
-        product_qty=view.findViewById(R.id.product_qty);
+       // product_qty=(ElegantNumberButton)view.findViewById(R.id.product_qty);
         top_selling_recycler = view.findViewById(R.id.top_selling_recycler);
         dialog_unit_type=(TextView)view.findViewById(R.id.unit_type);
         dialog_txtId=(TextView)view.findViewById(R.id.txtId);
@@ -251,7 +252,9 @@ public class NewDetailFragment extends Fragment {
                             boolean st=db_carts.isInCart(product_id);
                             if(st==true)
                             {
-                                numberButton.setValue(Integer.parseInt(db_carts.getCartItemQty(product_id)));
+                               // numberButton.setValue(Integer.parseInt(db_carts.getCartItemQty(product_id)));
+                                numberButton.setNumber(String.valueOf(Integer.parseInt(db_carts.getCartItemQty(product_id))));
+
                             }
                         }
                         else
@@ -262,7 +265,8 @@ public class NewDetailFragment extends Fragment {
                             boolean st=db_carts.isInCart(at_id);
                             if(st==true)
                             {
-                                numberButton.setValue(Integer.parseInt(db_carts.getCartItemQty(at_id)));
+                               // numberButton.setValue(Integer.parseInt(db_carts.getCartItemQty(at_id)));
+                                numberButton.setNumber(String.valueOf(Integer.parseInt(db_carts.getCartItemQty(at_id))));
                             }
                             else
                             {
@@ -373,7 +377,8 @@ public class NewDetailFragment extends Fragment {
                     String tot1 = txtTotal.getText().toString().trim();
 
                     String tot_amount = tot1.substring( 1, tot1.length() );
-                    float qty = numberButton.getValue() ;
+                    //float qty = numberButton.getValue() ;
+                    float qty = Float.parseFloat(numberButton.getNumber());
 
 
                     String atr = String.valueOf( list.get(0).getProduct_attribute() );
@@ -500,7 +505,9 @@ public class NewDetailFragment extends Fragment {
                     String tot1 = txtTotal.getText().toString().trim();
 
                     String tot_amount = tot1.substring( 1, tot1.length() );
-                    float qty = numberButton.getValue() ;
+
+                   // float qty = numberButton.getValue() ;
+                    float qty = Float.parseFloat(numberButton.getNumber());
 
 
                     String atr = String.valueOf( list.get(0).getProduct_attribute() );
@@ -1038,8 +1045,9 @@ public class NewDetailFragment extends Fragment {
                                 rel_out.setVisibility( View.GONE );
                             }
 
-                            numberButton.setMin(1);
-                            numberButton.setMax(Integer.parseInt(stock+1));
+                           // numberButton.setMin(1);
+                            numberButton.setRange(1,Integer.parseInt(stock+1));
+                            //numberButton.setMax(Integer.parseInt(stock+1));
 
                             String string = object.getString("product_attribute");
                             JSONArray arr = new JSONArray(string);

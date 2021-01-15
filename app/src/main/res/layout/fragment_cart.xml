@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_cart_checkout"
         android:id="@+id/cart_scroll">
@@ -138,15 +138,18 @@
                             android:padding="@dimen/space_5"
                             android:layout_alignParentStart="true"
                             android:layout_margin="@dimen/space_5"/>
+
                         <TextView
                             android:id="@+id/subtotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="M.R.P"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:padding="@dimen/space_5"
                             android:layout_alignParentEnd="true"
-                            android:layout_margin="@dimen/space_5"/>
+                            android:layout_marginStart="@dimen/space_5"
+                            android:layout_marginEnd="@dimen/space_5"
+                            android:layout_marginBottom="@dimen/space_5"
+                            android:padding="@dimen/space_5"
+                            android:text="M.R.P"
+                            android:textColor="@color/colorPrimaryDark" />
                     </RelativeLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

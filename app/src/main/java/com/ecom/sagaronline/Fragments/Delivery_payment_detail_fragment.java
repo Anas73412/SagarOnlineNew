@@ -18,6 +18,7 @@ import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.Config.SharedPref;
 import com.ecom.sagaronline.Model.GetCongifDataModel;
 import com.ecom.sagaronline.R;
+import com.ecom.sagaronline.Utils.BuyNowHandler;
 import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.LoadingBar;
@@ -53,7 +54,10 @@ public class Delivery_payment_detail_fragment extends Fragment {
     Double total;
     SharedPreferences preferences;
     private DatabaseCartHandler db_cart;
+    private BuyNowHandler db_buy_now;
     private Session_management sessionManagement;
+    boolean buynow=false;
+    String type;
     TextView txtNote;
 
     public Delivery_payment_detail_fragment() {
@@ -78,6 +82,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
         ((MainActivity) getActivity()).setTitle("Payment Details");
         module=new Module(getActivity());
         db_cart = new DatabaseCartHandler(getActivity());
+        db_buy_now= new BuyNowHandler(getActivity());
         sessionManagement = new Session_management(getActivity());
         txtNote= view.findViewById(R.id.txtNote);
 
@@ -101,6 +106,18 @@ public class Delivery_payment_detail_fragment extends Fragment {
 
 
         getdate = getArguments().getString("getdate");
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            type = bundle.getString("type");
+        }
+
+        if (!module.checkNullCondition(type))
+        {
+            buynow=true;
+        }
+        else {
+            buynow=false;
+        }
 
         preferences = getActivity().getSharedPreferences("lan", MODE_PRIVATE);
         String language=preferences.getString("language","");
@@ -127,7 +144,16 @@ public class Delivery_payment_detail_fragment extends Fragment {
         tv_timeslot.setText(gettime);
         //tv_address.setText(getaddress);
 
-        total = Double.parseDouble(db_cart.getTotalAmount()) + deli_charges;
+        String price="";
+        if (buynow){
+            total = Double.parseDouble(db_buy_now.getTotalAmount()) + deli_charges;
+            tvItems.setText(String.valueOf(db_buy_now.getCartCount()));
+           price= String.valueOf(db_buy_now.getTotalAmount());
+        }else {
+            total = Double.parseDouble(db_cart.getTotalAmount()) + deli_charges;
+            tvItems.setText(String.valueOf(db_cart.getCartCount()));
+             price= String.valueOf(db_cart.getTotalAmount());
+        }
 
 //        tv_total.setText("" + db_cart.getTotalAmount());
         //  tv_item.setText("" + db_cart.getWishlistCount());
@@ -136,9 +162,9 @@ public class Delivery_payment_detail_fragment extends Fragment {
         house_no.setText( house );
         pincode.setText( pin );
         society.setText( societys );
-        tvItems.setText(String.valueOf(db_cart.getCartCount()));
+
         String mrp= getTotMRp();
-        String price= String.valueOf(db_cart.getTotalAmount());
+
         tvMrp.setText(getResources().getString(R.string.currency)+mrp);
         double m= Double.parseDouble(mrp);
         double p= Double.parseDouble(price);
@@ -175,6 +201,7 @@ module.getCongifData(new OnGetConfigData() {
                     args.putString("getlocationid", getlocation_id);
                     args.putString("getstoreid", getstore_id);
                     args.putString( "deli_charges", String.valueOf( deli_charges ) );
+                    args.putString("type","buy_now");
 
                     fm.setArguments(args);
                  FragmentManager fragmentManager = getFragmentManager();
@@ -280,7 +307,12 @@ module.getCongifData(new OnGetConfigData() {
 //    }
     public String getTotMRp()
     {
-        ArrayList<HashMap<String, String>> list = db_cart.getCartAll();
+        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+        if (buynow){
+            list = db_buy_now.getCartAll();
+        }else {
+            list = db_cart.getCartAll();
+        }
         float sum=0;
         for(int i=0;i<list.size();i++)
         {

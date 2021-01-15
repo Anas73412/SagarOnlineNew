@@ -36,6 +36,7 @@ import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.Model.Delivery_address_model;
 import com.ecom.sagaronline.R;
+import com.ecom.sagaronline.Utils.BuyNowHandler;
 import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
@@ -75,6 +76,7 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
     private List<Delivery_address_model> delivery_address_modelList = new ArrayList<>();
 
     private DatabaseCartHandler db_cart;
+    private BuyNowHandler db_buy_now;
     SharedPreferences preferences;
     private Session_management sessionManagement;
 
@@ -86,6 +88,8 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
     private String deli_charges;
     String store_id;
     String language;
+    boolean buynow=false;
+    String type;
     public void Delivery_fragment() {
         // Required empty public constructor
     }
@@ -119,15 +123,37 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
         rv_address.setLayoutManager(new LinearLayoutManager(getActivity()));
         //tv_socity = (TextView) view.findViewById(R.id.tv_deli_socity);
         //et_address = (EditText) view.findViewById(R.id.et_deli_address);
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            type = bundle.getString("type");
+        }
 
-        db_cart = new DatabaseCartHandler(getActivity());
-        tv_total.setText(getResources().getString(R.string.currency)+db_cart.getTotalAmount());
-        tv_item.setText("" + db_cart.getCartCount());
+        if (!module.checkNullCondition(type))
+        {
+            buynow=true;
+        }
+        else {
+            buynow=false;
+        }
+
+        if (buynow){
+            db_buy_now = new BuyNowHandler(getActivity());
+            tv_total.setText(getResources().getString(R.string.currency)+db_buy_now.getTotalAmount());
+            tv_item.setText("" + db_buy_now.getCartCount());
+        }else {
+            db_cart = new DatabaseCartHandler(getActivity());
+            tv_total.setText(getResources().getString(R.string.currency)+db_cart.getTotalAmount());
+            tv_item.setText("" + db_cart.getCartCount());
+        }
+
+
 
         // get session user data
         sessionManagement = new Session_management(getActivity());
         String getsocity = sessionManagement.getUserDetails().get(BaseURL.KEY_SOCITY_NAME);
         String getaddress = sessionManagement.getUserDetails().get(BaseURL.KEY_HOUSE);
+
+
 
         //tv_socity.setText("Socity Name: " + getsocity);
         //et_address.setText(getaddress);
@@ -214,8 +240,10 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
         } else if (id == R.id.tv_deli_add_address) {
 
             sessionManagement.updateSocity("", "");
-
+            Bundle args = new Bundle();
          Fragment fm = new Add_delivery_address_fragment();
+            args.putString("type", "buy_now");
+            fm.setArguments(args);
         androidx.fragment.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                     .addToBackStack(null).commit();
@@ -337,6 +365,7 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
             args.putString( "phone",phone );
             args.putString("deli_charges", deli_charges);
             args.putString("store_id", store_id);
+            args.putString("type","buy_now");
             fm.setArguments(args);
            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
@@ -436,7 +465,12 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
             if (type.contentEquals("update")) {
                 //updateData();
 
-                float tot=Float.parseFloat(db_cart.getTotalAmount());
+                float tot=0;
+                if (buynow){
+                    tot=Float.parseFloat(db_buy_now.getTotalAmount());
+                }else {
+                    tot=Float.parseFloat(db_cart.getTotalAmount());
+                }
                 int dt_chargs=0;
                 if(tot>1000)
                 {
@@ -449,8 +483,13 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
 
                 //   Toast.makeText(getActivity(), deli_charges, Toast.LENGTH_SHORT).show();
 
-                Double total = Double.parseDouble(db_cart.getTotalAmount()) +Integer.parseInt(deli_charges);
+                Double total = 0.0;
 
+                if (buynow){
+                    total = Double.parseDouble(db_buy_now.getTotalAmount()) +Integer.parseInt(deli_charges);
+                }else {
+                    total = Double.parseDouble(db_cart.getTotalAmount()) +Integer.parseInt(deli_charges);
+                }
 
 
                 //tv_total.setText(getResources().getString(R.string.currency) + db_cart.getTotalAmount() + " + "+getResources().getString(R.string.currency) + deli_charges + " = "+getResources().getString(R.string.currency)  + total+ getActivity().getResources().getString(R.string.currency));

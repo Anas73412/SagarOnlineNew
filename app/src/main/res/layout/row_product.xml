@@ -221,7 +221,7 @@
 
                 <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                     android:id="@+id/product_qty"
-                    android:layout_width="150dp"
+                    android:layout_width="125dp"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
                     app:textSize="6dp"

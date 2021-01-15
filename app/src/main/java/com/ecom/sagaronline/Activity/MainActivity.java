@@ -33,8 +33,8 @@ import com.ecom.sagaronline.Fragments.ContactUsFragment;
 import com.android.volley.NetworkError;
 import com.ecom.sagaronline.Fragments.EmptyCartFragment;
 import com.ecom.sagaronline.Fragments.HomeFragment;
-import com.ecom.sagaronline.Fragments.Search_fragment;
 import com.ecom.sagaronline.Fragments.MyOrderFragment;
+import com.ecom.sagaronline.Fragments.Search_fragment;
 import com.ecom.sagaronline.Fragments.ProfileFragment;
 import com.ecom.sagaronline.Fragments.ShopFragment;
 import com.ecom.sagaronline.Fragments.TermsFragment;
@@ -129,25 +129,27 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                                 toggle.syncState();
 
 
-                            } else if (fm_name.contentEquals("MyOrderFragment") ||
-                                    fm_name.contentEquals("Thanks_fragment")) {
-                               // drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                                  drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                                toggle.setDrawerIndicatorEnabled(false);
-                                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                                toggle.syncState();
-
-                                toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                      Fragment fm = new HomeFragment();
-                                     FragmentManager fragmentManager = getSupportFragmentManager();
-                                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
-                                                .addToBackStack(null).commit();
-                                       // onBackPressed();
-                                    }
-                                });
-                            } else {
+                            }
+//                            else if (fm_name.contentEquals("MyOrderFragment") ||
+//                                    fm_name.contentEquals("Thanks_fragment")) {
+//                               // drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//                                  drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+//                                toggle.setDrawerIndicatorEnabled(false);
+//                                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                                toggle.syncState();
+//
+//                                toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View view) {
+//                                      Fragment fm = new HomeFragment();
+//                                     FragmentManager fragmentManager = getSupportFragmentManager();
+//                                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+//                                                .addToBackStack(null).commit();
+//                                       // onBackPressed();
+//                                    }
+//                                });
+//                            }
+                            else {
 
                                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -179,7 +181,11 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
                     case R.id.nav_cart:
                         if (db_cart.getCartCount() > 0) {
-                           fragment = new CartFragment();
+
+                           // Bundle args = new Bundle();
+                            fragment = new CartFragment();
+//                            args.putString("type", "cart");
+//                            fragment.setArguments(args);
 
 
                         } else {

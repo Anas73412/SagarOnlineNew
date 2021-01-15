@@ -69,6 +69,8 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
     private String getlocation_id;
     private String[] pincodes;
    LoadingBar loadingBar ;
+    boolean buynow=false;
+    String type;
     public Add_delivery_address_fragment() {
         // Required empty public constructor
     }
@@ -102,7 +104,18 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
         //tv_socity = (TextView) view.findViewById(R.id.tv_add_adres_socity);
         btn_update = (Button) view.findViewById(R.id.btn_add_adres_edit);
         //  btn_socity = (TextView) view.findViewById(R.id.btn_add_adres_socity);
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            type = bundle.getString("type");
+        }
 
+        if (!module.checkNullCondition(type))
+        {
+            buynow=true;
+        }
+        else {
+            buynow=false;
+        }
 
         getSocities();
 

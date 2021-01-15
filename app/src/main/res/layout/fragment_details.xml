@@ -432,19 +432,31 @@
                     android:layout_marginTop="5dp"
                     />
 
-
-
-                <com.travijuu.numberpicker.library.NumberPicker
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                     android:id="@+id/product_qty"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_margin="@dimen/space_10"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp"
+                    app:textSize="6dp"
+                    app:initialNumber="1"
                     android:elevation="6dp"
-                    app:textSize="8dp"
-                    android:theme="@style/Theme.AppCompat.Light"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    app:backGroundColor="@color/black"
                     app:textColor="@color/white"
                     />
+
+
+<!--                <com.travijuu.numberpicker.library.NumberPicker-->
+<!--                    android:id="@+id/product_qty"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_margin="@dimen/space_10"-->
+<!--                    android:elevation="6dp"-->
+<!--                    app:textSize="8dp"-->
+<!--                    android:theme="@style/Theme.AppCompat.Light"-->
+<!--                    app:textColor="@color/white"-->
+<!--                    />-->
             </RelativeLayout>
 
             <LinearLayout
@@ -596,9 +608,6 @@
                         android:text="0"
                         android:textColor="@color/white"
                         android:textStyle="bold|italic"
-
-
-
                         />
 
                 </RelativeLayout>
@@ -609,6 +618,7 @@
                 android:id="@+id/btn_f_Add_to_cart"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:visibility="gone"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@id/relll"
                 app:backgroundTint="@color/colorPrimary"

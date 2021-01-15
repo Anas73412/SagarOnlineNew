@@ -35,6 +35,7 @@ import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.Config.SharedPref;
 import com.ecom.sagaronline.NetworkConnector.NetworkConnection;
 import com.ecom.sagaronline.R;
+import com.ecom.sagaronline.Utils.BuyNowHandler;
 import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
@@ -60,6 +61,7 @@ public class Payment_fragment extends Fragment {
     Button confirm;
     Module module;
     private DatabaseCartHandler db_cart;
+    private BuyNowHandler db_buy_now;
     private Session_management sessionManagement;
     TextView payble_ammount, my_wallet_ammount, used_wallet_ammount, used_coupon_ammount, order_ammount;
     private String getlocation_id = "";
@@ -85,6 +87,8 @@ public class Payment_fragment extends Fragment {
     String Prefrence_TotalAmmount;
     String getwallet;
     String getcharge ;
+    String type;
+    boolean buynow=false;
     LinearLayout Promo_code_layout, Coupon_and_wallet;
     RelativeLayout Apply_Coupon_Code, Relative_used_wallet, Relative_used_coupon;
 
@@ -114,6 +118,7 @@ public class Payment_fragment extends Fragment {
         module=new Module(getActivity());
 
         radioGroup = (RadioGroup) view.findViewById(R.id.radio_group);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -163,6 +168,19 @@ public class Payment_fragment extends Fragment {
         my_wallet_ammount = (TextView) view.findViewById(R.id.user_wallet);
         // my_wallet_ammount.setText(getwallet+getActivity().getString(R.string.currency));
         db_cart = new DatabaseCartHandler(getActivity());
+        db_buy_now =new BuyNowHandler(getActivity());
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            type = bundle.getString("type");
+        }
+
+        if (!module.checkNullCondition(type))
+        {
+            buynow=true;
+        }
+        else {
+            buynow=false;
+        }
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener()
@@ -359,7 +377,12 @@ public class Payment_fragment extends Fragment {
     }
 
     private void attemptOrder() {
-        ArrayList<HashMap<String, String>> items = db_cart.getCartAll();
+        ArrayList<HashMap<String, String>> items = new ArrayList<>();
+        if (buynow){
+            items = db_buy_now.getCartAll();
+        }else {
+            items = db_cart.getCartAll();
+        }
         //rewards = Double.parseDouble(db_cart.getColumnRewards());
         rewards = Double.parseDouble("0");
         if (items.size() > 0) {
@@ -442,7 +465,12 @@ public class Payment_fragment extends Fragment {
                     if (status) {
                         // JSONObject object = response.getJSONObject("data");
                         String msg=response.getString("data");
-                        db_cart.clearCart();
+                        if (buynow){
+                            db_buy_now.clearCart();
+                        }else {
+                            db_cart.clearCart();
+                        }
+
                         loadingBar.dismiss();
                         Bundle args = new Bundle();
                       Fragment fm = new Thanks_fragment();

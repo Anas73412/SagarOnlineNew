@@ -244,6 +244,15 @@ public class Module {
         }
         return s;
     }
+    public boolean checkNullCondition(String str){
+        boolean s=false;
+        if(str==null || str.isEmpty()|| str.equalsIgnoreCase("null")){
+            s=true;
+        }else {
+            s=false;
+        }
+        return s;
+    }
 
     public void updateIntent(Context context){
         Intent i=new Intent("Cart");
