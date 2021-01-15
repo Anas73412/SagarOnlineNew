@@ -240,6 +240,7 @@ public class Delivery_get_address_adapter extends RecyclerView.Adapter<Delivery_
                 //  args.putString( "address",getaddress );
 
                 fm.setArguments(args);
+                Log.e("kjihujg",args.toString());
 //            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
 //                fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
 //                        .addToBackStack(null).commit();

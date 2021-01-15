@@ -36,6 +36,7 @@ import java.util.HashMap;
 import static com.ecom.sagaronline.Config.BaseURL.EDIT_PROFILE_URL;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_EMAIL;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_HOUSE;
+import static com.ecom.sagaronline.Config.BaseURL.KEY_ID;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_IMAGE;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_MOBILE;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_NAME;
@@ -144,7 +145,16 @@ DatePickerDialog.OnDateSetListener setListener;
 
         et_number.setText(session_management.getUserDetails().get(KEY_MOBILE));
         txtusername.setText(session_management.getUserDetails().get(KEY_NAME));
-        txtuseremail.setText(session_management.getUserDetails().get(KEY_EMAIL));
+        et_name.setText(session_management.getUserDetails().get(KEY_NAME));
+        et_email.setText(session_management.getUserDetails().get(KEY_EMAIL));
+
+        if(session_management.getUserDetails().get(KEY_EMAIL).equalsIgnoreCase("null") || session_management.getUserDetails().get(KEY_EMAIL).isEmpty()){
+            txtuseremail.setText(" ");
+        }else {
+
+            txtuseremail.setText(session_management.getUserDetails().get(KEY_EMAIL));
+        }
+      //  txtuseremail.setText(session_management.getUserDetails().get(KEY_EMAIL));
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -172,15 +182,6 @@ DatePickerDialog.OnDateSetListener setListener;
             }
         };
 
-/**
-        if (type.equalsIgnoreCase("view"))
-        {
-            et_name.setEnabled(false);
-            update.setVisibility(View.GONE);
-        }
-        et_name.setText(username);
-        et_number.setText(usernumber);
-*/
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,10 +190,16 @@ DatePickerDialog.OnDateSetListener setListener;
                String username=et_name.getText().toString();
                 String usernumber=et_number.getText().toString();
                  email = et_email.getText().toString();
+                 String add = et_addess.getText().toString();
+                 String birth = et_dob.getText().toString();
+
+                 if (username.isEmpty()||usernumber.isEmpty()||email.isEmpty()||add.isEmpty()||birth.isEmpty()){
+                     Toast.makeText(getActivity(),"Fill all the fields",Toast.LENGTH_SHORT).show();
+                 }
 
              //  session_management.updateUserName(username);
 
-                   params.put("user_id", "1");
+                   params.put("user_id", session_management.getUserDetails().get(KEY_ID));
                    params.put("user_fullname",username);
 //                   params.put("user_fullname",name);
                    params.put("user_mobile",usernumber);
@@ -225,6 +232,9 @@ DatePickerDialog.OnDateSetListener setListener;
 //                                    progressBar.setVisibility(View.GONE);
                                     session_management.updateData(username,usernumber,pincode,socity_id, image,wallet,rewards,house,email);
                                     updatename();
+                                    txtusername.setText(username);
+                                    txtuseremail.setText(email);
+
 //                                    HomeFragment addressFragment = new HomeFragment();
 //                                    ((MainActivity)getActivity()).loadFragment(addressFragment,null);
 
@@ -257,14 +267,8 @@ DatePickerDialog.OnDateSetListener setListener;
 
         return v;
     }
-//    public void updateName(){
-//        Intent intent=new Intent("namechanged");
-//        intent.putExtra("type","name");
-//        getActivity().sendBroadcast(intent);
-//    }
+
 private void updatename() {
     ((MainActivity)getActivity()).updatename();
-   // tv_name.setText(""+session_management.getUserDetails().get(KEY_NAME).toString());
-
 }
 }

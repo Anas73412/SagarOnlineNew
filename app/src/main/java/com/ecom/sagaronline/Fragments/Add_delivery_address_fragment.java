@@ -69,8 +69,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
     private String getlocation_id;
     private String[] pincodes;
    LoadingBar loadingBar ;
-    boolean buynow=false;
-    String type;
+
     public Add_delivery_address_fragment() {
         // Required empty public constructor
     }
@@ -104,18 +103,6 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
         //tv_socity = (TextView) view.findViewById(R.id.tv_add_adres_socity);
         btn_update = (Button) view.findViewById(R.id.btn_add_adres_edit);
         //  btn_socity = (TextView) view.findViewById(R.id.btn_add_adres_socity);
-        Bundle bundle = getArguments();
-        if (bundle!=null){
-            type = bundle.getString("type");
-        }
-
-        if (!module.checkNullCondition(type))
-        {
-            buynow=true;
-        }
-        else {
-            buynow=false;
-        }
 
         getSocities();
 
@@ -162,6 +149,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
             String get_socity_id = getArguments().getString("socity_id");
             String get_socity_name = getArguments().getString("socity_name");
             String get_add = getArguments().getString("house");
+            Log.e("skdjhfb",get_add+" "+get_name+" "+get_phone+" " +get_socity_id+" "+get_socity_name+" "+get_pin+" "+get_add);
 
             if (TextUtils.isEmpty(get_name) && get_name == null) {
 
@@ -320,13 +308,16 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
                 else
                 {
                     String user_id = sessionManagement.getUserDetails().get(BaseURL.KEY_ID);
-
+                    //Toast.makeText(getActivity()," this ", Toast.LENGTH_SHORT).show();
                     // check internet connection
                     if (ConnectivityReceiver.isConnected()) {
                         if (isEdit) {
+                            Log.e("kjshdbgfv",getlocation_id+" "+getpin+" "+getSocietyId(getpin).getSocity_id()+" "+ getadd+" "+ getname+" "+ getphone);
                             makeEditAddressRequest(getlocation_id, getpin,getSocietyId(getpin).getSocity_id(), getadd, getname, getphone);
+                            Toast.makeText(getActivity()," this pincode", Toast.LENGTH_SHORT).show();
                         } else {
                             makeAddAddressRequest(user_id, getpin, getsocity_id,getadd, getname, getphone);
+                            Toast.makeText(getActivity(),"We don't ", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -367,6 +358,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
+                Log.e("kjn",response.toString());
                 loadingBar.dismiss();
                 try {
                     Boolean status = response.getBoolean("responce");
@@ -426,7 +418,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
-
+                Log.e("mnbvc",response.toString());
                 try {
                     loadingBar.dismiss();
                     Boolean status = response.getBoolean("responce");
