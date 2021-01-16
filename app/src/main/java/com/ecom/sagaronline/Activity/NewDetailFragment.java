@@ -828,7 +828,8 @@ public class NewDetailFragment extends Fragment {
                             if (!issmall && !isbig) {
                                 if (session_management.isLoggedIn()) {
                                     Bundle args = new Bundle();
-                                    args.putString("buy_now","Y");
+                                   // args.putString("buy_now","Y");
+                                    args.putString("type","buy_now");
                                     Fragment fm = new DeliveryFragment();
                                     fm.setArguments(args);
                                     FragmentManager fragmentManager = getFragmentManager();

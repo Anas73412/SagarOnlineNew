@@ -113,6 +113,8 @@ public class Payment_fragment extends Fragment {
         final View view = inflater.inflate(R.layout.activity_payment_method, container, false);
         ((MainActivity) getActivity()).setTitle(getResources().getString(R.string.payment));
 
+
+
         Prefrence_TotalAmmount = SharedPref.getString(getActivity(), BaseURL.TOTAL_AMOUNT);
         loadingBar = new LoadingBar(getActivity());
         module=new Module(getActivity());
@@ -380,8 +382,10 @@ public class Payment_fragment extends Fragment {
         ArrayList<HashMap<String, String>> items = new ArrayList<>();
         if (buynow){
             items = db_buy_now.getCartAll();
+            Log.e("hey", String.valueOf(items));
         }else {
             items = db_cart.getCartAll();
+            Log.e("hello", String.valueOf(items));
         }
         //rewards = Double.parseDouble(db_cart.getColumnRewards());
         rewards = Double.parseDouble("0");
@@ -464,14 +468,19 @@ public class Payment_fragment extends Fragment {
                     Boolean status = response.getBoolean("responce");
                     if (status) {
                         // JSONObject object = response.getJSONObject("data");
+//                        ((MainActivity)getActivity()).setCount("0");
                         String msg=response.getString("data");
                         if (buynow){
                             db_buy_now.clearCart();
+
                         }else {
                             db_cart.clearCart();
+                            updateintent();
+//                            ((MainActivity)getActivity()).setCount("0");
                         }
 
                         loadingBar.dismiss();
+                        ((MainActivity)getActivity()).setCount("0");
                         Bundle args = new Bundle();
                       Fragment fm = new Thanks_fragment();
                         args.putString("msg", msg);
@@ -791,6 +800,12 @@ public class Payment_fragment extends Fragment {
         }*/
 
 
+
+    }
+    private void updateintent() {
+        Intent updates = new Intent("Grocery_cart");
+        updates.putExtra("type", "update");
+        getActivity().sendBroadcast(updates);
 
     }
 

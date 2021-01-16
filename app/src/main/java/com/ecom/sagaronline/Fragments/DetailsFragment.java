@@ -1111,7 +1111,7 @@ public class DetailsFragment extends Fragment {
                             if (!issmall && !isbig) {
                                 if (sessionManagement.isLoggedIn()) {
                                     Bundle args = new Bundle();
-                                    args.putString("buy_now","Y");
+                                   // args.putString("buy_now","Y");
                                 Fragment fm = new DeliveryFragment();
                                     fm.setArguments(args);
                                FragmentManager fragmentManager = getFragmentManager();

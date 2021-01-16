@@ -156,6 +156,7 @@ public class AddressFragment extends Fragment {
                 bundle.putString("address_type",address_type);
                 bundle.putString("socity_name",socity_name);
                 bundle.putString("delivery_charge",delivery_charge);
+                Log.e("aadress fragment",bundle.toString());
 
             }
         });

@@ -119,6 +119,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 getsocity_id=socity_modelList.get(i).getSocity_id();
 
+
                 // Toast.makeText(getActivity(),"ccc"+socity_modelList.get(i).getPincode(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -405,6 +406,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("location_id", location_id);
+       // params.put("location_id", "1");
         params.put("pincode", pincode);
         params.put("socity_id", socity_id);
         params.put("house_no", add);

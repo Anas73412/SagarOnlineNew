@@ -242,8 +242,8 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
             sessionManagement.updateSocity("", "");
             Bundle args = new Bundle();
          Fragment fm = new Add_delivery_address_fragment();
-            args.putString("type", "buy_now");
-            fm.setArguments(args);
+          //  args.putString("type", "buy_now");
+//            fm.setArguments(args);
         androidx.fragment.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
                     .addToBackStack(null).commit();
@@ -365,7 +365,12 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
             args.putString( "phone",phone );
             args.putString("deli_charges", deli_charges);
             args.putString("store_id", store_id);
-            args.putString("type","buy_now");
+            if(buynow){
+                args.putString("type","buy_now");
+            }else {
+               // args.putString("type","buy_now");
+            }
+           // args.putString("type","buy_now");
             fm.setArguments(args);
            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)

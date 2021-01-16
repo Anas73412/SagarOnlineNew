@@ -327,8 +327,9 @@ public class CartFragment extends Fragment implements View.OnClickListener{
                             card_cart.setVisibility(View.GONE);
                         }else{
                             total_amount = Double.parseDouble(db_cart.getTotalAmount());
-                        }
 
+                        }
+                    Log.e("db_cart_total", String.valueOf(db_cart.getTotalAmount()));
 
                         try {
                             // Parsing json array response
@@ -368,7 +369,11 @@ public class CartFragment extends Fragment implements View.OnClickListener{
                                 if (sessionManagement.isLoggedIn()) {
                                     Bundle args = new Bundle();
                                    Fragment fm = new DeliveryFragment();
-                                   args.putString("type","buy_now");
+                                   if (buynow){
+                                       args.putString("type","buy_now");
+                                   }else {
+                                       //args.putString("type","cart");
+                                   }
                                     fm.setArguments(args);
                                    FragmentManager fragmentManager = getFragmentManager();
                                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)

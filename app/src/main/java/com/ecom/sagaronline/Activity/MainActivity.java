@@ -65,12 +65,14 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     Session_management session_management;
     TextView tv_name;
     ImageView iv_edit;
+    TextView tv_cart_count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         session_management = new Session_management(MainActivity.this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tv_cart_count = findViewById(R.id.tv_cart_count);
         toolbar.setPadding(padding, toolbar.getPaddingTop(), padding, toolbar.getPaddingBottom());
         navigationView = findViewById(R.id.nav_view);
         db_cart=new DatabaseCartHandler(this);
@@ -130,25 +132,25 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
 
                             }
-//                            else if (fm_name.contentEquals("MyOrderFragment") ||
-//                                    fm_name.contentEquals("Thanks_fragment")) {
-//                               // drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-//                                  drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-//                                toggle.setDrawerIndicatorEnabled(false);
-//                                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                                toggle.syncState();
-//
-//                                toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View view) {
-//                                      Fragment fm = new HomeFragment();
-//                                     FragmentManager fragmentManager = getSupportFragmentManager();
-//                                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
-//                                                .addToBackStack(null).commit();
-//                                       // onBackPressed();
-//                                    }
-//                                });
-//                            }
+                            else if (
+                                    fm_name.contentEquals("Thanks_fragment")) {
+                               // drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                                  drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                                toggle.setDrawerIndicatorEnabled(false);
+                                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                                toggle.syncState();
+
+                                toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                      Fragment fm = new HomeFragment();
+                                     FragmentManager fragmentManager = getSupportFragmentManager();
+                                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+                                                .addToBackStack(null).commit();
+                                       // onBackPressed();
+                                    }
+                                });
+                            }
                             else {
 
                                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -343,5 +345,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             tv_count.setVisibility(View.VISIBLE);
         }
         tv_count.setText(String.valueOf(count));
+    }
+    public void setCount(String str){
+       // tv_count.setText("" + db_cart.getCartCount());
+        tv_count.setText(str);
     }
 }

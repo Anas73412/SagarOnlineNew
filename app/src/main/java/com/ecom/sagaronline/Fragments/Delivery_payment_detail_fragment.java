@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +111,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
         if (bundle!=null){
             type = bundle.getString("type");
         }
-
+//Log.e("type",type);
         if (!module.checkNullCondition(type))
         {
             buynow=true;
@@ -148,6 +149,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
         if (buynow){
             total = Double.parseDouble(db_buy_now.getTotalAmount()) + deli_charges;
             tvItems.setText(String.valueOf(db_buy_now.getCartCount()));
+            Log.e("db_cart_total", String.valueOf(db_cart.getTotalAmount()));
            price= String.valueOf(db_buy_now.getTotalAmount());
         }else {
             total = Double.parseDouble(db_cart.getTotalAmount()) + deli_charges;
@@ -164,7 +166,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
         society.setText( societys );
 
         String mrp= getTotMRp();
-
+        Log.e("mrp",mrp);
         tvMrp.setText(getResources().getString(R.string.currency)+mrp);
         double m= Double.parseDouble(mrp);
         double p= Double.parseDouble(price);
@@ -201,8 +203,11 @@ module.getCongifData(new OnGetConfigData() {
                     args.putString("getlocationid", getlocation_id);
                     args.putString("getstoreid", getstore_id);
                     args.putString( "deli_charges", String.valueOf( deli_charges ) );
-                    args.putString("type","buy_now");
+                    if (buynow){
+                        args.putString("type","buy_now");
+                    }else {
 
+                    }
                     fm.setArguments(args);
                  FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
@@ -310,9 +315,13 @@ module.getCongifData(new OnGetConfigData() {
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
         if (buynow){
             list = db_buy_now.getCartAll();
+            Log.e("list", String.valueOf(list));
+
         }else {
             list = db_cart.getCartAll();
+            Log.e("size", String.valueOf(list));
         }
+        Log.e("list_size", String.valueOf(list.size())+"/n"+db_buy_now.getCartCount());
         float sum=0;
         for(int i=0;i<list.size();i++)
         {
