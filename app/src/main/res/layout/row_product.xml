@@ -153,9 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
                             android:textSize="10dp"
-
                             android:text="Weight :"
-
                             android:visibility="invisible"
                             />
                         <TextView
@@ -163,12 +161,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_10"
-                            android:text="1kg"
+                            android:text="1kg\n"
                             android:fontFamily="@font/aileron_regular"
                             android:textAlignment="gravity"
                             android:padding="@dimen/space_2"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:layout_marginTop="@dimen/space_5"
-                            android:visibility="gone"
+
 
                             />
                         <RelativeLayout

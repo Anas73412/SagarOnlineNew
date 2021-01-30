@@ -157,6 +157,8 @@
                     android:fontFamily="@font/aileron_regular"
                     android:textAlignment="gravity"
                     android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/space_2"
                     />
@@ -167,7 +169,8 @@
                     android:layout_marginTop="@dimen/space_5"
                     android:layout_centerHorizontal="true"
                     android:padding="2dp"
-                    android:visibility="gone"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:gravity="center_vertical" />
                 <RelativeLayout
                     android:id="@+id/rel_variant"

@@ -67,6 +67,7 @@ public class                                                                    
     String attribute_name="";
     String attribute_value="";
     String attribute_mrp="";
+    String attribute_discription="";
     float qty ;
 
     ArrayList<ProductVariantModel> variantList;
@@ -203,7 +204,9 @@ public class                                                                    
             holder.txtrate.setVisibility( View.VISIBLE);
            // holder.txtrate.setVisibility(View.GONE);
            // holder.product_prize.setText("\u20B9"+attribute_value.toString());
-            holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
+           // sdfghjukiolp;''
+                holder.txtrate.setText(modelList.get(0).getProduct_description());
+         //   holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
 
         }
 
@@ -224,6 +227,7 @@ public class                                                                    
                 attribute_name=jsonObj.getString("attribute_name");
                 attribute_value=jsonObj.getString("attribute_value");
                 attribute_mrp=jsonObj.getString("attribute_mrp");
+              //  attribute_discription =jsonObj.getString("product_description");
 
 
 
@@ -266,7 +270,8 @@ public class                                                                    
                 //dialog_unit_type.setText("\u20B9"+variantList.get(i).getAttribute_value()+"/"+variantList.get(i).getAttribute_name());
                 //dialog_txtId.setText(variantList.get(i).getId()+"@"+i);
                 holder.dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
-                holder.tv_variant.setText("\u20B9"+attribute_value+"/"+attribute_name);
+                holder.tv_variant.setText(modelList.get(0).getProduct_description());
+               // holder.tv_variant.setText("\u20B9"+attribute_value+"/"+attribute_name);
                // holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
                 //  holder.txtTotal.setText("\u20B9"+String.valueOf(list_atr_value.get(0).toString()));
 
@@ -384,11 +389,13 @@ public class                                                                    
                             attribute_name = String.valueOf(variantList.get(0).getAttribute_name());
                             attribute_value = String.valueOf(variantList.get(0).getAttribute_value());
                             attribute_mrp = String.valueOf(variantList.get(0).getAttribute_mrp());
-                            holder.tv_variant.setText("\u20B9" + variantList.get(0).getAttribute_value() + "/" + variantList.get(0).getAttribute_name());
+                            holder.tv_variant.setText(modelList.get(0).getProduct_description());
+
+                            //   holder.tv_variant.setText("\u20B9" + variantList.get(0).getAttribute_value() + "/" + variantList.get(0).getAttribute_name());
                        //     holder.dialog_unit_type.setText("\u20B9" + attribute_value + "/" + attribute_name);
                             //   holder.dialog_txtId.setText(variantList.get(i).getId());
                             holder.dialog_txtId.setText(variantList.get(0).getId() + "@" + i);
-                            holder.dialog_txtVar.setText(variantList.get(0).getAttribute_value() + "@" + variantList.get(i).getAttribute_name() + "@" + variantList.get(i).getAttribute_mrp());
+                            holder.dialog_txtVar.setText(variantList.get(0).getAttribute_value() + "@" + variantList.get(0).getAttribute_name() + "@" + variantList.get(0).getAttribute_mrp());
 
                             //    txtPer.setText(String.valueOf(df)+"% off");
 

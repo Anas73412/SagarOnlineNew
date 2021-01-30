@@ -229,7 +229,8 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             }
             holder.txtrate.setVisibility( View.VISIBLE);
           //  ,lmknjbhvg///////////////////////////////////
-            holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
+            holder.txtrate.setText(modelList.get(0).getProduct_description());
+          //  holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
            // holder.txtrate.setText(mList.getUnit_value()+" "+mList.getUnit());
 
 
@@ -295,9 +296,10 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 //dialog_unit_type.setText("\u20B9"+variantList.get(i).getAttribute_value()+"/"+variantList.get(i).getAttribute_name());
                 //dialog_txtId.setText(variantList.get(i).getId()+"@"+i);
                 holder.dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
-              // dxcfgvhj/////////////////////////////////////////////////
+
                 holder.txtrate.setVisibility( View.VISIBLE);
-                holder.txtrate.setText("\u20B9"+attribute_value+"/"+attribute_name);
+                holder.txtrate.setText(modelList.get(0).getProduct_description());
+                //holder.txtrate.setText("\u20B9"+attribute_value+"/"+attribute_name);
                 //holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
                 //  holder.txtTotal.setText("\u20B9"+String.valueOf(list_atr_value.get(0).toString()));
 
@@ -407,16 +409,16 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                            atr_id = String.valueOf(variantList.get(i).getId());
-                            atr_product_id = String.valueOf(variantList.get(i).getProduct_id());
-                            attribute_name = String.valueOf(variantList.get(i).getAttribute_name());
-                            attribute_value = String.valueOf(variantList.get(i).getAttribute_value());
-                            attribute_mrp = String.valueOf(variantList.get(i).getAttribute_mrp());
+                            atr_id = String.valueOf(variantList.get(0).getId());
+                            atr_product_id = String.valueOf(variantList.get(0).getProduct_id());
+                            attribute_name = String.valueOf(variantList.get(0).getAttribute_name());
+                            attribute_value = String.valueOf(variantList.get(0).getAttribute_value());
+                            attribute_mrp = String.valueOf(variantList.get(0).getAttribute_mrp());
 
                             holder.dialog_unit_type.setText("\u20B9" + attribute_value + "/" + attribute_name);
                             //   holder.dialog_txtId.setText(variantList.get(i).getId());
-                            holder.dialog_txtId.setText(variantList.get(i).getId() + "@" + i);
-                            holder.dialog_txtVar.setText(variantList.get(i).getAttribute_value() + "@" + variantList.get(i).getAttribute_name() + "@" + variantList.get(i).getAttribute_mrp());
+                            holder.dialog_txtId.setText(variantList.get(0).getId() + "@" + i);
+                            holder.dialog_txtVar.setText(variantList.get(0).getAttribute_value() + "@" + variantList.get(0).getAttribute_name() + "@" + variantList.get(i).getAttribute_mrp());
 
                             //    txtPer.setText(String.valueOf(df)+"% off");
 

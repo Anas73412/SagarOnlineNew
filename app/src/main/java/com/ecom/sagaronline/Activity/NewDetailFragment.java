@@ -242,8 +242,10 @@ public class NewDetailFragment extends Fragment {
                         dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
                         //    txtPer.setText(String.valueOf(df)+"% off");
 
-                        tv_details_product_price.setText("\u20B9"+attribute_value.toString());
-                        tv_details_product_mrp.setText("\u20B9"+attribute_mrp.toString());
+                       // tv_details_product_price.setText("\u20B9"+attribute_value.toString());
+                        tv_details_product_price.setText("\u20B9"+vlist.get(0).getAttribute_value().toString());
+                       // tv_details_product_mrp.setText("\u20B9"+attribute_mrp.toString());
+                        tv_details_product_mrp.setText("\u20B9"+vlist.get(0).getAttribute_mrp().toString());
                         String pr=String.valueOf(attribute_value);
                         String mr=String.valueOf(attribute_mrp);
                         int atr_dis=getDiscount(pr,mr);
@@ -899,7 +901,7 @@ public class NewDetailFragment extends Fragment {
                             model.setProduct_name_arb(obj.getString("product_name_hindi"));
                             model.setProduct_description_arb(obj.getString("product_description_arb"));
                             model.setCategory_id(obj.getString("category_id"));
-                            model.setProduct_description("product_description");
+                            model.setProduct_description(obj.getString("product_description"));
                             model.setProduct_attribute(obj.getString("product_attribute"));
                             model.setStatus(obj.getString("status"));
                             model.setIn_stock(obj.getString("in_stock"));
@@ -1017,10 +1019,12 @@ public class NewDetailFragment extends Fragment {
                             stock=object.getString("stock");
                             in_stock=object.getString("in_stock");
 
-                            tv_details_product_name.setText(list.get(i).getProduct_name());
-                            tv_details_product_description.setText(list.get(i).getProduct_description());
-                            tv_details_product_price.setText("\u20B9"+list.get(i).getPrice());
-                            tv_details_product_mrp.setText("\u20B9"+list.get(i).getMrp());
+                            tv_details_product_name.setText(list.get(0).getProduct_name());
+                            tv_details_product_description.setText(list.get(0).getProduct_description());
+                            //tv_details_product_price.setText("\u20B9"+list.get(0).getPrice());
+                            //tv_details_product_price.setText("\u20B9"+vlist.get(0).getAttribute_value());
+                            //tv_details_product_mrp.setText("\u20B9"+list.get(0).getMrp());
+                           // tv_details_product_mrp.setText("\u20B9"+vlist.get(0).getAttribute_mrp());
 
 
                             atr_price=object.getString("price");
@@ -1079,15 +1083,21 @@ public class NewDetailFragment extends Fragment {
                                 status=obj.getString("status");
                                 attribute_size=obj.getString("attribute_size");
 
+                               //----------------------------------
+
                             }
                             String atr=String.valueOf(list.get(i).getProduct_attribute());
                              if (atr.equals("[]"))
                             {
                                     tv_variant.setText("\u20B9"+list.get(0).getPrice()+"/"+list.get(0).getUnit_value()+" "+list.get(0).getUnit());
+                                tv_details_product_price.setText("\u20B9"+list.get(0).getPrice());
+                                tv_details_product_mrp.setText("\u20B9"+list.get(0).getMrp());
                                 //dialog_unit_type.setText("\u20B9"+list.get(0).getPrice()+"/"+list.get(0).getUnit_value()+" "+list.get(0).getUnit());
                             }else {
                                 tv_variant.setText("\u20B9" + vlist.get(0).getAttribute_value() + "/" + vlist.get(0).getAttribute_name());
 
+                                 tv_details_product_price.setText("\u20B9"+vlist.get(0).getAttribute_value());
+                                 tv_details_product_mrp.setText("\u20B9"+vlist.get(0).getAttribute_mrp());
                                  //dialog_unit_type.setText("\u20B9" + vlist.get(0).getAttribute_value() + "/" + vlist.get(0).getAttribute_name());
                              }
 

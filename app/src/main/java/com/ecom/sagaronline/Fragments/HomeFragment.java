@@ -347,6 +347,8 @@ public class HomeFragment extends Fragment {
                             rec_new_product.setLayoutManager(new GridLayoutManager(getActivity(),2));
                             rec_new_product.setAdapter(newProductAdapter);
                             newProductAdapter.notifyDataSetChanged();
+                            Log.e("getProduct",newProductList.get(0).getProduct_id());
+                            Log.e("bajhchb",newProductList.get(17).getProduct_id()+"///"+newProductList.get(17).getPrice());
                         }
                     }
                 } catch (JSONException e) {
