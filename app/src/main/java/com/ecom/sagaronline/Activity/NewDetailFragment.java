@@ -238,7 +238,7 @@ public class NewDetailFragment extends Fragment {
                         setColor();
                         tv_variant.setText("\u20B9"+vlist.get(0).getAttribute_value()+"/"+vlist.get(0).getAttribute_name());
                     //    dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
-                        dialog_txtId.setText(vlist.get(i).getId()+"@"+i);
+                        dialog_txtId.setText(vlist.get(0).getId()+"@"+i);
                         dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
                         //    txtPer.setText(String.valueOf(df)+"% off");
 
