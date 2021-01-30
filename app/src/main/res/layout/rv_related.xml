@@ -153,13 +153,22 @@
                     android:id="@+id/product_weight"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
-                    android:text="1kg"
+                    android:text=""
                     android:fontFamily="@font/aileron_regular"
                     android:textAlignment="gravity"
                     android:gravity="center_vertical"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/space_2"
                     />
+                <TextView
+                    android:id="@+id/tv_variant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_5"
+                    android:layout_centerHorizontal="true"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:gravity="center_vertical" />
                 <RelativeLayout
                     android:id="@+id/rel_variant"
                     android:layout_width="match_parent"

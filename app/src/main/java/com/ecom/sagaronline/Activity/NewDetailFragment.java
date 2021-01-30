@@ -76,7 +76,7 @@ import static com.ecom.sagaronline.Config.BaseURL.IMG_PRODUCT_URL;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_ID;
 
 public class NewDetailFragment extends Fragment {
-    TextView txtTotal,tv_details_product_price,tv_details_product_mrp,tv_details_product_off,tv_details_product_description,tv_descriptionTitle,tv_details_product_name;
+    TextView txtTotal,tv_details_product_price,tv_details_product_mrp,tv_details_product_off,tv_details_product_description,tv_descriptionTitle,tv_details_product_name,tv_variant;
     Button btn_add,btn_buy_now,btn_checkout;
     TextView dialog_unit_type,dialog_txtId,dialog_txtVar;
     NumberPicker product_qty;
@@ -148,6 +148,7 @@ public class NewDetailFragment extends Fragment {
         rel_out= view.findViewById( R.id.rel_out );
         lin_img = view.findViewById(R.id.relative_layout_img);
         img_slider = view.findViewById(R.id.img_slider);
+        tv_variant = view.findViewById(R.id.tv_variant);
         btn_checkout = view.findViewById(R.id.btn_f_Add_to_cart);
         btn_add=view.findViewById(R.id.btn_add);
         btn_buy_now=view.findViewById(R.id.btn_buy_now);
@@ -222,12 +223,12 @@ public class NewDetailFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        atr_id=String.valueOf(vlist.get(i).getId());
-                        atr_product_id=String.valueOf(vlist.get(i).getProduct_id());
-                        attribute_name=String.valueOf(vlist.get(i).getAttribute_name());
-                        attribute_value=String.valueOf(vlist.get(i).getAttribute_value());
-                        attribute_mrp=String.valueOf(vlist.get(i).getAttribute_mrp());
-                        attribute_color=String.valueOf(vlist.get(i).getAttribute_color());
+                        atr_id=String.valueOf(vlist.get(0).getId());
+                        atr_product_id=String.valueOf(vlist.get(0).getProduct_id());
+                        attribute_name=String.valueOf(vlist.get(0).getAttribute_name());
+                        attribute_value=String.valueOf(vlist.get(0).getAttribute_value());
+                        attribute_mrp=String.valueOf(vlist.get(0).getAttribute_mrp());
+                        attribute_color=String.valueOf(vlist.get(0).getAttribute_color());
                         JSONArray colorarray= null;
                         try {
                             getValues(attribute_color);
@@ -235,7 +236,8 @@ public class NewDetailFragment extends Fragment {
                             e.printStackTrace();
                         }
                         setColor();
-                        dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
+                        tv_variant.setText("\u20B9"+vlist.get(0).getAttribute_value()+"/"+vlist.get(0).getAttribute_name());
+                    //    dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
                         dialog_txtId.setText(vlist.get(i).getId()+"@"+i);
                         dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
                         //    txtPer.setText(String.valueOf(df)+"% off");
@@ -1081,10 +1083,12 @@ public class NewDetailFragment extends Fragment {
                             String atr=String.valueOf(list.get(i).getProduct_attribute());
                              if (atr.equals("[]"))
                             {
-                                dialog_unit_type.setText("\u20B9"+list.get(0).getPrice()+"/"+list.get(0).getUnit_value()+" "+list.get(0).getUnit());
+                                    tv_variant.setText("\u20B9"+list.get(0).getPrice()+"/"+list.get(0).getUnit_value()+" "+list.get(0).getUnit());
+                                //dialog_unit_type.setText("\u20B9"+list.get(0).getPrice()+"/"+list.get(0).getUnit_value()+" "+list.get(0).getUnit());
                             }else {
+                                tv_variant.setText("\u20B9" + vlist.get(0).getAttribute_value() + "/" + vlist.get(0).getAttribute_name());
 
-                                 dialog_unit_type.setText("\u20B9" + vlist.get(0).getAttribute_value() + "/" + vlist.get(0).getAttribute_name());
+                                 //dialog_unit_type.setText("\u20B9" + vlist.get(0).getAttribute_value() + "/" + vlist.get(0).getAttribute_name());
                              }
 
                              atr = String.valueOf( list.get(0).getProduct_attribute() );

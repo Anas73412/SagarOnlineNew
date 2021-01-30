@@ -228,6 +228,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 holder.product_discount_img.setVisibility(View.GONE);
             }
             holder.txtrate.setVisibility( View.VISIBLE);
+          //  ,lmknjbhvg///////////////////////////////////
             holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
            // holder.txtrate.setText(mList.getUnit_value()+" "+mList.getUnit());
 
@@ -236,8 +237,8 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
 
         else
         {
-
-            holder.rel_variant.setVisibility( View.VISIBLE);
+            holder.rel_variant.setVisibility( View.GONE);
+           // holder.rel_variant.setVisibility( View.VISIBLE);
             status=2;
             JSONArray jsonArr = null;
             try {
@@ -294,7 +295,10 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 //dialog_unit_type.setText("\u20B9"+variantList.get(i).getAttribute_value()+"/"+variantList.get(i).getAttribute_name());
                 //dialog_txtId.setText(variantList.get(i).getId()+"@"+i);
                 holder.dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
-                holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
+              // dxcfgvhj/////////////////////////////////////////////////
+                holder.txtrate.setVisibility( View.VISIBLE);
+                holder.txtrate.setText("\u20B9"+attribute_value+"/"+attribute_name);
+                //holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
                 //  holder.txtTotal.setText("\u20B9"+String.valueOf(list_atr_value.get(0).toString()));
 
             } catch (JSONException e) {

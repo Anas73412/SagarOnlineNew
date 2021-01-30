@@ -51,7 +51,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_ID;
 
 
-public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAdapter.MyViewHolder> {
+public class                                                                                                        RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAdapter.MyViewHolder> {
 
     int status=0;
 
@@ -209,8 +209,8 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
 
         else
         {
-
-            holder.rel_variant.setVisibility( View.VISIBLE);
+          holder.tv_variant.setVisibility(View.VISIBLE);
+          //  holder.rel_variant.setVisibility( View.VISIBLE);
             status=2;
             JSONArray jsonArr = null;
             try {
@@ -266,7 +266,8 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                 //dialog_unit_type.setText("\u20B9"+variantList.get(i).getAttribute_value()+"/"+variantList.get(i).getAttribute_name());
                 //dialog_txtId.setText(variantList.get(i).getId()+"@"+i);
                 holder.dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
-                holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
+                holder.tv_variant.setText("\u20B9"+attribute_value+"/"+attribute_name);
+               // holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
                 //  holder.txtTotal.setText("\u20B9"+String.valueOf(list_atr_value.get(0).toString()));
 
             } catch (JSONException e) {
@@ -378,16 +379,16 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                            atr_id = String.valueOf(variantList.get(i).getId());
-                            atr_product_id = String.valueOf(variantList.get(i).getProduct_id());
-                            attribute_name = String.valueOf(variantList.get(i).getAttribute_name());
-                            attribute_value = String.valueOf(variantList.get(i).getAttribute_value());
-                            attribute_mrp = String.valueOf(variantList.get(i).getAttribute_mrp());
-
-                            holder.dialog_unit_type.setText("\u20B9" + attribute_value + "/" + attribute_name);
+                            atr_id = String.valueOf(variantList.get(0).getId());
+                            atr_product_id = String.valueOf(variantList.get(0).getProduct_id());
+                            attribute_name = String.valueOf(variantList.get(0).getAttribute_name());
+                            attribute_value = String.valueOf(variantList.get(0).getAttribute_value());
+                            attribute_mrp = String.valueOf(variantList.get(0).getAttribute_mrp());
+                            holder.tv_variant.setText("\u20B9" + variantList.get(0).getAttribute_value() + "/" + variantList.get(0).getAttribute_name());
+                       //     holder.dialog_unit_type.setText("\u20B9" + attribute_value + "/" + attribute_name);
                             //   holder.dialog_txtId.setText(variantList.get(i).getId());
-                            holder.dialog_txtId.setText(variantList.get(i).getId() + "@" + i);
-                            holder.dialog_txtVar.setText(variantList.get(i).getAttribute_value() + "@" + variantList.get(i).getAttribute_name() + "@" + variantList.get(i).getAttribute_mrp());
+                            holder.dialog_txtId.setText(variantList.get(0).getId() + "@" + i);
+                            holder.dialog_txtVar.setText(variantList.get(0).getAttribute_value() + "@" + variantList.get(i).getAttribute_name() + "@" + variantList.get(i).getAttribute_mrp());
 
                             //    txtPer.setText(String.valueOf(df)+"% off");
 
@@ -785,7 +786,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView product_nmae, product_mrp ,product_discount , product_prize;
+        public TextView product_nmae, product_mrp ,product_discount , product_prize,tv_variant;
         public ImageView image , wish_before ,wish_after,product_discount_img;
         ElegantNumberButton elegantNumberButton ;
         Button add_Button;
@@ -802,6 +803,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
             product_discount=(TextView)view.findViewById( R.id.product_discount);
             product_discount_img=(ImageView)view.findViewById(R.id.product_discount_img);
             product_prize=(TextView)view.findViewById( R.id.product_price );
+            tv_variant = view.findViewById(R.id.tv_variant);
             image = (ImageView) view.findViewById( R.id.product_img);
             wish_after=(ImageView)view.findViewById( R.id.wish_after );
             wish_before=(ImageView)view.findViewById( R.id.wish_before );
@@ -809,6 +811,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
             elegantNumberButton=(ElegantNumberButton) view.findViewById( R.id.elegantButton );
             db_cart=new DatabaseCartHandler(context);
             db_wish= new WishlistHandler( context );
+
 
             //card_view_top = (CardView)view.findViewById( R.id.card_view_top );
             card_view_top = (RelativeLayout)view.findViewById(R.id.card_view_top);

@@ -404,6 +404,7 @@ public class Payment_fragment extends Fragment {
                     jObjP.put("price", map.get("price"));
                     jObjP.put("rewards", "0");
                     passArray.put(jObjP);
+                    Log.e("passArray",jObjP.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -428,41 +429,43 @@ public class Payment_fragment extends Fragment {
 
                 //gettime="03:00 PM - 03:30 PM";
                 // getdate="2019-7-23";
-                Log.e(TAG, "from:" +"03:00 PM - 03:30 PM" + "\ndate:" + "2019-7-23" +
-                        "\n" + "\nuser_id:" + getuser_id + "\n l" + getlocation_id + getstore_id + "\ndata:" + passArray.toString());
+//                Log.e(TAG, "from:" +"03:00 PM - 03:30 PM" + "\ndate:" + "2019-7-23" +
+//                        "\n" + "\nuser_id:" + getuser_id + "\n l" + getlocation_id + getstore_id + "\ndata:" + passArray.toString());
 //Toast.makeText(getActivity(), "from:" + gettime + "\ndate:" + getdate +
                 //      "\n" + "\nuser_id:" + getuser_id + "\n" + getlocation_id + getstore_id + "\ndata:" + passArray.toString(),Toast.LENGTH_LONG).show();
 
                 //    Toast.makeText(getActivity(),""+deli_charges,Toast.LENGTH_SHORT).show();
-                makeAddOrderRequest(getdate, gettime, getuser_id, getlocation_id, getstore_id, passArray);
+                Log.e("sdcfv",gettime+"  "+getlocation_id);
+               // makeAddOrderRequest(getdate, gettime, getuser_id, getlocation_id, getstore_id, passArray);
 
-
+                makeAddOrderRequest(getdate, gettime, getuser_id, getlocation_id, passArray);
             }
         }
     }
 
     private void makeAddOrderRequest(String date, String gettime, String userid, String
-            location, String store_id, JSONArray passArray) {
+            location, JSONArray passArray) {
 
         loadingBar.show();
         String tag_json_obj = "json_add_order_req";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("date", date);
+        params.put("date", "30-01-2021");
         params.put("time", gettime);
         params.put("user_id", userid);
         params.put("location", location);
         params.put( "delivery_charges",getcharge );
-        //   params.put("store_id", store_id);
+        params.put("store_id", "0");
         params.put("total_ammount",total_amount);
         params.put("delivery_charges",deli_charges);
         params.put("payment_method", getvalue);
-        params.put("data", passArray.toString());
+        params.put("data", String.valueOf(passArray));
+        Log.e("PaymentFragementpara",params.toString());
         // Toast.makeText(getActivity(),""+passArray,Toast.LENGTH_LONG).show();
         CustomVolleyJsonRequest jsonObjReq = new CustomVolleyJsonRequest(Request.Method.POST,
                 BaseURL.ADD_ORDER_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("odd", response.toString());
+                Log.e("odd", response.toString());
 
                 try {
                     Boolean status = response.getBoolean("responce");
@@ -510,6 +513,7 @@ public class Payment_fragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loadingBar.dismiss();
+                error.printStackTrace();
                 String msg=module.VolleyErrorMessage(error);
                 if(!msg.equals(""))
                 {

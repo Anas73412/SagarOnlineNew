@@ -115,6 +115,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="10dp"
                     android:paddingBottom="10dp"
+                    android:visibility="gone"
                     >
 
 
@@ -144,6 +145,7 @@
                         android:layout_marginTop="@dimen/space_10"
                         android:fontFamily="@font/aileron_regular"
                         android:padding="5dp"
+                        android:gravity="center_vertical"
                         android:text="Weight:"
                         android:textSize="15dp" />
 
@@ -160,6 +162,18 @@
                         android:text="Rate"
                         android:layout_alignParentRight="true"
                         />
+                    <TextView
+                        android:id="@+id/tv_variant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text=""
+                        android:textSize="15dp"
+                        android:gravity="center_vertical"
+                        android:layout_toRightOf="@id/txtrate"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:layout_marginRight="@dimen/space_10" />
                     <RelativeLayout
                         android:id="@+id/rel_variant"
                         android:layout_width="match_parent"
@@ -167,6 +181,7 @@
                         android:layout_toRightOf="@id/txtrate"
                         android:layout_marginTop="@dimen/space_10"
                         android:layout_marginLeft="@dimen/space_10"
+                        android:visibility="gone"
                         android:layout_marginRight="@dimen/space_10"
 
                         android:background="@drawable/relative_unit_layout">

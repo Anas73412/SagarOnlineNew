@@ -86,7 +86,7 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
 
     private String gettime = "";
     private String getdate = "";
-
+    String time="";
     private String deli_charges;
     String store_id;
     String language;
@@ -124,13 +124,13 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
         txtdelivery =(TextView)view.findViewById( R.id.txtdelivery );
         rv_address.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Time today = new Time(Time.getCurrentTimezone());
-        today.setToNow();
-        Log.e("slmkd", String.valueOf(today));
+//        Time today = new Time(Time.getCurrentTimezone());
+//        today.setToNow();
+//        Log.e("slmkd", String.valueOf(today));
 
-        DateFormat df = new SimpleDateFormat( "HH:mm");
-        String date2 = df.format(Calendar.getInstance().getTime());
-        Log.e("jhbvg",date2);
+//        DateFormat df = new SimpleDateFormat( "HH:mm");
+//        String date2 = df.format(Calendar.getInstance().getTime());
+//        Log.e("jhbvg",date2);
 
         //tv_socity = (TextView) view.findViewById(R.id.tv_deli_socity);
         //et_address = (EditText) view.findViewById(R.id.et_deli_address);
@@ -175,8 +175,11 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
         btn_checkout.setOnClickListener(this);
 
         String date = sessionManagement.getdatetime().get(BaseURL.KEY_DATE);
-        String time = sessionManagement.getdatetime().get(BaseURL.KEY_TIME);
+       // String time = sessionManagement.getdatetime().get(BaseURL.KEY_TIME);
 
+//        DateFormat df = new SimpleDateFormat( "HH:mm");
+//        time = df.format(Calendar.getInstance().getTime());
+//        Log.e("jhbvg",time);
 
 
         if (date != null && time != null) {
@@ -318,10 +321,11 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
 //            Toast.makeText(getActivity(), getResources().getString(R.string.please_select_date_time), Toast.LENGTH_SHORT).show();
 //            cancel = true;
 //        } else
-        if (TextUtils.isEmpty(gettime)) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.please_select_date_time), Toast.LENGTH_SHORT).show();
-            cancel = true;
-        }
+        Log.e("kjncfhb",gettime);
+//        if (TextUtils.isEmpty(gettime)) {
+//            Toast.makeText(getActivity(), getResources().getString(R.string.please_select_date_time), Toast.LENGTH_SHORT).show();
+//            cancel = true;
+//        }
 
         if (!delivery_address_modelList.isEmpty()) {
             txtdelivery.setVisibility( View.VISIBLE );
@@ -363,11 +367,11 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
             String society = addmap.get("society");
             String pin = addmap.get("pin");
             String house = addmap.get("house");
-            //args.putString("getdate", getdate);
-            args.putString("time", gettime);
+            args.putString("getdate", getdate);
+           // args.putString("time",gettime);
             args.putString( "address",address );
             args.putString("getdate", "00/00/0000");
-            args.putString("time", gettime);
+            args.putString("time", getCurrentTime());
             args.putString("location_id", location_id);
             args.putString("name",name);
             args.putString( "pin",pin );
@@ -376,6 +380,7 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
             args.putString( "phone",phone );
             args.putString("deli_charges", deli_charges);
             args.putString("store_id", store_id);
+            Log.e("mdncbf",args.toString());
             if(buynow){
                 args.putString("type","buy_now");
             }else {
@@ -521,5 +526,13 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
         dt=simpleDateFormat.format(date);
 
         return dt;
+    }
+    public String getCurrentTime()
+    {
+        DateFormat df = new SimpleDateFormat( "HH:mm");
+        time = df.format(Calendar.getInstance().getTime());
+        Log.e("jhbvg",time);
+
+        return time;
     }
 }

@@ -147,7 +147,7 @@ public class DetailsFragment extends Fragment {
     ArrayList<ColorModel> color_list;
     //ArrayList<SizeModel> size_list;
 
-    private TextView txtName,txtPrice,txtMrp;
+    private TextView txtName,txtPrice,txtMrp,tv_variant;
     ReadMoreTextView txtDesc;
     RecyclerView  recyclerViewColor , recyclerViewSize;
     CardView cardView;
@@ -216,6 +216,7 @@ public class DetailsFragment extends Fragment {
         //recyclerView=view.findViewById(R.id.recylerView);
         wish_before = view.findViewById( R.id.wish_before );
         wish_after = view.findViewById( R.id.wish_after );
+        tv_variant = view.findViewById(R.id.tv_variant);
         rel_out= view.findViewById( R.id.rel_out );
         lin_img = view.findViewById(R.id.relative_layout_img);
         img_slider = view.findViewById(R.id.img_slider);
