@@ -402,7 +402,7 @@ public class Payment_fragment extends Fragment {
                     jObjP.put("unit_value", map.get("unit_price"));
                     jObjP.put("unit", map.get("unit"));
                     jObjP.put("price", map.get("price"));
-                    jObjP.put("rewards", "0");
+//                    jObjP.put("rewards", "0");
                     passArray.put(jObjP);
                     Log.e("passArray",jObjP.toString());
                 } catch (JSONException e) {
@@ -418,7 +418,7 @@ public class Payment_fragment extends Fragment {
 
                 Date date=new Date();
 
-                SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
                 String g=dateFormat.format(date);
                 SimpleDateFormat dateFormat1=new SimpleDateFormat("hh:mm a");
                 String t=dateFormat1.format(date);
@@ -427,7 +427,10 @@ public class Payment_fragment extends Fragment {
                 //   Toast.makeText(getActivity(),"Time"+t,Toast.LENGTH_LONG).show();
                 getdate=g;
 
-                //gettime="03:00 PM - 03:30 PM";
+//                gettime="03:00 PM - 03:30 PM";
+
+                String ctime=new SimpleDateFormat("hh:mm a").format(new Date());
+                gettime=ctime+" - "+ctime;
                 // getdate="2019-7-23";
 //                Log.e(TAG, "from:" +"03:00 PM - 03:30 PM" + "\ndate:" + "2019-7-23" +
 //                        "\n" + "\nuser_id:" + getuser_id + "\n l" + getlocation_id + getstore_id + "\ndata:" + passArray.toString());
@@ -439,8 +442,35 @@ public class Payment_fragment extends Fragment {
                // makeAddOrderRequest(getdate, gettime, getuser_id, getlocation_id, getstore_id, passArray);
 
                 makeAddOrderRequest(getdate, gettime, getuser_id, getlocation_id, passArray);
+//                makeOrderRequest(getdate, gettime, getuser_id, getlocation_id, passArray);
             }
         }
+    }
+
+    private void makeOrderRequest(String date, String gettime, String userid, String
+            location, JSONArray passArray){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("date", "30-01-2021");
+        params.put("time", gettime);
+        params.put("user_id", userid);
+        params.put("location", location);
+        params.put( "delivery_charges",getcharge );
+        params.put("store_id", "0");
+        params.put("total_ammount",total_amount);
+        params.put("delivery_charges",deli_charges);
+        params.put("payment_method", getvalue);
+        params.put("data", String.valueOf(passArray));
+            module.postRequest(BaseURL.ADD_ORDER_URL, params, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e(TAG, "onResponse: "+response.toString() );
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
     }
 
     private void makeAddOrderRequest(String date, String gettime, String userid, String
@@ -449,7 +479,7 @@ public class Payment_fragment extends Fragment {
         loadingBar.show();
         String tag_json_obj = "json_add_order_req";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("date", "30-01-2021");
+        params.put("date", getdate);
         params.put("time", gettime);
         params.put("user_id", userid);
         params.put("location", location);

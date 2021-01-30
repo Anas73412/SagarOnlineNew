@@ -10,16 +10,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Model.GetCongifDataModel;
+import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
 import com.ecom.sagaronline.Utils.OnGetConfigData;
 
@@ -30,6 +34,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.ecom.sagaronline.Config.BaseURL.GET_VERSION_URL;
 
@@ -258,5 +263,26 @@ public class Module {
         Intent i=new Intent("Cart");
         i.putExtra("type","update");
         context.sendBroadcast(i);
+    }
+
+    public void postRequest(String url,HashMap<String,String> params,Response.Listener<String> listener,Response.ErrorListener errorListener){
+        if(!ConnectivityReceiver.isConnected()){
+            showToast("No Internet Connection");
+            return;
+        }
+        Log.e("url", ""+url );
+        StringRequest request=new StringRequest(Request.Method.POST,url,listener,errorListener){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Log.e("params", ""+params );
+                return params;
+            }
+        };
+        RetryPolicy mRetryPolicy = new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(mRetryPolicy);
+        AppController.getInstance().addToRequestQueue(request,"req");
     }
 }
