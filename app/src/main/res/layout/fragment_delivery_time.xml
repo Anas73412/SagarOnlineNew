@@ -46,6 +46,7 @@
                     android:id="@+id/tv_deli_fromtime"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
+                    android:visibility="gone"
                     android:layout_marginBottom="@dimen/space_5"
                     android:background="@drawable/xml_textbox_blue_bg"
                     android:drawableLeft="@drawable/ic_timeslot_17"

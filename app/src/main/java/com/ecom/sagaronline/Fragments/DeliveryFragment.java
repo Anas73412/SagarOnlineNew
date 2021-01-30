@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -121,6 +123,15 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
         rv_address = (RecyclerView) view.findViewById(R.id.rv_deli_address);
         txtdelivery =(TextView)view.findViewById( R.id.txtdelivery );
         rv_address.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        Time today = new Time(Time.getCurrentTimezone());
+        today.setToNow();
+        Log.e("slmkd", String.valueOf(today));
+
+        DateFormat df = new SimpleDateFormat( "HH:mm");
+        String date2 = df.format(Calendar.getInstance().getTime());
+        Log.e("jhbvg",date2);
+
         //tv_socity = (TextView) view.findViewById(R.id.tv_deli_socity);
         //et_address = (EditText) view.findViewById(R.id.et_deli_address);
         Bundle bundle = getArguments();
@@ -508,6 +519,7 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener {
         Date date=new Date();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
         dt=simpleDateFormat.format(date);
+
         return dt;
     }
 }
