@@ -59,6 +59,7 @@ import com.ecom.sagaronline.Utils.RecyclerTouchListener;
 import com.ecom.sagaronline.Utils.Session_management;
 import com.ecom.sagaronline.Utils.WishlistHandler;
 import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 import com.travijuu.numberpicker.library.NumberPicker;
 
@@ -929,7 +930,21 @@ public class DetailsFragment extends Fragment {
                     }
                 });
                 img_slider.setPageCount(image_list.size());
+                img_slider.setImageClickListener(new ImageClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                                Bundle bundle = new Bundle();
+                                bundle.putStringArrayList("images",image_list);
+                                Fragment fm = new ImagesViewFragment();
+                                fm.setArguments(bundle);
+                                FragmentManager fragmentManager = getFragmentManager();
+                                fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+                                        .addToBackStack(null).commit();
 
+
+
+                    }
+                });
 
             }
 

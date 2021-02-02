@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ecom.sagaronline.Activity.MainActivity;
-import com.ecom.sagaronline.Activity.NewDetailFragment;
 import com.ecom.sagaronline.Adapter.HistoryAdapter;
 import com.ecom.sagaronline.Adapter.SearchAdapter;
 import com.ecom.sagaronline.Adapter.SuggestionAdapter;

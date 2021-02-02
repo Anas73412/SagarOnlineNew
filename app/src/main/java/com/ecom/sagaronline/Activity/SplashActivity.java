@@ -68,13 +68,6 @@ public class SplashActivity extends AppCompatActivity {
 
                 if(ver_code==version) {
 
-//                    if (session_management.isLoggedIn()) {
-//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                        finish();
-//                    } else {
-//                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//                        finish();
-//                    }
                     go_next();
                     finish();
                 }

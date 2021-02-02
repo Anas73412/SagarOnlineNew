@@ -1,4 +1,4 @@
-package com.ecom.sagaronline.Activity;
+package com.ecom.sagaronline.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -34,6 +34,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.ecom.sagaronline.Activity.LoginActivity;
+import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.Adapter.ColorAdapter;
 import com.ecom.sagaronline.Adapter.ProductVariantAdapter;
 import com.ecom.sagaronline.Adapter.RelatedProductAdapter;
@@ -57,6 +59,7 @@ import com.ecom.sagaronline.Utils.LoadingBar;
 import com.ecom.sagaronline.Utils.Session_management;
 import com.ecom.sagaronline.Utils.WishlistHandler;
 import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 import com.travijuu.numberpicker.library.NumberPicker;
 
@@ -1158,6 +1161,21 @@ public class NewDetailFragment extends Fragment {
                             });
                             img_slider.setPageCount(image_list.size());
                             Log.e("image", String.valueOf(image_list.size()));
+                            img_slider.setImageClickListener(new ImageClickListener() {
+                                @Override
+                                public void onClick(int position) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putStringArrayList("images",image_list);
+                                    Fragment fm = new ImagesViewFragment();
+                                    fm.setArguments(bundle);
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+                                            .addToBackStack(null).commit();
+
+
+
+                                }
+                            });
                             loadingBar.dismiss();
 
 //                        }
