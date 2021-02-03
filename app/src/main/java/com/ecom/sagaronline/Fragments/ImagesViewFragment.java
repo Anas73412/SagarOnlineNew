@@ -43,6 +43,7 @@ public ImagesViewFragment(){}
         // Inflate the layout for this fragment
       View view= inflater.inflate(R.layout.fragment_images_view, container, false);
       pager = view.findViewById(R.id.img_pager);
+      image_list = getArguments().getStringArrayList("images");
       adapter = new ImageAdapter(getActivity(), (ArrayList<String>) image_list);
         img_recycler = view.findViewById(R.id.img_recycler);
       pager.setAdapter(adapter);
