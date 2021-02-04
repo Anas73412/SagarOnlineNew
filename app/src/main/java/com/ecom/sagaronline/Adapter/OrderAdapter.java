@@ -1,6 +1,7 @@
 package com.ecom.sagaronline.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -11,13 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ecom.sagaronline.Model.My_order_model;
+import com.ecom.sagaronline.Model.OrderStatusModel;
 import com.ecom.sagaronline.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -29,6 +35,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private Fragment currentFragment;
     SharedPreferences preferences;
     private Context context;
+    ArrayList<OrderStatusModel>order_stat_list;
 
     public OrderAdapter(Context context, List<My_order_model> modemodelList, final Fragment currentFragment) {
 
@@ -36,6 +43,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         this.modelList = modelList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.currentFragment = currentFragment;
+
 
     }
 
@@ -50,6 +58,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         public TextView tv_methid1;
         public String method;
         LinearLayout linearLayout;
+        RecyclerView rv_order_stat;
 
         public MyViewHolder(View view) {
 
@@ -62,7 +71,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             tv_time = (TextView) view.findViewById(R.id.tv_order_time);
             tv_price = (TextView) view.findViewById(R.id.tv_order_price);
             tv_item = (TextView) view.findViewById(R.id.tv_order_item);
-
+            rv_order_stat = view.findViewById(R.id.rv_order_status);
+            rv_order_stat.setLayoutManager(new LinearLayoutManager(context));
             cardView = view.findViewById(R.id.card_view);
 
             linearLayout=view.findViewById(R.id.l1);
@@ -108,13 +118,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(OrderAdapter .MyViewHolder holder, int position) {
         My_order_model mList = modelList.get(position);
-
+        order_stat_list = new ArrayList<>();
+        order_stat_list.add(new OrderStatusModel("Order Placed",mList.getOn_date(),false));
+        order_stat_list.add(new OrderStatusModel("Order Confirmed",mList.getOn_date(),false));
+        order_stat_list.add(new OrderStatusModel("Ready For Pickup",mList.getOn_date(),false));
+        order_stat_list.add(new OrderStatusModel("Out for Delivery",mList.getOn_date(),false));
+        order_stat_list.add(new OrderStatusModel("Delivered",mList.getOn_date(),false));
+        OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(order_stat_list,context);
+        holder.rv_order_stat.setAdapter(orderStatusAdapter);
         holder.tv_orderno.setText(mList.getSale_id());
 
         if (mList.getStatus().equals("0")) {
             holder.tv_status.setText(context.getResources().getString(R.string.pending));
             holder.relativetextstatus.setText(context.getResources().getString(R.string.pending));
             holder.relative_background.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            order_stat_list.get(0).setIs_checked(true);
+            orderStatusAdapter.notifyDataSetChanged();
+
         } else if (mList.getStatus().equals("1")) {
             holder.view1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
             holder.view2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
@@ -123,6 +143,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.tv_status.setText(context.getResources().getString(R.string.confirm));
             holder.relativetextstatus.setText(context.getResources().getString(R.string.confirm));
             holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            order_stat_list.get(1).setIs_checked(true);
+            orderStatusAdapter.notifyDataSetChanged();
+
         } else if (mList.getStatus().equals("2")) {
             holder.view1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
             holder.relative_background.setBackgroundColor(context.getResources().getColor(R.color.tot));
@@ -134,10 +157,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.tv_status.setText(context.getResources().getString(R.string.outfordeliverd));
             holder.relativetextstatus.setText(context.getResources().getString(R.string.outfordeliverd));
             holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            order_stat_list.get(3).setIs_checked(true);
+            orderStatusAdapter.notifyDataSetChanged();
         }
            else if (mList.getStatus().equals("4")) {
             holder.linearLayout.setVisibility(View.GONE);
             holder.iv_cancelled.setVisibility(View.VISIBLE);
+            order_stat_list.get(4).setIs_checked(true);
+            orderStatusAdapter.notifyDataSetChanged();
         }
 
         if (mList.getPayment_method().equals("Store Pick Up")) {
@@ -199,6 +226,47 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public int getItemCount() {
         return modelList.size();
     }
+
+    public  class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.ViewHolder>
+    {
+        ArrayList<OrderStatusModel> stat_list;
+      Context activity;
+
+        public OrderStatusAdapter(ArrayList<OrderStatusModel> stat_list, Context activity) {
+            this.stat_list = stat_list;
+            this.activity = activity;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.row_order_status,null);
+        return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            holder.tv_status.setText(stat_list.get(position).getStatus());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return stat_list.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView tv_status ,tv_date;
+            ImageView iv_order_status;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                tv_status = itemView.findViewById(R.id.tv_order_status);
+                tv_date = itemView.findViewById(R.id.tv_order_date);
+              iv_order_status = itemView.findViewById(R.id.iv_order_status);
+            }
+        }
+    }
+
 
 }
 
