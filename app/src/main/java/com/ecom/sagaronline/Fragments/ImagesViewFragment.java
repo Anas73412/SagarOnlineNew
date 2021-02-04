@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.ecom.sagaronline.Adapter.ImageAdapter;
 import com.ecom.sagaronline.Adapter.ImageRecyclerAdapter;
 import com.ecom.sagaronline.R;
+import com.ecom.sagaronline.Utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
 
@@ -73,6 +74,18 @@ public ImagesViewFragment(){}
         imageRecyclerAdapter = new ImageRecyclerAdapter(getActivity(),image_list,sel_pos);
         img_recycler.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         img_recycler.setAdapter(imageRecyclerAdapter);
+
+        img_recycler.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), img_recycler, new RecyclerTouchListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                pager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
 
       return  view;
     }

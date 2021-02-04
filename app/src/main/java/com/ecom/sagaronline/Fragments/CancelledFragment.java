@@ -70,23 +70,23 @@ public class CancelledFragment extends Fragment {
 
         module=new Module(getActivity());
         // handle the touch event if true
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // check user can press back button or not
-                if (event.getAction() == android.view.KeyEvent.ACTION_UP && keyCode == android.view.KeyEvent.KEYCODE_BACK) {
-
-//                    Fragment fm = new Home_fragment();
-//                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
-//                    fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
-//                            .addToBackStack(null).commit();
-                    return true;
-                }
-                return false;
-            }
-        });
+//        view.setFocusableInTouchMode(true);
+//        view.requestFocus();
+//        view.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                // check user can press back button or not
+//                if (event.getAction() == android.view.KeyEvent.ACTION_UP && keyCode == android.view.KeyEvent.KEYCODE_BACK) {
+//
+////                    Fragment fm = new Home_fragment();
+////                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+////                    fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
+////                            .addToBackStack(null).commit();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
         loadingBar = new LoadingBar(getActivity());
         rv_myorder = (RecyclerView) view.findViewById(R.id.rv_myorder);
         rv_myorder.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -143,6 +143,7 @@ public class CancelledFragment extends Fragment {
      * Method to make json array request where json response starts wtih
      */
     private void makeGetOrderRequest(String userid) {
+        loadingBar.show();
         String tag_json_obj = "json_socity_req";
 
         Map<String, String> params = new HashMap<String, String>();
@@ -187,6 +188,7 @@ public class CancelledFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
                 Module module=new Module(getActivity());
                 String msg=module.VolleyErrorMessage(error);
                 if(!(msg.isEmpty() || msg.equals("")))

@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
        tv_name = (TextView) header.findViewById(R.id.viewProfile);
         iv_edit = (ImageView) header.findViewById(R.id.editProfile);
         module=new Module(MainActivity.this);
+        toolbar.setTitleTextAppearance(MainActivity.this,R.style.titlebartext);
         updatename();
 
         if (savedInstanceState != null) {

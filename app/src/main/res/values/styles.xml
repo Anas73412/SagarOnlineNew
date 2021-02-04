@@ -11,6 +11,7 @@
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="fontFamily">@font/bold</item>
         <item name="textAppearanceCaption">@font/bold</item>
         <item name="textAppearanceBody1">@font/bold</item>
 
@@ -25,9 +26,15 @@
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="fontFamily">@font/bold</item>
         <item name="textAppearanceCaption">@font/bold</item>
         <item name="textAppearanceBody1">@font/bold</item>
 
+    </style>
+    <style name="titlebartext" parent="Widget.MaterialComponents.Toolbar">
+<!--        <item name="fontFamily">@font/bold</item>-->
+        <item name="textAllCaps">true</item>
+        <item name="textSize">16dp</item>
     </style>
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <item name="android:layout_marginLeft">40dp</item>
