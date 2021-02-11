@@ -37,15 +37,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private Context context;
     ArrayList<OrderStatusModel>order_stat_list;
 
-    public OrderAdapter(Context context, List<My_order_model> modemodelList, final Fragment currentFragment) {
-
-        this.context = context;
-        this.modelList = modelList;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.currentFragment = currentFragment;
-
-
-    }
+//    public OrderAdapter(Context context, List<My_order_model> modemodelList, final Fragment currentFragment) {
+//
+//        this.context = context;
+//        this.modelList = modelList;
+//        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        this.currentFragment = currentFragment;
+//
+//
+//    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

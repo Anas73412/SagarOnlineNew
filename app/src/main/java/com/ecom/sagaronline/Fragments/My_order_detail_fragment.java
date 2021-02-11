@@ -1,6 +1,5 @@
 package com.ecom.sagaronline.Fragments;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -170,9 +170,10 @@ public class My_order_detail_fragment extends Fragment {
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("sale_id", sale_id);
+        params.put("sale_id", sale_id);
 
         CustomVolleyJsonArrayRequest jsonObjReq = new CustomVolleyJsonArrayRequest(Request.Method.POST,
-                BaseURL.ORDER_DETAIL_URL, params, new Response.Listener<JSONArray>() {
+                BaseURL.URL_ORDER_DETAIL, params, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {

@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -72,6 +73,7 @@ public class HomeFragment extends Fragment {
     Home_adapter categoryAdapter;
     RecyclerView rec_category , rec_new_product , rec_top_product;
     String getid="";
+    RelativeLayout rel_search;
     private boolean isSubcat = false;
 
 
@@ -94,7 +96,14 @@ public class HomeFragment extends Fragment {
         rec_category = v.findViewById(R.id.rec_category);
         rec_new_product = v.findViewById(R.id.rec_new_product);
         rec_top_product = v.findViewById(R.id.rec_best_product);
+        rel_search = v.findViewById(R.id.rel_search);
         db_cart=new DatabaseCartHandler(getActivity());
+        rel_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Search_fragment()).addToBackStack(null).commit();
+            }
+        });
         v.setFocusableInTouchMode(true);
         v.requestFocus();
         v.setOnKeyListener(new View.OnKeyListener() {

@@ -8,6 +8,10 @@
         android:layout_width="match_parent"
         android:elevation="@dimen/space_2"
         android:layout_height="wrap_content">
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
 
 
     <LinearLayout
@@ -65,11 +69,11 @@
         <TextView
             android:id="@+id/tv_order_status"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4"
+            android:layout_height="match_parent"
             android:text="@string/pending"
             android:textColor="#000"
             android:padding="@dimen/space_5"
+            android:layout_gravity="center_vertical"
             android:textSize="@dimen/space_14"
             android:textStyle="bold" />
             <com.ecom.sagaronline.Fonts.LatoBLack
@@ -81,12 +85,12 @@
                 android:visibility="gone"
                 android:textSize="@dimen/text_size_XXX_small" />
 
-        <com.ecom.sagaronline.Fonts.LatoBLack
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#000"
-            android:textSize="@dimen/text_size_XX_small" />
+<!--        <com.ecom.sagaronline.Fonts.LatoBLack-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text=""-->
+<!--            android:textColor="#000"-->
+<!--            android:textSize="@dimen/text_size_XX_small" />-->
         </LinearLayout>
 
 
@@ -94,5 +98,6 @@
 
 
     </LinearLayout>
+     </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

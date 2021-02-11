@@ -23,6 +23,65 @@
             app:strokeWidth="1dp"
             android:id="@+id/carousel"/>
 
+        <RelativeLayout
+            android:id="@+id/rel_search"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:gravity="bottom"
+
+            >
+
+            <LinearLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/bg_rounded_button"
+                android:orientation="horizontal">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:gravity="center_vertical">
+
+
+
+                    <com.ecom.sagaronline.Fonts.LatoBLack
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/lens"
+                        android:textAlignment="gravity"
+                        android:gravity="center_vertical"
+                        android:text="@string/search_here"
+                        android:paddingLeft="@dimen/space_10"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp" />
+                    <ImageView
+                        android:id="@+id/lens"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_search_black_24dp"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        app:tint="@color/black"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="160dp"

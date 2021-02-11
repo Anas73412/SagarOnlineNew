@@ -116,6 +116,7 @@ public class BaseURL {
     public static String GET_DELIVERD_ORDER_URL = BASE_URL + "index.php/api/delivered_complete";
 
     public static String ORDER_DETAIL_URL = BASE_URL + "index.php/api/order_details";
+    public static String URL_ORDER_DETAIL = BASE_URL + "index.php/api/get_order_details";
 
     public static String DELETE_ORDER_URL = BASE_URL + "index.php/api/cancel_order";
 

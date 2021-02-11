@@ -1,5 +1,6 @@
 package com.ecom.sagaronline.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -134,14 +135,17 @@ public class RecentFragment extends Fragment {
         String total = my_order_modelList.get(position).getTotal_amount();
         String status = my_order_modelList.get(position).getStatus();
         String deli_charge = my_order_modelList.get(position).getDelivery_charge();
-//        Intent intent=new Intent(getContext(), MyOrderDetail.class);
-//        intent.putExtra("sale_id", sale_id);
-//        intent.putExtra("date", date);
-//        intent.putExtra("time", time);
-//        intent.putExtra("total", total);
-//        intent.putExtra("status", status);
-//        intent.putExtra("deli_charge", deli_charge);
-//        startActivity(intent);
+//        Fragment fm = new My_order_detail_fragment();
+        Fragment fm = new OrderDetailsFragment();
+
+       args.putString("sale_id", sale_id);
+            args.putString("date", date);
+            args.putString("time", time);
+            args.putString("total", total);
+            args.putString("status", status);
+            args.putString("deli_charge", deli_charge);
+            fm.setArguments(args);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fm).addToBackStack(null).commit();
     }
 
         @Override
