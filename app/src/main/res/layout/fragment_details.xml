@@ -422,7 +422,7 @@
                         android:textAllCaps="false"
                         android:padding="5dp"
                         android:text="Name"
-                        android:maxLines="4"
+                     android:singleLine="false"
                         android:ellipsize="end"
 
                         />

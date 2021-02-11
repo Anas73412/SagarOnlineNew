@@ -919,13 +919,12 @@ public class DetailsFragment extends Fragment {
                 img_slider.setImageListener(new ImageListener() {
                     @Override
                     public void setImageForPosition(int position, ImageView imageView) {
-                        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 500);
+
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
                         imageView.setLayoutParams(layoutParams);
                         Glide.with(getActivity())
                                 .load(IMG_PRODUCT_URL + image_list.get(position))
-                                .thumbnail(0.9f)
-                                .centerCrop()
+                                .crossFade()
                                 .into(imageView);
                     }
                 });

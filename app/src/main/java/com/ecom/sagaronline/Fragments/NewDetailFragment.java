@@ -544,7 +544,7 @@ public class NewDetailFragment extends Fragment {
 
                                 //   context.setCartCounter("" + holder.db_carts.getCartCount());
 
-                                Toast.makeText(getActivity(),"list size "+list.size(),Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getActivity(),"list size "+list.size(),Toast.LENGTH_SHORT).show();
                                 Toast.makeText( getActivity(), "Added to Cart", Toast.LENGTH_SHORT ).show();
                                 //adapter_product.notifyDataSetChanged();
                                 int n = db_buy_now.getCartCount();
@@ -1149,13 +1149,13 @@ public class NewDetailFragment extends Fragment {
                             img_slider.setImageListener(new ImageListener() {
                                 @Override
                                 public void setImageForPosition(int position, ImageView imageView) {
-                                    imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 500);
-                                    imageView.setLayoutParams(layoutParams);
+//                                    imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+//                                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(500, 500);
+//                                    imageView.setLayoutParams(layoutParams);
                                     Glide.with(getActivity())
                                             .load(IMG_PRODUCT_URL + image_list.get(position))
                                             .thumbnail(0.9f)
-                                            .centerCrop()
+                                            .crossFade()
                                             .into(imageView);
                                 }
                             });

@@ -99,7 +99,7 @@ public class Search_fragment extends Fragment {
         String history_text = acTextView.getText().toString();
         String get_search_txt ="%"+ acTextView.getText().toString() +"%";
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY hh:mm:ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         Date date = cal.getTime();
         String dateString=sdf.format(date);
         if (acTextView.length()<=0) {
@@ -172,7 +172,7 @@ public class Search_fragment extends Fragment {
         String history_text = search.get(position).get(HISTORY_NAME);
         String get_search_txt ="%"+ history_text +"%";
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY hh:mm:ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         Date date = cal.getTime();
         String dateString=sdf.format(date);
         if (ConnectivityReceiver.isConnected()) {

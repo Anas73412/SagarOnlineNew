@@ -1,8 +1,10 @@
 package com.ecom.sagaronline.Fragments;
 
 //import android.app.FragmentManager;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +95,45 @@ public class HomeFragment extends Fragment {
         rec_new_product = v.findViewById(R.id.rec_new_product);
         rec_top_product = v.findViewById(R.id.rec_best_product);
         db_cart=new DatabaseCartHandler(getActivity());
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+        v.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity(),R.style.Theme_AppCompat_Light_Dialog_Alert);
+//                    builder.setTitle("Confirmation");
+                    builder.setMessage("Are you sure want to exit?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            //((MainActivity) getActivity()).finish();
+                            getActivity().finishAffinity();
+
+
+                        }
+                    })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                    final AlertDialog dialog=builder.create();
+                    dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface arg0) {
+                            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                        }
+                    });
+                    dialog.show();
+                    return true;
+                }
+                return false;
+            }
+        });
         makeGetSliderRequest();
         makeGetCategoryRequest();
         new_products();
