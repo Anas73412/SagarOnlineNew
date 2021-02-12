@@ -356,7 +356,7 @@ public class HomeFragment extends Fragment {
                             Type listType = new TypeToken<List<NewProductModel>>() {
                             }.getType();
                             newProductList = gson.fromJson(response.getString("new_product"), listType);
-                            newProductAdapter = new NewProductAdapter(newProductList,getActivity());
+                            newProductAdapter = new NewProductAdapter(newProductList,getActivity(),"new");
                             rec_new_product.setLayoutManager(new GridLayoutManager(getActivity(),2));
                             rec_new_product.setAdapter(newProductAdapter);
                             newProductAdapter.notifyDataSetChanged();
@@ -412,7 +412,7 @@ public class HomeFragment extends Fragment {
                             Type listType = new TypeToken<List<NewProductModel>>() {
                             }.getType();
                             top_selling_models = gson.fromJson(response.getString("top_selling_product"), listType);
-                            top_selling_adapter = new NewProductAdapter(top_selling_models,getActivity());
+                            top_selling_adapter = new NewProductAdapter(top_selling_models,getActivity(),"top");
                             rec_top_product.setLayoutManager(new GridLayoutManager(getActivity(),2));
                             rec_top_product.setAdapter(top_selling_adapter);
                             top_selling_adapter.notifyDataSetChanged();

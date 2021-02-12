@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.Adapter.HistoryAdapter;
+import com.ecom.sagaronline.Adapter.NewProductAdapter;
 import com.ecom.sagaronline.Adapter.SearchAdapter;
 import com.ecom.sagaronline.Adapter.SuggestionAdapter;
 import com.ecom.sagaronline.AppController;
@@ -61,7 +62,8 @@ public class Search_fragment extends Fragment {
   private RecyclerView rv_search,rv_history;
   ImageView img_no_products;
   private List<NewProductModel> product_modelList = new ArrayList<>();
-  private SearchAdapter adapter_product;
+//  private SearchAdapter adapter_product;
+  private NewProductAdapter adapter_product;
   LoadingBar loadingBar;
 
   public Search_fragment() {
@@ -93,6 +95,7 @@ public class Search_fragment extends Fragment {
     ArrayList<HashMap<String ,String>> search = searchHistoryHandler.getHistoryAll();
     rv_history.setAdapter(new HistoryAdapter(search));
     rv_history.setLayoutManager(new GridLayoutManager(getActivity(),2));
+    rv_history.setVisibility(View.GONE);
     btn_search.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -119,76 +122,76 @@ public class Search_fragment extends Fragment {
       }
     });
 
-    rv_search.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_search, new RecyclerTouchListener.OnItemClickListener() {
-      @Override
-      public void onItemClick(View view, int position) {
-
-
-
-        //Fragment details_fragment = new DetailsFragment();
-        Fragment details_fragment = new NewDetailFragment();
-        // bundle.putString("data",as);
-        Bundle args = new Bundle();
-
-        //Intent intent=new Intent(context, Product_details.class);
-        args.putString("cat_id", product_modelList.get(position).getCategory_id());
-        args.putString("product_id", product_modelList.get(position).getProduct_id());
-        args.putString("product_images", product_modelList.get(position).getProduct_image());
-        args.putString("product_name", product_modelList.get(position).getProduct_name());
-        args.putString("product_description", product_modelList.get(position).getProduct_description());
-        args.putString("stock", product_modelList.get(position).getStock());
-        args.putString("in_stock", product_modelList.get(position).getIn_stock());
-        args.putString("product_attribute", product_modelList.get(position).getProduct_attribute());
-        args.putString("price", product_modelList.get(position).getPrice());
-        args.putString("mrp", product_modelList.get(position).getMrp());
-        args.putString("unit_value", product_modelList.get(position).getUnit_value());
-        args.putString("unit", product_modelList.get(position).getUnit());
-        args.putString("rewards", product_modelList.get(position).getRewards());
-        args.putString("increment", product_modelList.get(position).getIncreament());
-        args.putString("title", product_modelList.get(position).getTitle());
-        details_fragment.setArguments(args);
-
-
-        // Toast.makeText(getActivity(),"col"+product_modelList.get(position).getColor(),Toast.LENGTH_LONG).show();
-
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, details_fragment)
-
-                .addToBackStack(null).commit();
-
-
-      }
-
-      @Override
-      public void onLongItemClick(View view, int position) {
-
-      }
-    }));
-    rv_history.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_history, new RecyclerTouchListener.OnItemClickListener() {
-      @Override
-      public void onItemClick(View view, int position) {
-
-        String history_text = search.get(position).get(HISTORY_NAME);
-        String get_search_txt ="%"+ history_text +"%";
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-        Date date = cal.getTime();
-        String dateString=sdf.format(date);
-        if (ConnectivityReceiver.isConnected()) {
-          makeGetProductRequest(get_search_txt);
-          searchHistoryHandler.setHistory(history_text,dateString);
-        } else {
-          ((MainActivity) getActivity()).onNetworkConnectionChanged(false);
-        }
-
-      }
-
-      @Override
-      public void onLongItemClick(View view, int position) {
-
-      }
-    }));
+//    rv_search.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_search, new RecyclerTouchListener.OnItemClickListener() {
+//      @Override
+//      public void onItemClick(View view, int position) {
+//
+//
+//
+//        //Fragment details_fragment = new DetailsFragment();
+//        Fragment details_fragment = new NewDetailFragment();
+//        // bundle.putString("data",as);
+//        Bundle args = new Bundle();
+//
+//        //Intent intent=new Intent(context, Product_details.class);
+//        args.putString("cat_id", product_modelList.get(position).getCategory_id());
+//        args.putString("product_id", product_modelList.get(position).getProduct_id());
+//        args.putString("product_images", product_modelList.get(position).getProduct_image());
+//        args.putString("product_name", product_modelList.get(position).getProduct_name());
+//        args.putString("product_description", product_modelList.get(position).getProduct_description());
+//        args.putString("stock", product_modelList.get(position).getStock());
+//        args.putString("in_stock", product_modelList.get(position).getIn_stock());
+//        args.putString("product_attribute", product_modelList.get(position).getProduct_attribute());
+//        args.putString("price", product_modelList.get(position).getPrice());
+//        args.putString("mrp", product_modelList.get(position).getMrp());
+//        args.putString("unit_value", product_modelList.get(position).getUnit_value());
+//        args.putString("unit", product_modelList.get(position).getUnit());
+//        args.putString("rewards", product_modelList.get(position).getRewards());
+//        args.putString("increment", product_modelList.get(position).getIncreament());
+//        args.putString("title", product_modelList.get(position).getTitle());
+//        details_fragment.setArguments(args);
+//
+//
+//        // Toast.makeText(getActivity(),"col"+product_modelList.get(position).getColor(),Toast.LENGTH_LONG).show();
+//
+//
+//        FragmentManager fragmentManager = getFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.fragment_container, details_fragment)
+//
+//                .addToBackStack(null).commit();
+//
+//
+//      }
+//
+//      @Override
+//      public void onLongItemClick(View view, int position) {
+//
+//      }
+//    }));
+//    rv_history.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_history, new RecyclerTouchListener.OnItemClickListener() {
+//      @Override
+//      public void onItemClick(View view, int position) {
+//
+//        String history_text = search.get(position).get(HISTORY_NAME);
+//        String get_search_txt ="%"+ history_text +"%";
+//        Calendar cal = Calendar.getInstance();
+//        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+//        Date date = cal.getTime();
+//        String dateString=sdf.format(date);
+//        if (ConnectivityReceiver.isConnected()) {
+//          makeGetProductRequest(get_search_txt);
+//          searchHistoryHandler.setHistory(history_text,dateString);
+//        } else {
+//          ((MainActivity) getActivity()).onNetworkConnectionChanged(false);
+//        }
+//
+//      }
+//
+//      @Override
+//      public void onLongItemClick(View view, int position) {
+//
+//      }
+//    }));
     return view;
   }
 
@@ -234,7 +237,7 @@ public class Search_fragment extends Fragment {
 
             product_modelList = gson.fromJson(response.getString("data"), listType);
 
-            adapter_product = new SearchAdapter(product_modelList, getActivity());
+            adapter_product = new NewProductAdapter(product_modelList, getActivity(),"s");
             rv_search.setAdapter(adapter_product);
             adapter_product.notifyDataSetChanged();
 

@@ -268,14 +268,14 @@
     </ScrollView>
     <Button
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Checkout Now"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
         android:id="@+id/btn_cart_checkout"
         android:fontFamily="@font/bold"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_rounded_button"
         android:textColor="#fff"
         android:textSize="@dimen/space_16" />
 

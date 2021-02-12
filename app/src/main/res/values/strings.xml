@@ -204,7 +204,7 @@
     <string name="pending" translatable="false">Placed</string>
     <string name="confirm" translatable="false">Confirmed</string>
     <string name="delivered" translatable="false">Delivered</string>
-    <string name="outfordeliverd" translatable="false">Out for Delivery\nReady to pickup</string>
+    <string name="outfordeliverd" translatable="false">Out for Delivery</string>
     <string name="cancle" translatable="false">Cancel</string>
     <string name="date">Date:\u0020</string>
     <string name="time">Time:\u0020</string>

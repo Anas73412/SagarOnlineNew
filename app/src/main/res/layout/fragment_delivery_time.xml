@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/xml_box_shadow_bottom"
                 android:orientation="vertical"
+                android:visibility="gone"
                 android:padding="@dimen/space_10"
                 >
 
@@ -69,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/space_5"
                     android:padding="@dimen/space_8"
-                    android:background="@drawable/shape"
+
                     android:orientation="horizontal">
 
 
@@ -80,7 +81,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:gravity="center"
-                            android:background="@drawable/bg_rounded_button"
+                            android:background="@color/colorPrimaryDark"
+
                             android:text="@string/tv_pro_add"
                             android:layout_centerHorizontal="true"
                             android:textColor="#fff"
@@ -190,8 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+               android:layout_margin="@dimen/space_5"
                 android:background="@drawable/bg_rounded_button"
                 android:text="Continue"
                 android:textColor="#fff"

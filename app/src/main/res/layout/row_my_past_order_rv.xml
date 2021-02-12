@@ -279,14 +279,17 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_size_small" />
 
-                    <!--<com.example.sagaronlineyash.Fonts.LatoBLack-->
-                    <!--android:id="@+id/method3"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="center"-->
-                    <!--android:text="Cards"-->
-                    <!--android:textColor="@color/gray"-->
-                    <!--android:textSize="@dimen/text_size_XX_small" />-->
+                    <com.ecom.sagaronline.Fonts.LatoBLack
+                    android:id="@+id/tv_track"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:text="Track Order"
+                        android:layout_gravity="end"
+
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_size_normal" />
 
                     <!--<com.example.sagaronlineyash.Fonts.LatoBLack-->
                     <!--android:id="@+id/method4"-->

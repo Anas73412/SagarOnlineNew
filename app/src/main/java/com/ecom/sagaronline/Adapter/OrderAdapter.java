@@ -2,8 +2,15 @@ package com.ecom.sagaronline.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +20,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ecom.sagaronline.Fragments.OrderDetailsFragment;
 import com.ecom.sagaronline.Model.My_order_model;
 import com.ecom.sagaronline.Model.OrderStatusModel;
 import com.ecom.sagaronline.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +61,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_orderno, tv_status, tv_date, tv_time, tv_price, tv_item, relativetextstatus, tv_tracking_date;
-        public TextView tv_pending_date, tv_pending_time, tv_confirm_date, tv_confirm_time, tv_delevered_date, tv_delevered_time, tv_cancel_date, tv_cancel_time;
+        public TextView tv_pending_date, tv_pending_time ,tv_track, tv_confirm_date, tv_confirm_time, tv_delevered_date, tv_delevered_time, tv_cancel_date, tv_cancel_time;
         public View view1, view2, view3, view4, view5, view6;
         public RelativeLayout relative_background;
         public ImageView Confirm, Out_For_Deliverde, Delivered ,iv_cancelled;
         CardView cardView;
         public TextView tv_methid1;
         public String method;
-        LinearLayout linearLayout;
+        LinearLayout linearLayout ,lin_order;
         RecyclerView rv_order_stat;
 
         public MyViewHolder(View view) {
@@ -74,8 +85,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             rv_order_stat = view.findViewById(R.id.rv_order_status);
             rv_order_stat.setLayoutManager(new LinearLayoutManager(context));
             cardView = view.findViewById(R.id.card_view);
-
+            tv_track= itemView.findViewById(R.id.tv_track);
             linearLayout=view.findViewById(R.id.l1);
+            lin_order=view.findViewById(R.id.l2);
 //            //Payment Method
             tv_methid1 = (TextView) view.findViewById(R.id.method1);
             //Date And Time
@@ -119,14 +131,58 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(OrderAdapter .MyViewHolder holder, int position) {
         My_order_model mList = modelList.get(position);
         order_stat_list = new ArrayList<>();
-        order_stat_list.add(new OrderStatusModel("Order Placed",mList.getOn_date(),false));
-        order_stat_list.add(new OrderStatusModel("Order Confirmed",mList.getOn_date(),false));
-        order_stat_list.add(new OrderStatusModel("Ready For Pickup",mList.getOn_date(),false));
-        order_stat_list.add(new OrderStatusModel("Out for Delivery",mList.getOn_date(),false));
-        order_stat_list.add(new OrderStatusModel("Delivered",mList.getOn_date(),false));
+        order_stat_list.add(new OrderStatusModel("Order Placed",mList.getOn_date(),true));
+        order_stat_list.add(new OrderStatusModel("Order Confirmed",mList.getConfirm_date(),false));
+        order_stat_list.add(new OrderStatusModel("Ready For Pickup",mList.getPickup_date(),false));
+        order_stat_list.add(new OrderStatusModel("Out for Delivery",mList.getOut_date(),false));
+        order_stat_list.add(new OrderStatusModel("Delivered",mList.getDelivered_date(),false));
         OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(order_stat_list,context);
-        holder.rv_order_stat.setAdapter(orderStatusAdapter);
         holder.tv_orderno.setText(mList.getSale_id());
+        holder.tv_track.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Dialog bottomSheetDialog = new Dialog(context,R.style.Theme_Design_BottomSheetDialog);
+               bottomSheetDialog.setContentView(R.layout.dialog_order_status);
+             bottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+             bottomSheetDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                ImageView iv_close = bottomSheetDialog.findViewById(R.id.iv_close);
+                RecyclerView rv_stst = bottomSheetDialog.findViewById(R.id.rv_order_status);
+
+                rv_stst.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
+              rv_stst.setAdapter(orderStatusAdapter);
+
+                iv_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
+                bottomSheetDialog.setCanceledOnTouchOutside(false);
+                bottomSheetDialog.show();
+
+            }
+        });
+
+        holder.lin_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                if (!mList.getStatus().equals("3"))
+//                {
+                    Fragment fm = new OrderDetailsFragment();
+                    Bundle args = new Bundle();
+                args.putString("sale_id", mList.getSale_id());
+                args.putString("date",mList.getOn_date());
+                args.putString("time", mList.getDelivery_time_to());
+                args.putString("total",mList.getTotal_amount());
+                args.putString("status",mList.getStatus());
+                args.putString("deli_charge",mList.getDelivery_charge());
+                fm.setArguments(args);
+                    AppCompatActivity appCompatActivity =(AppCompatActivity) view.getContext();
+                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fm).addToBackStack(null).commit();
+//                }
+            }
+        });
 
         if (mList.getStatus().equals("0")) {
             holder.tv_status.setText(context.getResources().getString(R.string.pending));
@@ -143,12 +199,26 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.tv_status.setText(context.getResources().getString(R.string.confirm));
             holder.relativetextstatus.setText(context.getResources().getString(R.string.confirm));
             holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            order_stat_list.get(0).setIs_checked(true);
             order_stat_list.get(1).setIs_checked(true);
+            orderStatusAdapter.notifyDataSetChanged();
+
+        } else if (mList.getStatus().equals("6")) {
+            holder.view1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            holder.view2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            holder.relative_background.setBackgroundColor(context.getResources().getColor(R.color.purple_200));
+            holder.Confirm.setImageResource(R.color.colorPrimary);
+            holder.tv_status.setText("Ready for Pickup");
+            holder.relativetextstatus.setText("Ready for Pickup");
+            holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            order_stat_list.get(0).setIs_checked(true);
+            order_stat_list.get(1).setIs_checked(true);
+            order_stat_list.get(2).setIs_checked(true);
             orderStatusAdapter.notifyDataSetChanged();
 
         } else if (mList.getStatus().equals("2")) {
             holder.view1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-            holder.relative_background.setBackgroundColor(context.getResources().getColor(R.color.tot));
+            holder.relative_background.setBackgroundColor(context.getResources().getColor(R.color.card_color));
             holder.view2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
             holder.view3.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
             holder.view4.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
@@ -157,15 +227,42 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.tv_status.setText(context.getResources().getString(R.string.outfordeliverd));
             holder.relativetextstatus.setText(context.getResources().getString(R.string.outfordeliverd));
             holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            order_stat_list.get(0).setIs_checked(true);
+            order_stat_list.get(1).setIs_checked(true);
+            order_stat_list.get(2).setIs_checked(true);
             order_stat_list.get(3).setIs_checked(true);
             orderStatusAdapter.notifyDataSetChanged();
-        }
-           else if (mList.getStatus().equals("4")) {
-            holder.linearLayout.setVisibility(View.GONE);
-            holder.iv_cancelled.setVisibility(View.VISIBLE);
+        } else if (mList.getStatus().equals("4")) {
+            holder.view1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            holder.relative_background.setBackgroundColor(context.getResources().getColor(R.color.tot));
+            holder.view2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            holder.view3.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            holder.view4.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            holder.Confirm.setImageResource(R.color.colorPrimary);
+            holder.Out_For_Deliverde.setImageResource(R.color.colorPrimary);
+            holder.tv_status.setText("Delivered");
+            holder.relativetextstatus.setText("Delivered");
+            holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            order_stat_list.get(0).setIs_checked(true);
+            order_stat_list.get(1).setIs_checked(true);
+            order_stat_list.get(2).setIs_checked(true);
+            order_stat_list.get(3).setIs_checked(true);
             order_stat_list.get(4).setIs_checked(true);
             orderStatusAdapter.notifyDataSetChanged();
         }
+           else if (mList.getStatus().equals("3")) {
+            holder.linearLayout.setVisibility(View.GONE);
+            holder.tv_track.setVisibility(View.GONE);
+//            holder.iv_cancelled.setVisibility(View.VISIBLE);
+//            order_stat_list.get(4).setIs_checked(true);
+//            orderStatusAdapter.notifyDataSetChanged();
+            holder.relative_background.setBackgroundColor(context.getResources().getColor(R.color.color_3));
+            holder.Confirm.setImageResource(R.color.colorPrimary);
+            holder.tv_status.setText("Order Cancelled");
+            holder.relativetextstatus.setText("Order Cancelled");
+            holder.tv_status.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        }
+
 
         if (mList.getPayment_method().equals("Store Pick Up")) {
             holder.tv_methid1.setText("Store Pick Up");
@@ -214,11 +311,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 //        holder.tv_pending_time.setText(mList.getDelivery_time_from() + "-" + mList.getDelivery_time_to());
         holder.tv_pending_date.setText(mList.getOn_date());
 //        holder.tv_confirm_time.setText(mList.getDelivery_time_from() + "-" + mList.getDelivery_time_to());
-        holder.tv_confirm_date.setText(mList.getOn_date());
+        holder.tv_confirm_date.setText(mList.getConfirm_date());
 //        holder.tv_delevered_time.setText(mList.getDelivery_time_from() + "-" + mList.getDelivery_time_to());
-        holder.tv_delevered_date.setText(mList.getOn_date());
+        holder.tv_delevered_date.setText(mList.getDelivered_date());
 //        holder.tv_cancel_time.setText(mList.getDelivery_time_from() + "-" + mList.getDelivery_time_to());
-        holder.tv_cancel_date.setText(mList.getOn_date());
+        holder.tv_cancel_date.setText(mList.getCancel_date());
     }
 
 
@@ -244,9 +341,32 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         return new ViewHolder(v);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             holder.tv_status.setText(stat_list.get(position).getStatus());
+                if (stat_list.get(position).getDate()==null) {
+                    holder.tv_date.setText("");
+                }
+                else
+                {
+                    String d[] = stat_list.get(position).getDate().split("-");
+
+                    holder.tv_date.setText(d[2]+"-"+d[1]+"-"+d[0]);
+                }
+            Log.e("stat","pos-----"+position+"-----"+stat_list.get(position).isIs_checked()+stat_list.get(position).getDate());
+            if (stat_list.get(position).isIs_checked())
+            {
+                holder.iv_order_status.setImageTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.card_color)));
+                holder.v1.setBackgroundColor(activity.getResources().getColor(R.color.black));
+                holder.v2.setBackgroundColor(activity.getResources().getColor(R.color.black));
+            }
+            else
+            {
+                holder.iv_order_status.setImageTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.white)));
+                holder.v1.setBackgroundColor(activity.getResources().getColor(R.color.gray));
+                holder.v2.setBackgroundColor(activity.getResources().getColor(R.color.gray));
+            }
 
         }
 
@@ -256,13 +376,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView tv_status ,tv_date;
+            TextView tv_status ,tv_date ;
             ImageView iv_order_status;
+            View v1 ,v2;
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tv_status = itemView.findViewById(R.id.tv_order_status);
                 tv_date = itemView.findViewById(R.id.tv_order_date);
+                v1 = itemView.findViewById(R.id.view1);
+                v2 = itemView.findViewById(R.id.view2);
               iv_order_status = itemView.findViewById(R.id.iv_order_status);
+
             }
         }
     }

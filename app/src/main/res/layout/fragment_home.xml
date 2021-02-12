@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.HomeFragment">
 
@@ -87,7 +88,7 @@
             android:layout_height="160dp"
             android:layout_marginTop="@dimen/space_10"
             android:id="@+id/rec_category"
-            android:background="@color/white"
+            android:background="@color/all"
             android:scrollbars="horizontal"/>
 
         <TextView
@@ -96,7 +97,7 @@
             android:text="New Products"
             android:fontFamily="@font/bold"
             android:textSize="@dimen/space_14"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_margin="@dimen/space_10"/>
 
@@ -109,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:background="@color/white"
+            android:background="@color/all"
             android:scrollbars="none"
             android:nestedScrollingEnabled="false"
             android:layout_marginBottom="@dimen/space_20"
@@ -123,7 +124,7 @@
             android:fontFamily="@font/bold"
             android:textSize="@dimen/space_14"
             android:layout_margin="@dimen/space_10"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <RelativeLayout

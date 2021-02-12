@@ -121,10 +121,10 @@ public class SubcategoryFragment extends Fragment {
         }
 
         rv_items = (RecyclerView) view.findViewById(R.id.rv_sub);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         rv_items.setLayoutManager(gridLayoutManager);
         // rv_items.addItemDecoration(new GridSpacingItemDecoration(10, dpToPx(-25), true));
-        rv_items.setItemAnimator(new DefaultItemAnimator());
+//        rv_items.setItemAnimator(new DefaultItemAnimator());
         rv_items.setNestedScrollingEnabled(false);
         rv_items.setItemViewCacheSize(10);
         rv_items.setDrawingCacheEnabled(true);
@@ -180,7 +180,7 @@ public class SubcategoryFragment extends Fragment {
                         category_modelList = gson.fromJson(response.getString("data"), listType);
                         if (!category_modelList.isEmpty()) {
                             rv_items.setVisibility(View.VISIBLE);
-                            home_icon_adapter=new Home_adapter(category_modelList,"h");
+                            home_icon_adapter=new Home_adapter(category_modelList,"s");
                             rv_items.setAdapter(home_icon_adapter);
                             home_icon_adapter.notifyDataSetChanged();
                             loadingBar.dismiss();

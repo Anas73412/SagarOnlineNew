@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.Fragments.NewDetailFragment;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Fragments.WishlistFragment;
+import com.ecom.sagaronline.Model.NewProductModel;
 import com.ecom.sagaronline.Model.ProductVariantModel;
 import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
@@ -249,7 +252,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
 
                 final HashMap<String, String> map = list.get(position);
                 AlertDialog.Builder builder=new AlertDialog.Builder(activity);
-                LayoutInflater layoutInflater=(LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater layoutInflater=(LayoutInflater)activity.getSystemService(activity.LAYOUT_INFLATER_SERVICE);
                 View row=layoutInflater.inflate(R.layout.dialog_vairant_layout,null);
                 variantList.clear();
                 String atr= String.valueOf(map.get("product_attribute"));
@@ -392,11 +395,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
         holder.rel_wishlist.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDetails(view);
 
-            }
-
-            public void openDetails(View view) {
                 Bundle args = new Bundle();
                 args.putString("cat_id",map.get( "cat_id" ));
                 args.putString("product_id",map.get( "product_id" ));
@@ -426,44 +425,114 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                         .commit();
             }
         } );
-        holder.add.setOnClickListener( new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View view) {
-                openDetails(view);
-
-            }
-            public void openDetails(View view) {
-                Bundle args = new Bundle();
-                args.putString("cat_id",map.get( "cat_id" ));
-                args.putString("product_id",map.get( "product_id" ));
-                args.putString("product_images",map.get( "product_images" ));
-                args.putString("product_name",map.get("product_name"));
-                args.putString("product_description",map.get( "product_description" ));
-                args.putString("product_attribute",map.get( "product_attribute" ));
-                args.putString("stock",map.get("stock"));
-                args.putString("in_stock",map.get("in_stock"));
-                args.putString("price",map.get("price"));
-                args.putString("mrp",map.get("mrp"));
-                args.putString("unit_value",map.get( "unit_value" ));
-                args.putString("unit",map.get("unit"));
-                args.putString("rewards",map.get("rewards"));
-                args.putString("increment",map.get("increment"));
-                args.putString("title",map.get( "title" ));
-                // Toast.makeText(getActivity(),""+getid,Toast.LENGTH_LONG).show();
-               // DetailsFragment fm = new DetailsFragment();
-                NewDetailFragment fm = new NewDetailFragment();
-                fm.setArguments(args);
-//                FragmentManager fragmentManager = .beginTransaction().replace(R.id.contentPanel, fm)
-//                        .addToBackStack(null).commit();
-
-                AppCompatActivity activity=(AppCompatActivity) view.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fm)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        } );
+//        holder.add.setOnClickListener( new View.OnClickListener() {
+//
+//
+//            @Override
+//            public void onClick(View view) {
+//                float stck=Float.parseFloat(map.get("stock"));
+//                if (stck < 1 || map.get("in_stock").equals("0")) {
+//                    Toast.makeText( activity, "Out Of Stock", Toast.LENGTH_LONG ).show();
+//                }
+//                else {
+//                    holder.add.setVisibility( View.INVISIBLE );
+//
+//                    String atr = String.valueOf( map.get("product_attribute"));
+//                    if (atr.equals( "[]" )) {
+//                        HashMap<String, String> mapProduct = new HashMap<String, String>();
+//                        String unt = String.valueOf( map.get("unit_value") + " " + map.get("unit") );
+//                        mapProduct.put( "cart_id", map.get("product_id"));
+//                        mapProduct.put( "product_id", map.get("product_id"));
+//                        mapProduct.put( "product_image", map.get("product_images") );
+//                        mapProduct.put( "cat_id", map.get("cat_id"));
+//                        mapProduct.put( "product_name", map.get("product_name"));
+//                        mapProduct.put( "price", map.get("price") );
+//                        mapProduct.put( "unit_price",map.get("unit_price") );
+//                        mapProduct.put( "stock",map.get("stock") );
+//                        mapProduct.put( "unit", unt );
+//                        mapProduct.put( "mrp",map.get("mrp"));
+//                        mapProduct.put( "type", "p" );
+//                        try {
+//
+//                            boolean tr = db_cart.setCart( mapProduct, (float) 1 );
+//                            if (tr == true) {
+//                                MainActivity mainActivity = new MainActivity();
+//                                //mainActivity.setCartCounter( "" + db_cart.getCartCount() );
+//
+//                                //   activity.setCartCounter("" + holder.db_cart.getCartCount());
+//                                Toast.makeText( activity, "Added to Cart", Toast.LENGTH_LONG ).show();
+//                                int n = db_cart.getCartCount();
+//                                updateintent();
+//
+//
+//                            } else if (tr == false) {
+//                                Toast.makeText( activity, "cart updated", Toast.LENGTH_LONG ).show();
+//                            }
+//
+//                        } catch (Exception ex) {
+//                            Toast.makeText( activity, "" + ex.getMessage(), Toast.LENGTH_LONG ).show();
+//                        }
+//
+//                        //Toast.makeText(activity,"1\n"+status+"\n"+modelList.get(position).getProduct_attribute(),Toast.LENGTH_LONG).show();
+//                    } else {
+//                        //ProductVariantModel model=variantList.get(position);
+//
+//                        String str_id = holder.dialog_txtId.getText().toString();
+//                        String s = holder.dialog_txtVar.getText().toString();
+//                        String[] st = s.split( "@" );
+//                        String st0 = String.valueOf( st[0] );
+//                        String st1 = String.valueOf( st[1] );
+//                        String st2 = String.valueOf( st[2] );
+//                        String[] str = str_id.split( "@" );
+//                        String at_id = String.valueOf( str[0] );
+//                        int j = Integer.parseInt( String.valueOf( str[1] ) );
+//                        //       Toast.makeText(activity,""+str[0].toString()+"\n"+str[1].toString(),Toast.LENGTH_LONG).show();
+//                        HashMap<String, String> mapProduct = new HashMap<String, String>();
+//                        mapProduct.put( "cart_id", at_id );
+//                        mapProduct.put( "product_id", mList.getProduct_id() );
+//                        mapProduct.put( "product_image", mList.getProduct_image() );
+//                        mapProduct.put( "cat_id", mList.getCategory_id() );
+//                        mapProduct.put( "product_name", mList.getProduct_name() );
+//                        mapProduct.put( "price", st0 );
+//                        mapProduct.put( "unit_price", st0 );
+//                        mapProduct.put( "stock", mList.getStock() );
+//                        mapProduct.put( "unit", st1 );
+//                        mapProduct.put( "mrp", st2 );
+//                        mapProduct.put( "type", "a" );
+//                        //  Toast.makeText(activity,""+attributeList.get(j).getId()+"\n"+mapProduct,Toast.LENGTH_LONG).show();
+//                        try {
+//
+//                            boolean tr = db_cart.setCart( mapProduct, (float) 1 );
+//                            if (tr == true) {
+//                                MainActivity mainActivity = new MainActivity();
+//                                //mainActivity.setCartCounter( "" + db_cart.getCartCount() );
+//
+//                                //   activity.setCartCounter("" + holder.db_cart.getCartCount());
+//                                Toast.makeText( activity, "Added to Cart", Toast.LENGTH_LONG ).show();
+//                                int n = db_cart.getCartCount();
+//                                updateintent();
+//
+//
+//                            } else if (tr == false) {
+//                                Toast.makeText( activity, "cart updated", Toast.LENGTH_LONG ).show();
+//                            }
+//
+//                        } catch (Exception ex) {
+//                            Toast.makeText( activity, "" + ex.getMessage(), Toast.LENGTH_LONG ).show();
+//                        }
+//
+//                    }
+//
+//                    updateintent();
+//                    holder.add.setVisibility( View.GONE );
+//                    holder.elegantNumberButton.setVisibility( View.VISIBLE );
+//                    holder.elegantNumberButton.setNumber( "1" );
+//
+//
+//                }
+//            }
+//
+//        } );
 
        /* holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
@@ -521,7 +590,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                                     MainActivity mainActivity = new MainActivity();
                                     //mainActivity.setCartCounter("" + db_cart.getCartCount());
 
-                                    //   context.setCartCounter("" + holder.db_cart.getCartCount());
+                                    //   activity.setCartCounter("" + holder.db_cart.getCartCount());
                                     Toast.makeText(activity, "Added to Cart", Toast.LENGTH_SHORT).show();
                                     int n = db_cart.getCartCount();
                                     updateintent();
@@ -535,7 +604,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                                 Toast.makeText(activity, "" + ex.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
-                            //Toast.makeText(context,"1\n"+status+"\n"+modelList.get(position).getProduct_attribute(),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(activity,"1\n"+status+"\n"+modelList.get(position).getProduct_attribute(),Toast.LENGTH_LONG).show();
                         } else {
                             //ProductVariantModel model=variantList.get(position);
 
@@ -552,7 +621,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                             int k = Integer.parseInt(String.valueOf(str[1]));
                             double pr = Double.parseDouble(st0);
                             double amt = pr * qty;
-                            //       Toast.makeText(context,""+str[0].toString()+"\n"+str[1].toString(),Toast.LENGTH_LONG).show();
+                            //       Toast.makeText(activity,""+str[0].toString()+"\n"+str[1].toString(),Toast.LENGTH_LONG).show();
                             HashMap<String, String> mapProduct = new HashMap<String, String>();
                             mapProduct.put("cart_id", at_id);
                             mapProduct.put("product_id", map.get("product_id"));
@@ -565,7 +634,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                             mapProduct.put("unit", st1);
                             mapProduct.put("mrp", st2);
                             mapProduct.put("type", "a");
-                            //  Toast.makeText(context,""+attributeList.get(j).getId()+"\n"+mapProduct,Toast.LENGTH_LONG).show();
+                            //  Toast.makeText(activity,""+attributeList.get(j).getId()+"\n"+mapProduct,Toast.LENGTH_LONG).show();
                             try {
 
                                 boolean tr = db_cart.setCart(mapProduct, qty);
@@ -573,7 +642,7 @@ public class Wishlist_Adapter extends RecyclerView.Adapter<Wishlist_Adapter.Wish
                                     MainActivity mainActivity = new MainActivity();
                                     //mainActivity.setCartCounter("" + db_cart.getCartCount());
 
-                                    //   context.setCartCounter("" + holder.db_cart.getCartCount());
+                                    //   activity.setCartCounter("" + holder.db_cart.getCartCount());
                                     Toast.makeText(activity, "Added to Cart", Toast.LENGTH_SHORT).show();
                                     int n = db_cart.getCartCount();
                                     updateintent();

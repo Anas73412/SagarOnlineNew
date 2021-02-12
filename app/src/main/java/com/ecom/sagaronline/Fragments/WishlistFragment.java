@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.ecom.sagaronline.Activity.MainActivity;
+import com.ecom.sagaronline.Adapter.NewProductAdapter;
 import com.ecom.sagaronline.Adapter.Wishlist_Adapter;
+import com.ecom.sagaronline.Model.NewProductModel;
 import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.LoadingBar;
@@ -24,6 +26,9 @@ import com.ecom.sagaronline.Utils.WishlistHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static com.ecom.sagaronline.Config.BaseURL.KEY_ID;
 
@@ -40,7 +45,8 @@ public class WishlistFragment extends Fragment {
     LoadingBar loadingBar;
     String user_id ;
     Session_management sessionManagement ;
-
+    ArrayList<NewProductModel>p_list;
+    NewProductAdapter productAdapter;
     public static RelativeLayout rel_no;
 
     public WishlistFragment() {
@@ -63,13 +69,16 @@ public class WishlistFragment extends Fragment {
         ((MainActivity) getActivity()).setTitle("My WishList" );
         rv_wishlist = view.findViewById( R.id.rv_wishlist );
         rel_no = view.findViewById( R.id.rel_no );
-        rv_wishlist.setLayoutManager( new GridLayoutManager( getActivity(),1) );
+        rv_wishlist.setLayoutManager( new GridLayoutManager( getActivity(),2) );
         db_cart=new DatabaseCartHandler(getActivity());
         //db = new DatabaseHandler(getActivity());
         db_wish = new WishlistHandler( getActivity() );
         sessionManagement = new Session_management( getActivity() );
         user_id=sessionManagement.getUserDetails().get(KEY_ID);
         loadingBar = new LoadingBar(getActivity());
+        p_list = new ArrayList<>();
+        p_list=db_wish.getProductList(user_id);
+        productAdapter = new NewProductAdapter(p_list,getActivity(),"w");
         ArrayList<HashMap<String, String>> map = db_wish.getWishtableAll(user_id);
         if (map.isEmpty())
         {
@@ -81,11 +90,13 @@ public class WishlistFragment extends Fragment {
 
         }
 
+
 //        Log.d("cart all ",""+db_cart.getCartAll());
 
         Wishlist_Adapter adapter = new Wishlist_Adapter( map,getActivity() );
-        rv_wishlist.setAdapter( adapter );
+        rv_wishlist.setAdapter( productAdapter);
         adapter.notifyDataSetChanged();
+        productAdapter.notifyDataSetChanged();
 
 
 

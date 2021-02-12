@@ -3,6 +3,7 @@ package com.ecom.sagaronline.Adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
@@ -17,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,6 +35,7 @@ import com.ecom.sagaronline.Activity.LoginActivity;
 import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.Fragments.NewDetailFragment;
 import com.ecom.sagaronline.Config.BaseURL;
+import com.ecom.sagaronline.Fragments.WishlistFragment;
 import com.ecom.sagaronline.Model.NewProductModel;
 import com.ecom.sagaronline.Model.ProductVariantModel;
 import com.ecom.sagaronline.R;
@@ -51,7 +55,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.ecom.sagaronline.Config.BaseURL.KEY_ID;
 
 
-public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.MyViewHolder> {
+public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.MyViewHolder> implements Filterable {
 
 
     String atr_id="";
@@ -66,13 +70,14 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
 
     int status=0;
     private List<NewProductModel> modelList;
+    private List<NewProductModel> tempList;
     private Context context;
     public int counter;
     public WishlistHandler db_wish;
     float stock ;
     float qty ;
     Session_management sessionManagement ;
-    String user_id ;
+    String user_id ,type="" ;
 
 
     DatabaseCartHandler db_cart;
@@ -81,7 +86,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView product_nmae, product_mrp ,product_discount , product_prize, dialog_txtVar;
-        public ImageView image , wish_before ,wish_after,product_discount_img;
+        public ImageView image , wish_before ,wish_after,product_discount_img ,iv_delete;
 
         RelativeLayout relativeLayout ,rel_add ,rel_out;
         ElegantNumberButton elegantNumberButton ;
@@ -117,6 +122,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
 
             rel_add = view.findViewById( R.id.rel_add );
             rel_out = view.findViewById( R.id.rel_out );
+           iv_delete = view.findViewById( R.id.iv_delete );
 
 
 
@@ -125,10 +131,13 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         }
     }
 
-    public NewProductAdapter(List<NewProductModel> modelList, Activity activity) {
+    public NewProductAdapter(List<NewProductModel> modelList, Activity activity,String type) {
         db_cart=new DatabaseCartHandler(activity);
         db_wish=new WishlistHandler(activity);
         this.modelList = modelList;
+        this.type = type;
+        tempList= new ArrayList<>();
+        tempList.addAll(modelList);
     }
 
     @Override
@@ -147,17 +156,30 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         final String getid = mList.getProduct_id();
         sessionManagement = new Session_management( context );
         user_id=sessionManagement.getUserDetails().get(KEY_ID);
-
-        if(db_wish.isInWishtable( getid ,user_id))
+        if (type.equals("w"))
         {
-            holder.wish_after.setVisibility( View.VISIBLE );
-            holder.wish_before.setVisibility( View.GONE );
+            holder.iv_delete.setVisibility(View.VISIBLE);
+            holder.wish_after.setVisibility(View.GONE);
+            holder.wish_before.setVisibility(View.GONE);
         }
         else
         {
-            holder.wish_after.setVisibility( View.GONE);
-            holder.wish_before.setVisibility( View.VISIBLE );
+            holder.iv_delete.setVisibility(View.GONE);
+            holder.wish_after.setVisibility(View.VISIBLE);
+            holder.wish_before.setVisibility(View.VISIBLE);
+            if(db_wish.isInWishtable( getid ,user_id))
+            {
+                holder.wish_after.setVisibility( View.VISIBLE );
+                holder.wish_before.setVisibility( View.GONE );
+            }
+            else
+            {
+                holder.wish_after.setVisibility( View.GONE);
+                holder.wish_before.setVisibility( View.VISIBLE );
+            }
         }
+
+
         preferences = context.getSharedPreferences("lan", MODE_PRIVATE);
         final String language=preferences.getString("language","");
 
@@ -349,6 +371,41 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         }
 
 
+        holder.iv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                builder.setMessage("Are You Sure to remove this item?")
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                              db_wish.removeItemFromWishtable(mList.getProduct_id(),user_id);
+                                modelList.remove(position);
+                                notifyDataSetChanged();
+
+                                if(modelList.size()<=0)
+                                {
+                                    WishlistFragment.rel_no.setVisibility(View.VISIBLE);
+                                    WishlistFragment.rv_wishlist.setVisibility(View.GONE);
+                                }
+
+                                // db_cart.getCartAll()
+                                updateintent();
+                            }
+                        });
+                AlertDialog dialog=builder.create();
+                dialog.show();
+
+            }
+        });
 
         holder.rel_variant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -906,6 +963,45 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
     }
 
 
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+
+                    modelList = tempList;
+                } else {
+
+                    ArrayList<NewProductModel> filteredList = new ArrayList<>();
+
+                    for (NewProductModel androidVersion : tempList) {
+
+                        if (androidVersion.getProduct_name().toLowerCase().contains(charString)) {
+
+                            filteredList.add(androidVersion);
+                        }
+                    }
+                    modelList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = modelList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                modelList = (ArrayList<NewProductModel>) filterResults.values;
+                notifyDataSetChanged();
+
+            }
+        };
+    }
 
 }
 

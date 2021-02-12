@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,6 +8,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:elevation="@dimen/space_2"
+        app:cardUseCompatPadding="true"
+        android:layout_margin="@dimen/space_2"
+        app:cardCornerRadius="@dimen/space_1"
         android:layout_height="wrap_content">
      <RelativeLayout
          android:layout_width="match_parent"
@@ -34,23 +38,32 @@
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_above="@+id/iv_order_status"
+                android:layout_above="@+id/rel_icon"
                 android:background="@color/gray" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_order_status"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+            <RelativeLayout
+                android:id="@+id/rel_icon"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_centerInParent="true"
-                android:src="@color/colorPrimary"
+                android:backgroundTint="@color/dark_gray"
+                android:background="@drawable/xml_budget">
+                <ImageView
+                    android:id="@+id/iv_order_status"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:src="@drawable/xml_budget"
+                    app:tint="@color/white"
 
-                app:civ_border_width="@dimen/space_5" />
+                    />
+            </RelativeLayout>
+
 
             <View
                 android:id="@+id/view2"
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/iv_order_status"
+                android:layout_below="@+id/rel_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/space_2"
                 android:background="@color/gray" />
@@ -72,17 +85,18 @@
             android:layout_height="match_parent"
             android:text="@string/pending"
             android:textColor="#000"
-            android:padding="@dimen/space_5"
+            android:paddingTop="@dimen/space_5"
+            android:paddingBottom="@dimen/space_5"
             android:layout_gravity="center_vertical"
-            android:textSize="@dimen/space_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/space_12"
+          />
             <com.ecom.sagaronline.Fonts.LatoBLack
                 android:id="@+id/tv_order_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_d"
                 android:textColor="#000"
-                android:visibility="gone"
+
                 android:textSize="@dimen/text_size_XXX_small" />
 
 <!--        <com.ecom.sagaronline.Fonts.LatoBLack-->

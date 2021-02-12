@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ecom.sagaronline.Model.NewProductModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -175,6 +177,36 @@ public class WishlistHandler extends SQLiteOpenHelper {
             map.put(COLUMN_TITLE, cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
             map.put(COLUMN_USER_ID, cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)));
             list.add(map);
+            cursor.moveToNext();
+        }
+        db.close();
+        return list;
+    }
+    public ArrayList<NewProductModel> getProductList(String user_id) {
+        ArrayList<NewProductModel> list = new ArrayList<>();
+        db = getReadableDatabase();
+        String qry = "Select *  from " + WISHTABLE_TABLE + " where " + COLUMN_USER_ID + " = " + user_id;
+        Cursor cursor = db.rawQuery(qry, null);
+        cursor.moveToFirst();
+        for (int i = 0; i < cursor.getCount(); i++) {
+          NewProductModel model = new NewProductModel();
+           model.setProduct_id( cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+            model.setProduct_image(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE)));
+            model.setCategory_id(cursor.getString(cursor.getColumnIndex(COLUMN_CAT_ID)));
+           model.setProduct_name(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
+           model.setProduct_image( cursor.getString(cursor.getColumnIndex(COLUMN_PRICE)));
+          model.setMrp(cursor.getString(cursor.getColumnIndex(COLUMN_MRP)));
+            model.setIn_stock(cursor.getString(cursor.getColumnIndex(COLUMN_IN_STOCK)));
+            model.setUnit( cursor.getString(cursor.getColumnIndex(COLUMN_UNIT)));
+            model.setProduct_description( cursor.getString(cursor.getColumnIndex(COLUMN_DESC)));
+            model.setUnit_value(cursor.getString(cursor.getColumnIndex(COLUMN_UNIT_VALUE)));
+            model.setStock( cursor.getString(cursor.getColumnIndex(COLUMN_STOCK)));
+            model.setProduct_attribute(cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ATTRIBUTE)));
+            model.setRewards( cursor.getString(cursor.getColumnIndex(COLUMN_REWARDS)));
+            model.setIncreament( cursor.getString(cursor.getColumnIndex(COLUMN_INCREMENT)));
+            model.setProduct_name( cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
+
+            list.add(model);
             cursor.moveToNext();
         }
         db.close();

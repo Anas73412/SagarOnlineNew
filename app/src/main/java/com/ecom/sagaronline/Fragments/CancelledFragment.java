@@ -107,34 +107,34 @@ public class CancelledFragment extends Fragment {
         }
 
         // recyclerview item click listener
-        rv_myorder.addOnItemTouchListener(new
-                RecyclerTouchListener(getActivity(), rv_myorder, new RecyclerTouchListener.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(View view, int position) {
-                Bundle args = new Bundle();
-                String sale_id = my_order_modelList.get(position).getSale_id();
-                String date = my_order_modelList.get(position).getOn_date();
-                //String time = my_order_modelList.get(position).getDelivery_time_from() + "-" + my_order_modelList.get(position).getDelivery_time_to();
-                String time = my_order_modelList.get(position).getDelivery_time_from();
-                String total = my_order_modelList.get(position).getTotal_amount();
-                String status = my_order_modelList.get(position).getStatus();
-                String deli_charge = my_order_modelList.get(position).getDelivery_charge();
-//        Intent intent=new Intent(getContext(), MyOrderDetail.class);
-//        intent.putExtra("sale_id", sale_id);
-//        intent.putExtra("date", date);
-//        intent.putExtra("time", time);
-//        intent.putExtra("total", total);
-//        intent.putExtra("status", status);
-//        intent.putExtra("deli_charge", deli_charge);
-//        startActivity(intent);
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
+//        rv_myorder.addOnItemTouchListener(new
+//                RecyclerTouchListener(getActivity(), rv_myorder, new RecyclerTouchListener.OnItemClickListener()
+//        {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Bundle args = new Bundle();
+//                String sale_id = my_order_modelList.get(position).getSale_id();
+//                String date = my_order_modelList.get(position).getOn_date();
+//                //String time = my_order_modelList.get(position).getDelivery_time_from() + "-" + my_order_modelList.get(position).getDelivery_time_to();
+//                String time = my_order_modelList.get(position).getDelivery_time_from();
+//                String total = my_order_modelList.get(position).getTotal_amount();
+//                String status = my_order_modelList.get(position).getStatus();
+//                String deli_charge = my_order_modelList.get(position).getDelivery_charge();
+////        Intent intent=new Intent(getContext(), MyOrderDetail.class);
+////        intent.putExtra("sale_id", sale_id);
+////        intent.putExtra("date", date);
+////        intent.putExtra("time", time);
+////        intent.putExtra("total", total);
+////        intent.putExtra("status", status);
+////        intent.putExtra("deli_charge", deli_charge);
+////        startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onLongItemClick(View view, int position) {
+//
+//            }
+//        }));
 
 
     }

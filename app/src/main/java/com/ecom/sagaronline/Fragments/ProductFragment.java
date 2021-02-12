@@ -332,7 +332,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             else {
                 no_product.setVisibility(View.GONE);
                 rv_cat.setVisibility(View.VISIBLE);
-                gridAdapter = new NewProductAdapter(price_product_list, getActivity());
+                gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
                 rv_cat.setAdapter(gridAdapter);
                 gridAdapter.notifyDataSetChanged();
             }
@@ -478,7 +478,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         }
 //                            loadingBar.dismiss();
                         //   adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter( product_modelList, getActivity() );
+                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                         rv_cat.setLayoutManager( gridLayoutManager );
                         rv_cat.setAdapter( gridAdapter );
@@ -643,7 +643,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         no_product.setVisibility( View.GONE );
                         rv_cat.setVisibility( View.VISIBLE);
                         //  adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter( product_modelList, getActivity() );
+                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                         rv_cat.setLayoutManager( gridLayoutManager );
                         rv_cat.setAdapter( gridAdapter );
@@ -707,7 +707,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         no_product.setVisibility( View.GONE );
                         rv_cat.setVisibility( View.VISIBLE );
                         //    adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter( product_modelList, getActivity() );
+                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
 
                         rv_cat.setLayoutManager( gridLayoutManager );
@@ -775,7 +775,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                             no_product.setVisibility( View.GONE);
                             rv_cat.setVisibility( View.VISIBLE);
                             //  adapter_product = new Product_adapter(product_modelList, getActivity());
-                            gridAdapter = new NewProductAdapter( product_modelList, getActivity() );
+                            gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
                             GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                             rv_cat.setLayoutManager( gridLayoutManager );
                             rv_cat.setAdapter( gridAdapter );
@@ -845,7 +845,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 //                        if (response.has( "data" )) {
                         product_modelList = gson.fromJson( response.getString( "top_selling_product" ), listType );
                         // adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter( product_modelList, getActivity() );
+                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                         rv_cat.setLayoutManager( gridLayoutManager );
                         rv_cat.setAdapter( gridAdapter );
@@ -891,28 +891,11 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().registerReceiver(mCart, new IntentFilter("Grocery_cart"));
+        getActivity().registerReceiver(mCart,new IntentFilter("Cart"));
     }
-
     // broadcast reciver for receive data
     // broadcast reciver for receive data
 
-    private BroadcastReceiver mCart = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String type = intent.getStringExtra("type");
-
-            if (type.contentEquals("update")) {
-                updateData();
-            }
-        }
-    };
-
-    private void updateData() {
-
-        //((MainActivity) getActivity()).setCartCounter("" + db_cart.getCartCount());
-    }
 
 
     @Override
@@ -995,7 +978,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 tab_grid.setImageResource( R.drawable.icons8_menu_48px );
                 tab_grid.setTag( "linear" );
 
-                gridAdapter = new NewProductAdapter( product_grid_modelList, getActivity() );
+                gridAdapter = new NewProductAdapter( product_grid_modelList, getActivity(),"p" );
                 rv_cat.setLayoutManager( new GridLayoutManager( getActivity(), 2 ) );
                 rv_cat.setAdapter( gridAdapter );
                 //   gridAdapter.notifyDataSetChanged();
@@ -1014,6 +997,19 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    BroadcastReceiver mCart=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String type=intent.getStringExtra("type");
+            if(type.contentEquals("update")){
+                updateData();
+            }
+        }
+    };
+
+    private void updateData() {
+        ((MainActivity)getActivity()).setCartCounter(db_cart.getCartCount());
+    }
 
 
 }
