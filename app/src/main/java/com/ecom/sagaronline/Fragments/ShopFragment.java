@@ -39,6 +39,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.ecom.sagaronline.Config.BaseURL.GET_ALL_CATEGORY_URL;
+import static com.ecom.sagaronline.Config.BaseURL.GET_CATEGORY_URL;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ShopFragment#newInstance} factory method to
@@ -167,11 +170,11 @@ public class ShopFragment extends Fragment {
 
 
         CustomVolleyJsonRequest jsonObjReq = new CustomVolleyJsonRequest(Request.Method.POST,
-                BaseURL.GET_CATEGORY_URL, params, new Response.Listener<JSONObject>() {
+                GET_CATEGORY_URL, params, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("Response", response.toString());
+                Log.d("Category Response",GET_CATEGORY_URL+"\n"+ response.toString());
                 try {
                     if (response != null && response.length() > 0) {
                         Boolean status = response.getBoolean("responce");
@@ -181,7 +184,7 @@ public class ShopFragment extends Fragment {
                             }.getType();
                             categoryList = gson.fromJson(response.getString("data"), listType);
                             categoryAdapter = new Home_adapter(categoryList,"s");
-                            rec_category.setLayoutManager(new GridLayoutManager(getActivity(),1));
+                            rec_category.setLayoutManager(new GridLayoutManager(getActivity(),3));
                             rec_category.setAdapter(categoryAdapter);
                             categoryAdapter.notifyDataSetChanged();
                         }

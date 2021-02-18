@@ -185,7 +185,7 @@ public class CartFragment extends Fragment implements View.OnClickListener{
            map = db_cart.getCartAll();
         }
 //        final HashMap<String, String> map1 = map.get(0);
-        Log.d("cart all ",""+map.get(0).toString());
+//        Log.d("cart all ",""+map.get(0).toString());
 
         if (buynow)
         {

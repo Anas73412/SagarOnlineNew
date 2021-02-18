@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 //import android.content.DialogInterface;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.util.Log;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tv_cart_count = findViewById(R.id.tv_cart_count);
         toolbar.setPadding(padding, toolbar.getPaddingTop(), padding, toolbar.getPaddingBottom());
+        toolbar.setTitleTextColor(Color.RED);
         navigationView = findViewById(R.id.nav_view);
         db_cart=new DatabaseCartHandler(this);
         setSupportActionBar(toolbar);
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                                 toggle.setDrawerIndicatorEnabled(false);
                                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                                 toggle.syncState();
-
+                                toolbar.setTitleTextColor(Color.WHITE);
                                 toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -155,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                             else {
 
                                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
+                                toolbar.setTitleTextColor(Color.WHITE);
                                 toggle.setDrawerIndicatorEnabled(false);
                                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                                 toggle.syncState();

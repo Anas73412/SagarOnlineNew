@@ -3,6 +3,8 @@ package com.ecom.sagaronline.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -30,6 +32,7 @@ public class SplashActivity extends AppCompatActivity {
     String msg_status;
     int status;
     int vers;
+    AnimatorSet set ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         module=new Module(SplashActivity.this);
         session_management=new Session_management(SplashActivity.this);
-
+       set = (AnimatorSet) AnimatorInflater.loadAnimator(this,R.animator.rotate);
+        set.setTarget(findViewById(R.id.logo));
+        set.start();
         PackageManager pm = getApplicationContext().getPackageManager();
         String pkgName = getApplicationContext().getPackageName();
         PackageInfo pkgInfo = null;

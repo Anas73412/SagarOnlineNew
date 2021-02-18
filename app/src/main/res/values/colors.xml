@@ -8,9 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="card_color">#FC1D53</color>
-    <color name="colorPrimaryDark">#222831</color>
+    <color name="colorPrimaryDark">#00bfff</color>
     <color name="grey">#D8D0D0</color>
-    <color name="colorPrimary">#2d4059</color>
+    <color name="colorPrimary">#00bfff</color>
     <color name="colorAccent">#ff5722</color>
     <color name="color_3">#ff0023</color>
     <color name="orange">#ffbb00</color>

@@ -478,7 +478,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         }
 //                            loadingBar.dismiss();
                         //   adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
+                        gridAdapter = new NewProductAdapter(product_modelList, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                         rv_cat.setLayoutManager( gridLayoutManager );
                         rv_cat.setAdapter( gridAdapter );
@@ -492,6 +492,11 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                                 no_product.setVisibility( View.VISIBLE );
                                 rv_cat.setVisibility( View.GONE );
                                 //Toast.makeText(getActivity(), getResources().getString( R.string.no_rcord_found), Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                no_product.setVisibility( View.GONE);
+                                rv_cat.setVisibility( View.VISIBLE );
                             }
 
                         }
@@ -643,7 +648,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         no_product.setVisibility( View.GONE );
                         rv_cat.setVisibility( View.VISIBLE);
                         //  adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
+                        gridAdapter = new NewProductAdapter(product_modelList, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                         rv_cat.setLayoutManager( gridLayoutManager );
                         rv_cat.setAdapter( gridAdapter );
@@ -707,7 +712,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         no_product.setVisibility( View.GONE );
                         rv_cat.setVisibility( View.VISIBLE );
                         //    adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
+                        gridAdapter = new NewProductAdapter(product_modelList, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
 
                         rv_cat.setLayoutManager( gridLayoutManager );
@@ -775,7 +780,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                             no_product.setVisibility( View.GONE);
                             rv_cat.setVisibility( View.VISIBLE);
                             //  adapter_product = new Product_adapter(product_modelList, getActivity());
-                            gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
+                            gridAdapter = new NewProductAdapter(product_modelList, getActivity(),"p");
                             GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                             rv_cat.setLayoutManager( gridLayoutManager );
                             rv_cat.setAdapter( gridAdapter );
@@ -845,7 +850,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 //                        if (response.has( "data" )) {
                         product_modelList = gson.fromJson( response.getString( "top_selling_product" ), listType );
                         // adapter_product = new Product_adapter(product_modelList, getActivity());
-                        gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
+                        gridAdapter = new NewProductAdapter(product_modelList, getActivity(),"p");
                         GridLayoutManager gridLayoutManager = new GridLayoutManager( getActivity(), 2 );
                         rv_cat.setLayoutManager( gridLayoutManager );
                         rv_cat.setAdapter( gridAdapter );
@@ -978,7 +983,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 tab_grid.setImageResource( R.drawable.icons8_menu_48px );
                 tab_grid.setTag( "linear" );
 
-                gridAdapter = new NewProductAdapter( product_grid_modelList, getActivity(),"p" );
+                gridAdapter = new NewProductAdapter( product_modelList, getActivity(),"p" );
                 rv_cat.setLayoutManager( new GridLayoutManager( getActivity(), 2 ) );
                 rv_cat.setAdapter( gridAdapter );
                 //   gridAdapter.notifyDataSetChanged();

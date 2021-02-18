@@ -16,8 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.AppController;
+import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
+import com.ecom.sagaronline.Utils.LoadingBar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,6 +36,7 @@ import static com.ecom.sagaronline.Config.BaseURL.GET_TERMS_URL;
 public class TermsFragment extends Fragment {
 
     TextView tv_term;
+    LoadingBar loadingBar ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,7 +84,7 @@ public class TermsFragment extends Fragment {
         // Inflate the layout for this fragment
         ((MainActivity) getActivity()).setTitle("Terms & Condition");
         View v = inflater.inflate(R.layout.fragment_terms, container, false);
-
+        loadingBar = new LoadingBar(getContext());
         tv_term=v.findViewById(R.id.TV_Terms);
 
         getTermsAndCondition();
@@ -90,6 +93,7 @@ public class TermsFragment extends Fragment {
     }
 
     private void getTermsAndCondition() {
+        loadingBar.show();
         HashMap<String,String> params=new HashMap<>();
         CustomVolleyJsonRequest customVolleyJsonRequest=new CustomVolleyJsonRequest(Request.Method.GET,GET_TERMS_URL, params, new Response.Listener<JSONObject>() {
             @Override
@@ -102,6 +106,7 @@ public class TermsFragment extends Fragment {
                         String str=obj.getString("pg_descri");
                         tv_term.setText(Html.fromHtml(str));
                     }
+                    loadingBar.dismiss();
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
@@ -110,6 +115,8 @@ public class TermsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                loadingBar.dismiss();
+                new Module(getContext()).VolleyErrorMessage(error);
 
             }
         });

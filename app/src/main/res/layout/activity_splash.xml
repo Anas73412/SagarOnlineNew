@@ -44,6 +44,7 @@
         android:layout_marginBottom="@dimen/space_10"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -53,6 +54,7 @@
             android:fontFamily="@font/aileron_regular"
             android:text="Developed By: "
             android:textColor="#ffffff"
+
             android:textSize="15sp" />
 
         <TextView
