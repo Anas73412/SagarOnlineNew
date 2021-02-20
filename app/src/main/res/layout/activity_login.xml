@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/colorPrimary"
     tools:context=".Activity.LoginActivity">
 
     <ImageView
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/space_10"
-                android:background="@drawable/gradient"
+
                >
 
 

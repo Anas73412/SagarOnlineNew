@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bold"
                         android:layout_gravity="center"
-                        android:text="Yash Chaturvedi"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/space_20" />
 
