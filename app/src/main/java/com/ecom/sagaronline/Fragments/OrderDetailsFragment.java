@@ -52,10 +52,13 @@ import com.android.volley.VolleyLog;
 import com.ecom.sagaronline.Activity.MainActivity;
 import com.ecom.sagaronline.Activity.NoInternetConnection;
 import com.ecom.sagaronline.Adapter.My_order_detail_adapter;
+import com.ecom.sagaronline.Adapter.OrderStatusAdapter;
 import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.Model.My_order_detail_model;
+import com.ecom.sagaronline.Model.My_order_model;
+import com.ecom.sagaronline.Model.OrderStatusModel;
 import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonArrayRequest;
@@ -88,7 +91,7 @@ public class OrderDetailsFragment extends Fragment {
 //  Context getActivity()= OrderDetailsFragment.this;
     TextView txt_order_id ,txt_tot_item,txt_p_chrges,txt_s_chrge,txt_tot_chrge,
             txt_cust_name ,txt_cust_add ,txt_cust_mobile;
-    RecyclerView rv_products ;
+    RecyclerView rv_products ,rv_order_status ;
     String sale_id="";
     Dialog dialog;
    Session_management sessionManagement ;
@@ -100,7 +103,8 @@ public class OrderDetailsFragment extends Fragment {
     EditText et_remark;
     Button btn_yes,btn_no ,btn_cancel ,btn_reciept;
     Module module;
-
+    ArrayList<OrderStatusModel>statusList;
+    OrderStatusAdapter statusAdapter ;
    SwipeRefreshLayout swipeRefreshLayout;
     Toolbar mActionBarToolbar;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -141,9 +145,11 @@ public class OrderDetailsFragment extends Fragment {
         user_mobile = sessionManagement.getUserDetails().get(KEY_MOBILE);
         user_name = sessionManagement.getUserDetails().get(KEY_NAME);
         itemlist= new ArrayList<>();
-
+        statusList = new ArrayList<>();
         rv_products=(RecyclerView)v.findViewById(R.id.rv_products);
         rv_products.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv_order_status=(RecyclerView)v.findViewById(R.id.rv_order_status);
+        rv_order_status.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         user_id = sessionManagement.getUserDetails().get(KEY_ID);
         sale_id = getArguments().getString("sale_id");
@@ -352,7 +358,51 @@ public class OrderDetailsFragment extends Fragment {
                     makeGetOrderDetailRequest(data_obj.getString("sale_id"));
                     txt_tot_chrge.setText(getActivity().getResources().getString(R.string.currency)+data_obj.getString("total_amount"));
                     txt_cust_add.setText(data_obj.getString("delivery_address"));
+
+                   statusList = new ArrayList<>();
+                   statusList.add(new OrderStatusModel("Order Placed",data_obj.getString("on_date"),true));
+                    statusList.add(new OrderStatusModel("Order Confirmed",data_obj.getString("confirm_date"),false));
+                    statusList.add(new OrderStatusModel("Ready For Pickup",data_obj.getString("pickup_date"),false));
+                    statusList.add(new OrderStatusModel("Out for Delivery",data_obj.getString("out_date"),false));
+                   statusList.add(new OrderStatusModel("Delivered",data_obj.getString("delivered_date"),false));
+                  statusAdapter = new OrderStatusAdapter(statusList,getActivity());
+                  rv_order_status.setAdapter(statusAdapter);
                 String status =data_obj.getString("status");
+                switch (status)
+                {
+                    case "0":
+                        statusList.get(0).setIs_checked(true);
+                        break;
+                        case "1":
+                        statusList.get(0).setIs_checked(true);
+                        statusList.get(1).setIs_checked(true);
+                        break; 
+                        case "2":
+                            statusList.get(0).setIs_checked(true);
+                            statusList.get(1).setIs_checked(true);
+                            statusList.get(2).setIs_checked(true);
+                            statusList.get(3).setIs_checked(true);
+                        break;
+                        case "3":
+                        statusList.remove(1);
+                        statusList.remove(2);
+                        statusList.remove(3);
+                        statusList.remove(4);
+                        break;
+                        case "6":
+                            statusList.get(0).setIs_checked(true);
+                            statusList.get(1).setIs_checked(true);
+                            statusList.get(2).setIs_checked(true);
+                        break; 
+                        case "4":
+                            statusList.get(0).setIs_checked(true);
+                            statusList.get(1).setIs_checked(true);
+                            statusList.get(2).setIs_checked(true);
+                            statusList.get(3).setIs_checked(true);
+                            statusList.get(4).setIs_checked(true);
+                        break;
+                        
+                }
                     if (status.equals("0")||status.equals("1"))
                     {
                         btn_cancel.setVisibility(View.VISIBLE);

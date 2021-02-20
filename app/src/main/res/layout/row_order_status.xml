@@ -4,16 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.cardview.widget.CardView
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:elevation="@dimen/space_2"
-        app:cardUseCompatPadding="true"
-        android:layout_margin="@dimen/space_2"
-        app:cardCornerRadius="@dimen/space_1"
-        android:layout_height="wrap_content">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:elevation="@dimen/space_2"-->
+<!--        app:cardUseCompatPadding="true"-->
+<!--        android:layout_margin="@dimen/space_2"-->
+<!--        app:cardCornerRadius="@dimen/space_1"-->
+<!--        android:layout_height="wrap_content">-->
      <RelativeLayout
          android:layout_width="match_parent"
+         app:layout_constraintTop_toTopOf="parent"
+         android:background="@color/white"
          android:layout_height="wrap_content">
 
 
@@ -113,5 +115,5 @@
 
     </LinearLayout>
      </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,9 +65,6 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
     String attribute_mrp="";
     ArrayList<ProductVariantModel> variantList;
     ProductVariantAdapter productVariantAdapter;
-
-
-
     int status=0;
     private List<NewProductModel> modelList;
     private List<NewProductModel> tempList;
