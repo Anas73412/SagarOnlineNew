@@ -33,9 +33,11 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="KIWI Fruit"
+                android:text=""
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:fontFamily="@font/bold"
                 android:textSize="@dimen/space_18"
                 android:id="@+id/name_product"/>

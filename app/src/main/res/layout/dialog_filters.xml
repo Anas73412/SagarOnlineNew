@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select any option "
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"/>
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/pbar"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:backgroundTint="@color/dimgray"/>
+
+             <LinearLayout
+                 android:id="@+id/ln_sort"
+                 android:padding="@dimen/space_10"
+                 android:weightSum="10"
+                 android:gravity="center"
+                 android:orientation="horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+                 <ImageView
+
+                     android:layout_weight="2"
+                     android:src="@drawable/icons8_sorting_24px"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"/>
+                 <TextView
+                     android:layout_weight="6"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:text="Price Sorting"
+                     android:textSize="20dp"
+
+                     android:textColor="@color/black"
+                     />
+                 <View
+                     android:layout_weight="2"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"/>
+             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dimgray"/>
+            <LinearLayout
+                android:id="@+id/ln_filters"
+                android:padding="@dimen/space_10"
+                android:weightSum="10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+
+                    android:layout_weight="2"
+                    android:src="@drawable/icons8_filter_50px"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"/>
+                <TextView
+                    android:layout_weight="6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Price Filter"
+                    android:textSize="20dp"
+
+                    android:textColor="@color/black"
+                    />
+                <View
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dimgray"/>
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

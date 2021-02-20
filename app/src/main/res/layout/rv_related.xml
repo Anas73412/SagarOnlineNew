@@ -18,7 +18,7 @@
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="250dp"
         android:background="@color/white"
         android:layout_margin="1dp"
       >
@@ -38,7 +38,7 @@
                 <ImageView
                     android:id="@+id/product_img"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="155dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="28dp"
@@ -111,15 +111,17 @@
                 android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textAlignment="gravity"
+                android:text="Product Name"
                 android:fontFamily="@font/aileron_regular"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/space_5"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_below="@+id/product_price"
-                android:layout_marginTop="5dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/app_name"
+
 
                 />
 
@@ -169,7 +171,7 @@
                     android:layout_marginTop="@dimen/space_5"
                     android:layout_centerHorizontal="true"
                     android:padding="2dp"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:ellipsize="end"
                     android:gravity="center_vertical" />
                 <RelativeLayout
@@ -205,6 +207,7 @@
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rel_add"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

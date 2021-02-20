@@ -1,6 +1,7 @@
 package com.ecom.sagaronline.Fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,6 +45,7 @@ import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.LoadingBar;
+import com.ecom.sagaronline.Utils.OnDialogItemClickListener;
 import com.ecom.sagaronline.Utils.OnGetConfigData;
 import com.ecom.sagaronline.Utils.Session_management;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,6 +53,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,7 +78,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     Module module;
     ImageView no_product;
     Session_management session_management;
-    FloatingActionButton float_filter;
+    FloatingActionButton float_filter,float_sort;
     private TabLayout tab_cat ;
     String max_slab,slab_value;
     private LinearLayout tab_filter;
@@ -149,6 +153,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         module=new Module(getActivity());
 
         float_filter = view.findViewById(R.id.flot_filter);
+        float_sort = view.findViewById(R.id.float_sort);
         tab_cat = (TabLayout) view.findViewById( R.id.tab_cat);
         tab_filter =(LinearLayout) view.findViewById( R.id.tab_layout );
         tab_grid = (ImageView) view.findViewById( R.id.grid );
@@ -173,7 +178,6 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         String getcat_title = getArguments().getString("title");
         max = getArguments().getString("max");
         min = getArguments().getString("min");
-        Log.e("DATA","min"+min+"max"+max+"max_slab"+max_slab+"slab"+slab_value);
 
         db_cart=new DatabaseCartHandler(getActivity());
         ((MainActivity) getActivity()).setTitle(getcat_title);
@@ -191,85 +195,13 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             getActivity().startActivity(intent);
         }
 
+        float_sort.setOnClickListener(view1 -> {
+            sortingWithSeekBar();
+        });
         float_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (slab_value.equalsIgnoreCase("")||slab_value==null)
-                    Toast.makeText(getActivity(),"No Filter Available",Toast.LENGTH_LONG).show();
-                else
-                    getFilterFragment();
-                                                /*final Dialog dialog = new Dialog(getActivity());
-                                                dialog.setContentView(R.layout.seekbar_dialog);
-                                                dialog.setCanceledOnTouchOutside(true);
-                                                org.florescu.android.rangeseekbar.RangeSeekBar rangeBar = dialog.findViewById(R.id.rangebar);
-                                                Button btn_go = dialog.findViewById(R.id.btn_go);
-
-
-                                                    for (int i = 0; i < product_modelList.size(); i++) {
-                                                        if (max_value < Integer.parseInt(product_modelList.get(i).getPrice())) {
-                                                            max_value = Integer.parseInt(product_modelList.get(i).getPrice());
-                                                        }
-
-
-                                                    }
-
-
-                                                rangeBar.setRangeValues(min_value,max_value);
-                                                rangeBar.setNotifyWhileDragging(true);
-                                                rangeBar.setTextAboveThumbsColor(R.id.txtColor);
-                                                rangeBar.setOnRangeSeekBarChangeListener(new org.florescu.android.rangeseekbar.RangeSeekBar.OnRangeSeekBarChangeListener() {
-                                                    @Override
-                                                    public void onRangeSeekBarValuesChanged(org.florescu.android.rangeseekbar.RangeSeekBar bar, Object minValue, Object maxValue) {
-                                                     preMax= (int) bar.getSelectedMaxValue();
-                                                     preMin= (int) bar.getSelectedMinValue();
-                                                     price_product_list.clear();
-                                                        for (int i = 0 ; i <product_modelList.size();i++)
-                                                        {
-                                                            Product_model model = product_modelList.get(i);
-                                                            int price = Integer.parseInt(model.getPrice());
-                                                            if (price <= preMax && price >= preMin )
-                                                            {
-                                                                price_product_list.add(model);
-                                                            }
-
-                                                        }
-                                                        int mx=(int)bar.getAbsoluteMaxValue();
-                                                        int mn=(int)bar.getAbsoluteMinValue();
-                                                        if(price_product_list.isEmpty())
-                                                        {
-                                                            no_product.setVisibility(View.VISIBLE);
-                                                            rv_cat.setVisibility(View.GONE);
-                                                        }
-                                                        else {
-                                                            no_product.setVisibility(View.GONE);
-                                                            rv_cat.setVisibility(View.VISIBLE);
-                                                            gridAdapter = new gridAdapter(price_product_list, getActivity());
-                                                            rv_cat.setAdapter(gridAdapter);
-                                                            gridAdapter.notifyDataSetChanged();
-                                                        }
-//                                                     Toast.makeText(getActivity(),"values "+ preMax +preMin,Toast.LENGTH_LONG).show();
-//                                                     Log.e("values:", String.valueOf(preMax));
-
-                                                    }
-                                                });
-                                                btn_go.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View v) {
-
-
-
-                                                        dialog.dismiss();
-
-                                                    }
-
-                                                });
-
-
-
-
-
-
-                                                dialog.show();*/
+                            getFilterFragment();
 
             }
         });
@@ -491,12 +423,16 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 
                                 no_product.setVisibility( View.VISIBLE );
                                 rv_cat.setVisibility( View.GONE );
+                                setFloat_filterButton();
+                                float_sort.setVisibility(View.GONE);
                                 //Toast.makeText(getActivity(), getResources().getString( R.string.no_rcord_found), Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
+                                setFloat_filterButton();
                                 no_product.setVisibility( View.GONE);
                                 rv_cat.setVisibility( View.VISIBLE );
+                                float_sort.setVisibility(View.VISIBLE);
                             }
 
                         }
@@ -1016,5 +952,91 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         ((MainActivity)getActivity()).setCartCounter(db_cart.getCartCount());
     }
 
+    public void sortingWithSeekBar()
+    {
+         final Dialog dialog = new Dialog(getActivity());
+                                                dialog.setContentView(R.layout.seekbar_dialog);
+                                                dialog.setCanceledOnTouchOutside(true);
+                                                RangeSeekBar rangeBar = dialog.findViewById(R.id.rangebar);
+                                                Button btn_go = dialog.findViewById(R.id.btn_go);
+
+
+                                                    for (int i = 0; i < product_modelList.size(); i++) {
+                                                        if (max_value < Integer.parseInt(product_modelList.get(i).getPrice())) {
+                                                            max_value = Integer.parseInt(product_modelList.get(i).getPrice());
+                                                        }
+
+
+                                                    }
+
+
+                                                rangeBar.setRangeValues(min_value,max_value);
+                                                rangeBar.setNotifyWhileDragging(true);
+                                                rangeBar.setTextAboveThumbsColor(R.color.colorPrimaryDark);
+                                                rangeBar.setOnRangeSeekBarChangeListener(new org.florescu.android.rangeseekbar.RangeSeekBar.OnRangeSeekBarChangeListener() {
+                                                    @Override
+                                                    public void onRangeSeekBarValuesChanged(org.florescu.android.rangeseekbar.RangeSeekBar bar, Object minValue, Object maxValue) {
+                                                     preMax= (int) bar.getSelectedMaxValue();
+                                                     preMin= (int) bar.getSelectedMinValue();
+                                                     price_product_list.clear();
+                                                        for (int i = 0 ; i <product_modelList.size();i++)
+                                                        {
+                                                            NewProductModel model = product_modelList.get(i);
+                                                            int price = Integer.parseInt(model.getPrice());
+                                                            if (price <= preMax && price >= preMin )
+                                                            {
+                                                                price_product_list.add(model);
+                                                            }
+
+                                                        }
+                                                        int mx=(int)bar.getAbsoluteMaxValue();
+                                                        int mn=(int)bar.getAbsoluteMinValue();
+                                                        if(price_product_list.isEmpty())
+                                                        {
+                                                            no_product.setVisibility(View.VISIBLE);
+                                                            rv_cat.setVisibility(View.GONE);
+                                                        }
+                                                        else {
+                                                            no_product.setVisibility(View.GONE);
+                                                            rv_cat.setVisibility(View.VISIBLE);
+                                                            gridAdapter = new NewProductAdapter(price_product_list, getActivity(),"p");
+                                                            rv_cat.setAdapter(gridAdapter);
+                                                            gridAdapter.notifyDataSetChanged();
+                                                        }
+//                                                     Toast.makeText(getActivity(),"values "+ preMax +preMin,Toast.LENGTH_LONG).show();
+//                                                     Log.e("values:", String.valueOf(preMax));
+
+                                                    }
+                                                });
+                                                btn_go.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+
+
+
+                                                        dialog.dismiss();
+
+                                                    }
+
+                                                });
+
+
+
+
+
+
+                                                dialog.show();
+
+    }
+
+    public void setFloat_filterButton(){
+        if(module.checkNullCondition(slab_value)){
+
+            float_filter.setVisibility(View.GONE);
+        }else{
+            float_filter.setVisibility(View.VISIBLE);
+        }
+
+    }
 
 }

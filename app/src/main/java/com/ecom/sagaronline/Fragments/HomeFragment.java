@@ -35,6 +35,7 @@ import com.ecom.sagaronline.Adapter.NewProductAdapter;
 import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Config.Module;
+import com.ecom.sagaronline.Model.BannerModel;
 import com.ecom.sagaronline.Model.CategoryModel;
 import com.ecom.sagaronline.Model.NewProductModel;
 import com.ecom.sagaronline.R;
@@ -63,7 +64,7 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
 
     Module module;
-    CarouselView carouselView;
+    CarouselView carouselView,carousel_banner;
     Session_management session_management ;
     LoadingBar loadingBar;
     NewProductAdapter newProductAdapter , top_selling_adapter;
@@ -74,6 +75,7 @@ public class HomeFragment extends Fragment {
     RecyclerView rec_category , rec_new_product , rec_top_product;
     String getid="";
     RelativeLayout rel_search;
+    ArrayList<BannerModel> bList=new ArrayList<>();
     private boolean isSubcat = false;
 
 
@@ -93,6 +95,7 @@ public class HomeFragment extends Fragment {
         categoryList = new ArrayList<>();
         newProductList = new ArrayList<>();
         carouselView = v.findViewById(R.id.carousel);
+        carousel_banner = v.findViewById(R.id.carousel_banner);
         rec_category = v.findViewById(R.id.rec_category);
         rec_new_product = v.findViewById(R.id.rec_new_product);
         rec_top_product = v.findViewById(R.id.rec_best_product);
@@ -145,12 +148,12 @@ public class HomeFragment extends Fragment {
         });
         makeGetSliderRequest();
         makeGetCategoryRequest();
+        makeGetBannerRequest();
         new_products();
         make_top_selling();
         rec_category.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rec_category, new RecyclerTouchListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.e("RV_HEADER","RV_HEADER");
                 getid = categoryList.get(position).getId();
                 String title=categoryList.get(position).getTitle();
                 String parent=categoryList.get(position).getCount();
@@ -273,6 +276,138 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void makeGetBannerRequest() {
+         bList.clear();
+        JsonArrayRequest req = new JsonArrayRequest( BaseURL.GET_BANNER_URL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.e("banners", response.toString());
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                BannerModel bannerModel=new BannerModel();
+                                JSONObject jsonObject = (JSONObject) response.get(i);
+                                JSONObject bannerObj=jsonObject.getJSONObject("banner");
+                                String catStr=jsonObject.getString("category_info");
+
+
+                                bannerModel.setId(bannerObj.getString("id"));
+                                bannerModel.setSlider_title(bannerObj.getString("slider_title"));
+                                bannerModel.setSlider_image(bannerObj.getString("slider_image"));
+                                bannerModel.setSlider_status(bannerObj.getString("slider_status"));
+                                bannerModel.setSub_cat(bannerObj.getString("sub_cat"));
+                                if(module.checkNullCondition(catStr)){
+                                    bannerModel.setCat_id("0");
+                                    bannerModel.setTitle("");
+                                    bannerModel.setParent("");
+                                    bannerModel.setLeval("");
+                                    bannerModel.setSlab_value("");
+                                    bannerModel.setMax_slab_amt("");
+                                }else{
+                                    JSONObject catObj=jsonObject.getJSONObject("category_info");
+                                    bannerModel.setCat_id(catObj.getString("id"));
+                                    bannerModel.setTitle(catObj.getString("title"));
+                                    bannerModel.setParent(catObj.getString("parent"));
+                                    bannerModel.setLeval(catObj.getString("leval"));
+                                    bannerModel.setSlab_value(catObj.getString("slab_value"));
+                                    bannerModel.setMax_slab_amt(catObj.getString("max_slab_amt"));
+                                }
+                                bList.add(bannerModel);
+
+//                                HashMap<String, String> url_maps = new HashMap<String, String>();
+//                                url_maps.put("slider_title", bannerObj.getString("slider_title"));
+//                                url_maps.put("sub_cat", bannerObj.getString("sub_cat"));
+//                                Log.e("nammasd", "onResponse: "+catStr );
+//                                if(!module.checkNullCondition(catStr)) {
+//                                    catObj=new JSONObject(catStr);
+//                                    url_maps.put("parent", catObj.getString("parent"));
+//                                    url_maps.put("leval", catObj.getString("leval"));
+//                                    url_maps.put("max_slab",catObj.getString("max_slab_amt"));
+//                                    url_maps.put("slab_value",catObj.getString("slab_value"));
+//                                    Log.e("home_dat", "onClick: "+catObj.getString("max_slab_amt")+" :: "+catObj.getString("slab_value") );
+//                                }else{
+//                                    url_maps.put("parent", "");
+//                                    url_maps.put("leval", "");
+//                                    url_maps.put("max_slab","");
+//                                    url_maps.put("slab_value","");
+
+//                                }
+//
+//                                url_maps.put("slider_image", BaseURL.IMG_SLIDER_URL + bannerObj.getString("slider_image"));
+//                                listarray.add(url_maps);
+
+                            }
+                            for(int j=0;j<bList.size();j++){
+//                                Log.e("bLiasidasd", "onResponse: "+bList.get(j).getCat_id()+" :: "+bList.get(j).getSlab_value() );
+                                carousel_banner.setImageListener(new ImageListener() {
+                                    @Override
+                                    public void setImageForPosition(int position, ImageView imageView) {
+                                        Glide.with(getActivity()).load(BaseURL.IMG_SLIDER_URL +bList.get(position).getSlider_image()).into(imageView);
+                                    }
+                                });
+                                carousel_banner.setPageCount(bList.size());
+
+
+
+                            }
+
+                                carousel_banner.setImageClickListener(new ImageClickListener() {
+                                    @Override
+                                    public void onClick(int position) {
+
+                                        Bundle args = new Bundle();
+                                        String sub_cat = bList.get(position).getSub_cat();
+                                        Fragment fm = null;
+                                        args.putString("cat_id", sub_cat);
+                                        args.putString("title", bList.get(position).getSlider_title());
+                                        args.putString("max_slab", bList.get(position).getMax_slab_amt());
+                                        args.putString("slab_value", bList.get(position).getSlab_value());
+                                        session_management.setCategoryId(sub_cat);
+
+                                        if(sub_cat.equals("0")){
+                                            fm=null;
+                                        }
+                                        else{
+                                            if (bList.get(position).getParent().equals("0")) {
+                                                fm = new SubcategoryFragment();
+                                            } else {
+                                                fm = new ProductFragment();
+                                            }
+                                        }
+                                        if(fm!=null) {
+                                            fm.setArguments(args);
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            fragmentManager.beginTransaction().replace(R.id.fragment_container, fm)
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+//
+//                            for (final HashMap<String, String> name : listarray) {
+//
+
+//
+//                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String msg=module.VolleyErrorMessage(error);
+                if(!msg.equals(""))
+                {
+                    Toast.makeText(getActivity(),""+msg,Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        AppController.getInstance().addToRequestQueue(req);
+
+    }
     private void makeGetCategoryRequest() {
         loadingBar.show();
         String tag_json_obj = "json_category_req";

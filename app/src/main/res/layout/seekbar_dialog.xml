@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:cardCornerRadius="@dimen/space_10">
+        <LinearLayout
+            android:padding="@dimen/space_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <org.florescu.android.rangeseekbar.RangeSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:valuesAboveThumbs="true"
+
+
+                android:id="@+id/rangebar"/>
+            <Button
+                android:id="@+id/btn_go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_button"
+                android:text="OK"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/space_10"/>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView></RelativeLayout>

@@ -1,13 +1,24 @@
 package com.ecom.sagaronline.Config;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -20,17 +31,24 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.ecom.sagaronline.AppController;
 import com.ecom.sagaronline.Model.GetCongifDataModel;
+import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
+import com.ecom.sagaronline.Utils.OnDialogItemClickListener;
 import com.ecom.sagaronline.Utils.OnGetConfigData;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -284,5 +302,35 @@ public class Module {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(mRetryPolicy);
         AppController.getInstance().addToRequestQueue(request,"req");
+    }
+    public void showFilterDialog(OnDialogItemClickListener listener) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_filters);
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        TextView btn_cancel = dialog.findViewById(R.id.tv_cancel);
+        LinearLayout ln_sort=dialog.findViewById(R.id.ln_sort);
+        LinearLayout ln_filters=dialog.findViewById(R.id.ln_filters);
+        dialog.show();
+
+        ln_filters.setOnClickListener(view -> {
+
+            dialog.dismiss();
+            listener.onItemClick("filter");
+        });
+
+        ln_sort.setOnClickListener(view -> {
+            dialog.dismiss();
+            listener.onItemClick("sort");
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

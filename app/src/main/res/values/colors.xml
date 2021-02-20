@@ -20,4 +20,6 @@
     <color name="dark_gray">#FFBAB7B7</color>
     <color name="bgcolor2">#eff0f4</color>
     <color name="gray">#E3E3E3</color>
+
+    <color name="dimgray">#696969</color>
 </resources>
