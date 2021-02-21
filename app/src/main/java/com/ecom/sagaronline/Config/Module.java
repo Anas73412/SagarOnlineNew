@@ -333,4 +333,12 @@ public class Module {
             }
         });
     }
+
+    public int checkNullNumber(String str){
+        if(str==null || str.isEmpty() || str.equalsIgnoreCase("null")){
+            return 0;
+        }else{
+            return Integer.parseInt(str);
+        }
+    }
 }

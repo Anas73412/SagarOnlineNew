@@ -450,7 +450,8 @@ public class Payment_fragment extends Fragment {
     private void makeOrderRequest(String date, String gettime, String userid, String
             location, JSONArray passArray){
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("date", "30-01-2021");
+        String cDate=new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        params.put("date", cDate);
         params.put("time", gettime);
         params.put("user_id", userid);
         params.put("location", location);
@@ -460,6 +461,7 @@ public class Payment_fragment extends Fragment {
         params.put("delivery_charges",deli_charges);
         params.put("payment_method", getvalue);
         params.put("data", String.valueOf(passArray));
+        Log.e(TAG, "makeOrderRequest: "+params.toString() );
             module.postRequest(BaseURL.ADD_ORDER_URL, params, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

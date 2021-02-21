@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rs. 175"
+                android:text=""
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="@dimen/space_10"
                 android:textStyle="bold"

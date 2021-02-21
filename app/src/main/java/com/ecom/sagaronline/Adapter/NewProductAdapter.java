@@ -186,6 +186,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             JSONArray array=new JSONArray(img_array);
             img_name=array.get(0).toString();
         } catch (JSONException e) {
+            Log.e("onBindViewHolder: ",""+position+ " :: "+mList.getProduct_name() );
             e.printStackTrace();
         }
         Glide.with(context)
@@ -247,7 +248,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             }
             holder.txtrate.setVisibility( View.VISIBLE);
           //  ,lmknjbhvg///////////////////////////////////
-            holder.txtrate.setText(modelList.get(0).getProduct_description());
+            holder.txtrate.setText(modelList.get(position).getProduct_description());
           //  holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
            // holder.txtrate.setText(mList.getUnit_value()+" "+mList.getUnit());
 
@@ -316,7 +317,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                 holder.dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
 
                 holder.txtrate.setVisibility( View.VISIBLE);
-                holder.txtrate.setText(modelList.get(0).getProduct_description());
+                holder.txtrate.setText(modelList.get(position).getProduct_description());
                 //holder.txtrate.setText("\u20B9"+attribute_value+"/"+attribute_name);
                 //holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
                 //  holder.txtTotal.setText("\u20B9"+String.valueOf(list_atr_value.get(0).toString()));

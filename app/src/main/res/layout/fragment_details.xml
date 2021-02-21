@@ -105,6 +105,7 @@
                 android:background="@android:color/darker_gray"/>
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view3"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -397,7 +398,7 @@
             <View
 
                 android:layout_width="match_parent"
-                android:layout_height="8dp"
+                android:layout_height="1dp"
 
                 android:layout_marginLeft="@dimen/space_5"
                 android:layout_marginRight="@dimen/space_5"

@@ -191,6 +191,7 @@ public class DatabaseCartHandler extends SQLiteOpenHelper {
 
     public String getTotalAmount() {
         db = getReadableDatabase();
+//        String qry = "Select SUM(" + COLUMN_PRICE + " * "+ COLUMN_QTY + " ) as total_amount  from " + CART_TABLE;
         String qry = "Select SUM(" + COLUMN_PRICE + ") as total_amount  from " + CART_TABLE;
         Cursor cursor = db.rawQuery(qry, null);
         cursor.moveToFirst();
