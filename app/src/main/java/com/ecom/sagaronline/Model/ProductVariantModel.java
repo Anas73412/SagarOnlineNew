@@ -3,18 +3,35 @@ package com.ecom.sagaronline.Model;
 public class ProductVariantModel {
 
     String id,product_id,attribute_name,attribute_value,attribute_mrp,attribute_color,stock_value,status,attribute_size;
+    boolean checked;
 
 
     public ProductVariantModel() {
     }
 
-    public ProductVariantModel(String id, String product_id, String attribute_name, String attribute_value, String attribute_mrp, String attribute_color) {
+    public ProductVariantModel(String id, String product_id, String attribute_name, String attribute_value,
+                               String attribute_mrp, String attribute_color) {
         this.id = id;
         this.product_id = product_id;
         this.attribute_name = attribute_name;
         this.attribute_value = attribute_value;
         this.attribute_mrp = attribute_mrp;
         this.attribute_color = attribute_color;
+    }
+
+    public ProductVariantModel(String id, String product_id, String attribute_name, String attribute_value,
+                               String attribute_mrp, String attribute_color, String stock_value, String status,
+                               String attribute_size, boolean checked) {
+        this.id = id;
+        this.product_id = product_id;
+        this.attribute_name = attribute_name;
+        this.attribute_value = attribute_value;
+        this.attribute_mrp = attribute_mrp;
+        this.attribute_color = attribute_color;
+        this.stock_value = stock_value;
+        this.status = status;
+        this.attribute_size = attribute_size;
+        this.checked = checked;
     }
 
     public String getStock_value() {
@@ -87,5 +104,13 @@ public class ProductVariantModel {
 
     public void setAttribute_mrp(String attribute_mrp) {
         this.attribute_mrp = attribute_mrp;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

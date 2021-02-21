@@ -38,6 +38,7 @@ import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.ecom.sagaronline.Activity.LoginActivity;
 import com.ecom.sagaronline.Activity.MainActivity;
+import com.ecom.sagaronline.Adapter.AttributeAdapter;
 import com.ecom.sagaronline.Adapter.ColorAdapter;
 import com.ecom.sagaronline.Adapter.ProductVariantAdapter;
 import com.ecom.sagaronline.Adapter.RelatedProductAdapter;
@@ -58,6 +59,7 @@ import com.ecom.sagaronline.Utils.ConnectivityReceiver;
 import com.ecom.sagaronline.Utils.CustomVolleyJsonRequest;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.LoadingBar;
+import com.ecom.sagaronline.Utils.RecyclerTouchListener;
 import com.ecom.sagaronline.Utils.Session_management;
 import com.ecom.sagaronline.Utils.WishlistHandler;
 import com.synnapps.carouselview.CarouselView;
@@ -104,7 +106,7 @@ public class NewDetailFragment extends Fragment {
     ProductVariantAdapter productVariantAdapter;
     private ElegantNumberButton numberButton;
     Session_management session_management;
-    RecyclerView  recyclerViewColor , recyclerViewSize;
+    RecyclerView  recyclerViewColor , recyclerViewSize,rv_attr;
     DatabaseCartHandler db_carts;
     BuyNowHandler db_buy_now;
     ArrayList<ColorModel> color_list;
@@ -121,7 +123,7 @@ public class NewDetailFragment extends Fragment {
     String attribute_size="";
     String status="";
     LoadingBar loadingBar;
-
+    AttributeAdapter attrAdapter;
 
     @SuppressLint("ResourceAsColor")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -145,6 +147,9 @@ public class NewDetailFragment extends Fragment {
         tv_details_product_name=view.findViewById(R.id.details_product_name);
         recyclerViewColor = view.findViewById(R.id.rec_color);
         recyclerViewSize = view.findViewById(R.id.rec_size);
+        rv_attr = view.findViewById(R.id.rv_attr);
+        rv_attr.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        rv_attr.setNestedScrollingEnabled(false);
         wish_before=view.findViewById(R.id.wish_before);
         numberButton=view.findViewById(R.id.product_qty);
         txtTotal=(TextView)view.findViewById(R.id.product_total);
@@ -189,6 +194,7 @@ public class NewDetailFragment extends Fragment {
         db_buy_now.clearCart();
         LinearLayoutManager linearLayoutManager1=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         top_selling_recycler.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        top_selling_recycler.setNestedScrollingEnabled(false);
 
         rel_variant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -490,7 +496,7 @@ public class NewDetailFragment extends Fragment {
 //                                }
 
 //                                updateintent();
-updateData();
+                                updateData();
                                 txtTotal.setText( "\u20B9" + String.valueOf( db_carts.getTotalAmount() ) );
                             } else if (tr == false) {
                                 Toast.makeText( getActivity(), "cart updated", Toast.LENGTH_LONG ).show();
@@ -701,6 +707,29 @@ updateData();
             }
         });
 
+        rv_attr.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rv_attr, new RecyclerTouchListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                for(int i=0;i<vlist.size();i++){
+                    if(i==position){
+                        vlist.get(position).setChecked(true);
+                    }else{
+                        vlist.get(i).setChecked(false);
+                    }
+
+
+                    tv_details_product_price.setText("\u20B9"+vlist.get(position).getAttribute_value());
+                    tv_details_product_mrp.setText("\u20B9"+vlist.get(position).getAttribute_mrp());
+                }
+                attrAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
         return view;
     }
 
@@ -980,7 +1009,7 @@ updateData();
                             String string = object.getString("product_attribute");
                             JSONArray arr = new JSONArray(string);
 
-                            for (int k=0;k<=arr.length()-1;k++)
+                            for (int k=0;k<arr.length();k++)
                             {
                                 JSONObject obj =arr.getJSONObject(k);
                                 ProductVariantModel vModel= new ProductVariantModel();
@@ -992,21 +1021,31 @@ updateData();
                                 vModel.setStatus(obj.getString("status"));
                                 vModel.setAttribute_size(obj.getString("attribute_size"));
                                 vModel.setId(obj.getString("id"));
+                                if(k==0){
+                                    vModel.setChecked(true);
+                                }else{
+                                    vModel.setChecked(false);
+                                }
                                 vlist.add(vModel);
 
-                                atr_id = obj.getString("id");
-                                attribute_value=obj.getString("attribute_value");
-                                attribute_name=obj.getString("attribute_name");
-                                attribute_mrp=obj.getString("attribute_mrp");
-                                attribute_color=obj.getString("attribute_color");
-
-                                stock_value=obj.getString("stock_value");
-                                status=obj.getString("status");
-                                attribute_size=obj.getString("attribute_size");
+//
+//                                atr_id = obj.getString("id");
+//                                attribute_value=obj.getString("attribute_value");
+//                                attribute_name=obj.getString("attribute_name");
+//                                attribute_mrp=obj.getString("attribute_mrp");
+//                                attribute_color=obj.getString("attribute_color");
+//
+//                                stock_value=obj.getString("stock_value");
+//                                status=obj.getString("status");
+//                                attribute_size=obj.getString("attribute_size");
 
                                //----------------------------------
 
                             }
+
+                            attrAdapter=new AttributeAdapter(getActivity(),vlist);
+                            rv_attr.setAdapter(attrAdapter);
+                            attrAdapter.notifyDataSetChanged();
                             String atr=String.valueOf(list.get(i).getProduct_attribute());
                              if (atr.equals("[]"))
                             {
@@ -1023,7 +1062,7 @@ updateData();
                              }
 
                              atr = String.valueOf( list.get(0).getProduct_attribute() );
-                            Log.e("attri",list.get(0).getStock());
+
 
                             if (atr.equals( "[]" )) {
                                 boolean st=db_carts.isInCart(product_id);

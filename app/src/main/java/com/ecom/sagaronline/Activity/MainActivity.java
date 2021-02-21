@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                                 toggle.setDrawerIndicatorEnabled(true);
                                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                                 toggle.syncState();
+                                toolbar.setTitleTextColor(Color.RED);
 
 
                             }

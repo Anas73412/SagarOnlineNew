@@ -250,7 +250,18 @@
                     android:text="Name"
                     />
 
+
             </LinearLayout>
+            <RelativeLayout
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_attr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
+            </RelativeLayout>
 <!--            <androidx.cardview.widget.CardView-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
@@ -386,11 +397,11 @@
             <View
 
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="8dp"
 
                 android:layout_marginLeft="@dimen/space_5"
                 android:layout_marginRight="@dimen/space_5"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
