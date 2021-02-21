@@ -18,7 +18,7 @@
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:background="@color/white"
         android:layout_margin="1dp"
       >
@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="gravity"
-                android:text="Product Name"
+                android:text="Product Name\n"
                 android:fontFamily="@font/aileron_regular"
                 android:maxLines="2"
                 android:ellipsize="end"

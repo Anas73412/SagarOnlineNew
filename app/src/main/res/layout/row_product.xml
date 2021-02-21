@@ -26,7 +26,7 @@
         <RelativeLayout
             android:id="@+id/relative_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
             <LinearLayout
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="gravity"
-                        android:text="Product Name"
+                        android:text="Product Name \n"
                         android:fontFamily="@font/aileron_regular"
                         android:layout_marginLeft="6dp"
                         android:maxLines="2"
