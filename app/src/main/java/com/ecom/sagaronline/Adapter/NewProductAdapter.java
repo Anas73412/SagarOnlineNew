@@ -33,6 +33,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.ecom.sagaronline.Activity.LoginActivity;
 import com.ecom.sagaronline.Activity.MainActivity;
+import com.ecom.sagaronline.Config.Module;
 import com.ecom.sagaronline.Fragments.NewDetailFragment;
 import com.ecom.sagaronline.Config.BaseURL;
 import com.ecom.sagaronline.Fragments.WishlistFragment;
@@ -42,11 +43,14 @@ import com.ecom.sagaronline.R;
 import com.ecom.sagaronline.Utils.DatabaseCartHandler;
 import com.ecom.sagaronline.Utils.Session_management;
 import com.ecom.sagaronline.Utils.WishlistHandler;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +79,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
     float qty ;
     Session_management sessionManagement ;
     String user_id ,type="" ;
+    Module module;
 
 
     DatabaseCartHandler db_cart;
@@ -85,7 +90,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         public TextView product_nmae, product_mrp ,product_discount , product_prize, dialog_txtVar;
         public ImageView image , wish_before ,wish_after,product_discount_img ,iv_delete;
 
-        RelativeLayout relativeLayout ,rel_add ,rel_out;
+        RelativeLayout relativeLayout ,rel_add ,rel_out,rel_discount;
         ElegantNumberButton elegantNumberButton ;
         Button add_Button;
         public RelativeLayout rel_variant;
@@ -106,6 +111,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             wish_after=(ImageView)view.findViewById( R.id.wish_after );
             wish_before=(ImageView)view.findViewById( R.id.wish_before );
             add_Button=(Button)view.findViewById( R.id.btn_add );
+            rel_discount=view.findViewById( R.id.rel_discount );
             elegantNumberButton=(ElegantNumberButton) view.findViewById( R.id.product_qty );
             image = (ImageView) view.findViewById( R.id.iv_icon);
             db_wish= new WishlistHandler( context );
@@ -120,8 +126,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             rel_add = view.findViewById( R.id.rel_add );
             rel_out = view.findViewById( R.id.rel_out );
            iv_delete = view.findViewById( R.id.iv_delete );
-
-
+            module=new Module(context);
 
 
 
@@ -150,6 +155,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
     @Override
     public void onBindViewHolder(final NewProductAdapter.MyViewHolder holder, final int position) {
         final NewProductModel mList = modelList.get(position);
+
         final String getid = mList.getProduct_id();
         sessionManagement = new Session_management( context );
         user_id=sessionManagement.getUserDetails().get(KEY_ID);
@@ -203,7 +209,11 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         stock=Float.parseFloat(mList.getStock());
         holder.elegantNumberButton.setRange( 0, (int) stock );
 
-        if(stock<=0 || mList.getIn_stock().equals("0"))
+
+        ArrayList<ProductVariantModel> vList=new ArrayList<>();
+        vList=getVariantList(mList.getProduct_attribute());
+        int attr_stock=module.checkNullNumber(vList.get(0).getAtt_stock());
+        if(attr_stock<=0 || mList.getIn_stock().equals("0"))
         {
             holder.rel_out.setVisibility(View.VISIBLE);
         }
@@ -211,163 +221,19 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             holder.rel_out.setVisibility( View.GONE );
 
         }
+        holder.product_prize.setText("\u20B9"+vList.get(0).getAttribute_value());
+        holder.product_mrp.setText("\u20B9"+vList.get(0).getAttribute_mrp());
 
-        final String atr= String.valueOf(mList.getProduct_attribute());
-        if(atr.equals("[]"))
+        int atr_dis=getDiscount(vList.get(0).getAttribute_value(),vList.get(0).getAttribute_mrp());
+        if(atr_dis<=0)
         {
-
-
-            status=1;
-            String p= String.valueOf(mList.getPrice());
-            String m= String.valueOf(mList.getMrp());
-            int pp = Integer.parseInt( p );
-            int mm = Integer.parseInt( m );
-            holder.product_prize.setText(context.getResources().getString( R.string.currency)+ mList.getPrice()+" ");
-            if (mm>pp) {
-
-                holder.product_mrp.setText( context.getResources().getString( R.string.currency ) + mList.getMrp() );
-                int discount = getDiscount( p, m );
-                if(discount<=0)
-                {
-                    holder.product_discount.setVisibility(View.GONE);
-                    holder.product_discount_img.setVisibility(View.GONE);
-                }
-                else
-                {
-                    holder.product_discount.setVisibility(View.VISIBLE);
-                    holder.product_discount.setText( "" + discount + "% OFF" );
-                    holder.product_discount_img.setVisibility(View.VISIBLE);
-                }
-                //Toast.makeText(getActivity(),""+atr,Toast.LENGTH_LONG).show();
-
-            }
-            else {
-                holder.product_mrp.setVisibility( View.GONE );
-                holder.product_discount.setVisibility( View.GONE );
-                holder.product_discount_img.setVisibility(View.GONE);
-            }
-            holder.txtrate.setVisibility( View.VISIBLE);
-          //  ,lmknjbhvg///////////////////////////////////
-            holder.txtrate.setText(modelList.get(position).getProduct_description());
-          //  holder.txtrate.setText("\u20B9"+mList.getPrice()+"/"+mList.getUnit_value()+" "+mList.getUnit());
-           // holder.txtrate.setText(mList.getUnit_value()+" "+mList.getUnit());
-
-
-        }
-
-        else
-        {
-            holder.rel_variant.setVisibility( View.GONE);
-           // holder.rel_variant.setVisibility( View.VISIBLE);
-            status=2;
-            JSONArray jsonArr = null;
-            try {
-
-                jsonArr = new JSONArray(atr);
-
-                ProductVariantModel model=new ProductVariantModel();
-                JSONObject jsonObj = jsonArr.getJSONObject(0);
-                atr_id=jsonObj.getString("id");
-                atr_product_id=jsonObj.getString("product_id");
-                attribute_name=jsonObj.getString("attribute_name");
-                attribute_value=jsonObj.getString("attribute_value");
-                attribute_mrp=jsonObj.getString("attribute_mrp");
-
-
-
-                //     arrayList.add(new AttributeModel(atr_id,product_id,attribute_name,attribute_value));
-
-                //Toast.makeText(getActivity(),"id "+atr_id+"\n p_id "+product_id+"\n atr_name "+attribute_name+"\n atr_value "+attribute_value,Toast.LENGTH_LONG).show();
-
-
-
-                String atr_price= String.valueOf(attribute_value);
-                String atr_mrp= String.valueOf(attribute_mrp);
-                int atr_m = Integer.parseInt( atr_mrp );
-                int atr_p = Integer.parseInt( atr_price );
-                holder.product_prize.setText("\u20B9"+attribute_value.toString()+" ");
-                if(atr_m >atr_p) {
-                    int atr_dis = getDiscount( atr_price, atr_mrp );
-
-                    if(atr_dis<=0)
-                    {
-                        holder.product_discount.setVisibility(View.GONE);
-                        holder.product_discount_img.setVisibility(View.GONE);
-                    }
-                    else
-                    {
-                        holder.product_discount.setVisibility(View.VISIBLE);
-
-                        holder.product_discount.setText( "" + atr_dis + "% OFF" );
-                        holder.product_discount_img.setVisibility(View.VISIBLE);
-
-                    }
-                    holder.product_mrp.setText( "\u20B9" + attribute_mrp.toString() );
-                }
-                else
-                {
-                    holder.product_discount.setVisibility( View.GONE );
-                    holder.product_mrp.setVisibility( View.GONE );
-                    holder.product_discount_img.setVisibility(View.GONE);
-                }
-
-                holder.dialog_txtId.setText(atr_id.toString()+"@"+"0");
-                //dialog_unit_type.setText("\u20B9"+variantList.get(i).getAttribute_value()+"/"+variantList.get(i).getAttribute_name());
-                //dialog_txtId.setText(variantList.get(i).getId()+"@"+i);
-                holder.dialog_txtVar.setText(attribute_value+"@"+attribute_name+"@"+attribute_mrp);
-
-                holder.txtrate.setVisibility( View.VISIBLE);
-                holder.txtrate.setText(modelList.get(position).getProduct_description());
-                //holder.txtrate.setText("\u20B9"+attribute_value+"/"+attribute_name);
-                //holder.dialog_unit_type.setText("\u20B9"+attribute_value+"/"+attribute_name);
-                //  holder.txtTotal.setText("\u20B9"+String.valueOf(list_atr_value.get(0).toString()));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-
-
-        }
-
-        final String product_id= String.valueOf(mList.getProduct_id());
-        if(atr.equals("[]"))
-        {
-            boolean st=db_cart.isInCart(product_id);
-            if(st==true)
-            {
-                holder.add_Button.setVisibility( View.GONE);
-                holder.elegantNumberButton.setNumber(db_cart.getCartItemQty(product_id));
-                holder.elegantNumberButton.setVisibility( View.VISIBLE);
-
-            }
-            else
-            {
-                holder.add_Button.setVisibility( View.VISIBLE );
-                holder.elegantNumberButton.setVisibility( View.GONE );
-            }
-
+            holder.rel_discount.setVisibility(View.GONE);
         }
         else
         {
-            String str_id=holder.dialog_txtId.getText().toString();
-            String[] str=str_id.split("@");
-            String at_id= String.valueOf(str[0]);
-            boolean st=db_cart.isInCart(at_id);
-            if(st==true)
-            {
-                holder.add_Button.setVisibility( View.GONE);
-                holder.elegantNumberButton.setNumber(db_cart.getCartItemQty(at_id));
-                holder.elegantNumberButton.setVisibility( View.VISIBLE);
-            }
-            else {
-                holder.add_Button.setVisibility( View.VISIBLE );
-                holder.elegantNumberButton.setVisibility( View.GONE );
-
-            }
+            holder.rel_discount.setVisibility(View.VISIBLE);
+            holder.product_discount.setText(""+String.valueOf(atr_dis)+"%"+" OFF");
         }
-
 
         holder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -796,7 +662,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
                     boolean st=checkAttributeStatus(atr);
                     if(st==false)
                     {
-                        db_cart.removeItemFromCart(product_id);
+                        db_cart.removeItemFromCart(modelList.get(position).getProduct_id());
 
                     }
                     else if(st==true)
@@ -1001,5 +867,12 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         };
     }
 
+    private ArrayList<ProductVariantModel> getVariantList(String str){
+        ArrayList<ProductVariantModel> tempList=new ArrayList<>();
+        Gson gson=new Gson();
+        Type typeList=new TypeToken<List<ProductVariantModel>>(){}.getType();
+        tempList=gson.fromJson(str.toString(),typeList);
+        return tempList;
+    }
 }
 

@@ -417,7 +417,7 @@ public class NewDetailFragment extends Fragment {
                         mapProduct.put( "product_name", list.get(0).getProduct_name());
                         mapProduct.put( "price", String.valueOf(qty*pr) );
                         mapProduct.put( "unit_price", st0 );
-                        mapProduct.put( "stock", vlist.get(getAttrSelectedPosition()).getStock_value());
+                        mapProduct.put( "stock", vlist.get(getAttrSelectedPosition()).getAtt_stock());
                         mapProduct.put( "unit", st1 );
                         mapProduct.put( "mrp", st2 );
                         mapProduct.put( "type", "a" );
@@ -923,7 +923,7 @@ public class NewDetailFragment extends Fragment {
                                 vModel.setAttribute_name(obj.getString("attribute_name"));
                                 vModel.setAttribute_mrp(obj.getString("attribute_mrp"));
                                 vModel.setAttribute_color(obj.getString("attribute_color"));
-                                vModel.setStock_value(obj.getString("stock_value"));
+                                vModel.setAtt_stock(obj.getString("att_stock"));
                                 vModel.setStatus(obj.getString("status"));
                                 vModel.setAttribute_size(obj.getString("attribute_size"));
                                 vModel.setId(obj.getString("id"));
@@ -1122,14 +1122,14 @@ public class NewDetailFragment extends Fragment {
             btn_add.setText("Add");
 
         }
-        if(module.checkNullNumber(vlist.get(position).getStock_value())<=0){
+        if(module.checkNullNumber(vlist.get(position).getAtt_stock())<=0){
             numberButton.setEnabled(false);
 //            numberButton.setRange(1,module.checkNullNumber(vlist.get(position).getStock_value()));
         }else{
-            numberButton.setRange(1,module.checkNullNumber(vlist.get(position).getStock_value()));
+            numberButton.setRange(1,module.checkNullNumber(vlist.get(position).getAtt_stock()));
         }
 
-        int stck = module.checkNullNumber(vlist.get(position).getStock_value());
+        int stck = module.checkNullNumber(vlist.get(position).getAtt_stock());
         if (stck < 1 || in_stock.equals("0"))
         {
             rel_out.setVisibility( View.VISIBLE );

@@ -396,6 +396,7 @@ public class Payment_fragment extends Fragment {
                 // String unt=
                 JSONObject jObjP = new JSONObject();
                 try {
+                    jObjP.put("attribute_id", map.get("cart_id"));
                     jObjP.put("product_id", map.get("product_id"));
                     jObjP.put("product_name", map.get("product_name"));
                     jObjP.put("qty", map.get("qty"));
